@@ -1,3 +1,13 @@
+/* a태그 밑줄 없애고 색상변경 */
+a{
+    
+    text-decoration: none;
+}
+
+.title>a{
+    color: black;
+}
+
 #wrap{
     background-image: -ms-linear-gradient(top, #FFFFFF 0%, #D3D8E8 100%);
     /* Mozilla Firefox */ 
