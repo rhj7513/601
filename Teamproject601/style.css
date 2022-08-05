@@ -8,6 +8,11 @@ a{
     color: black;
 }
 
+/* 아이디 찾기 부분 css */
+.form-gap {
+    padding-top: 70px;
+}
+
 #wrap{
     background-image: -ms-linear-gradient(top, #FFFFFF 0%, #D3D8E8 100%);
     /* Mozilla Firefox */ 
