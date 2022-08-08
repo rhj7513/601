@@ -20,7 +20,7 @@
             </div>
             <input type="text" id="email" onkeyup='checkAdmin()' name="email" placeholder="E-mail" />
             <div id='result'></div>
-            <input type="password" id="password" name="password" placeholder="Password" />
+            <input type="password" id="password" onkeyup='checkAdmin()' name="password" placeholder="Password" />
             <input type="submit" id='login' name="login" value="login" />
 
             <!-- <input type="submit" id='nextsignUP' name="nextsignUP" value="nextsignUP" onClick="location.href='login.html'" /> -->
@@ -28,20 +28,20 @@
            
         </div>
 
-        <div id='result'></div>
+        <!-- <div id='result'></div> -->
         <!-- <input type="text" id='password' onchange='checkAdmin()'/> -->
         
     </div>
     <script type="text/javascript">
         function checkAdmin()  {
             const email = document.getElementById('email').value;
-            // const password = document.getElementById('password').value;
+            const password = document.getElementById('password').value;
 
             document.getElementById("result").innerText = email;
 
-            // if(email === 'admin' && password === 'admin'){
-            //     location.href='AdminPage.html'
-            // }           
+            if(email === 'admin' && password === 'admin'){
+                location.href='AdminPage.html'
+            }           
         }
     </script>
     <script type="module">
