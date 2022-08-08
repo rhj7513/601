@@ -87,6 +87,8 @@
             })
 
             alert('User loged in!');
+            location.href='student_main_code.html'
+
             // ...
             })
             .catch((error) => {
@@ -96,7 +98,14 @@
             alert(errorMessage);
         });
 
+        // (%if()%){
+        //     location.href='student_main_code.html'
+        // }
+        
+        
+
         });
+        
 
         const user = auth.currentUser;
         onAuthStateChanged(auth, (user) => {
