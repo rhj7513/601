@@ -19,7 +19,7 @@
                 <input type="radio" name="check" value="교수님" onClick="location.href='ProfessorLogin.html'" /> 교수님
             </div>
             <input type="text" id="email" onkeyup='checkAdmin()' name="email" placeholder="E-mail" />
-            <div id='result'></div>
+            <!-- <div id='result'></div> -->
             <input type="password" id="password" onkeyup='checkAdmin()' name="password" placeholder="Password" />
             <input type="submit" id='login' name="login" value="login" />
 
@@ -37,7 +37,7 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
 
-            document.getElementById("result").innerText = email;
+            // document.getElementById("result").innerText = email;
 
             if(email === 'admin' && password === 'admin'){
                 location.href='AdminPage.html'
