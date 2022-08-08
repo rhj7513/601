@@ -18,8 +18,8 @@
                 <input type="radio" name="check" value="학생" onClick="location.href='StudentLogin.html'" /> 학생
                 <input type="radio" name="check" value="교수님" onClick="location.href='ProfessorLogin.html'" /> 교수님
             </div>
-            <input type="text" id="email" name="email" placeholder="E-mail" />
-            <input type="password" id="password" name="password" placeholder="Password" />
+            <input type="text" id="email" onkeyup='checkAdmin()' name="email" placeholder="E-mail" />
+            <input type="password" id="password" onkeyup='checkAdmin()' name="password" placeholder="Password" />
             <input type="submit" id='login' name="login" value="login" />
             <input type="submit" id='nextsignUP' name="nextsignUP" value="next signUP" onClick="location.href='SignUP.html'" />
   
@@ -27,6 +27,18 @@
         </div>
       <!-- <div class="or">OR</div> -->
     </div>
+    <script type="text/javascript">
+        function checkAdmin()  {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // document.getElementById("result").innerText = email;
+
+            if(email === 'admin' && password === 'admin'){
+                location.href='AdminPage.html'
+            }           
+        }
+    </script>
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
