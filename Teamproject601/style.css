@@ -408,3 +408,34 @@ button.social-signin.twitter {
 button.social-signin.google {
   background: #DD4B39;
 }
+
+/* adminpage css */
+#admin-box {
+  position: relative;
+  margin: 5% auto;
+  width: 600px;
+  height: 400px;
+  background: #FFF;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.left2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 40px;
+  width: 300px;
+  height: 400px;
+}
+
+
+/* 구글 폰트 적용 */
+@import url(//fonts.googleapis.com/earlyaccess/kopubbatang.css);
+.hn-font{
+  font-family: 'KoPub Batang', serif;
+  /*웹 폰트 지정*/
+  color: #FFFF;
+}
+
