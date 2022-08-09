@@ -8,16 +8,16 @@
     <title>Empty Lecture</title>
     <style>
         .a {
-        background-color: #BBDEFB;
-      }
-      .b {
-        background-color: #BBDEFB;
-        padding: 10px 20px;
-      }
-      .c {
-        background-color: #BBDEFB;
-        margin: 10px 20px;
-      }
+        background-color: #CF2A27;
+        }
+        .b {
+            background-color: #2B78E4;
+            padding: 10px 20px;
+        }
+        .c {
+            background-color: #009E0F;
+            margin: 10px 20px;
+        }
     </style>
 </head>
 <body>
@@ -36,14 +36,14 @@
                 <ul class="dropdown-menu" id="dropdown-menu">
                     <!-- 드롭다운 누르면 나오는 아이템들 목록이다 -->
                   <li><a class="dropdown-item" href="#" value="1">1교시(09:30 ~ 10:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="2">2교시(10:30 ~ 11:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="3">3교시(11:30 ~ 12:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="4">4교시(12:30 ~ 13:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="5">5교시(13:30 ~ 14:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="6">6교시(14:30 ~ 15:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="7">7교시(15:30 ~ 16:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="8">8교시(16:30 ~ 17:20)</a></li>
-                  <li><a class="dropdown-item" href="#"value="9">9교시(17:30 ~ 18:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="2">2교시(10:30 ~ 11:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="3">3교시(11:30 ~ 12:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="4">4교시(12:30 ~ 13:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="5">5교시(13:30 ~ 14:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="6">6교시(14:30 ~ 15:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="7">7교시(15:30 ~ 16:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="8">8교시(16:30 ~ 17:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="9">9교시(17:30 ~ 18:20)</a></li>
                 </ul>
 
                 <!-- <select id="dropdown" >
@@ -64,8 +64,6 @@
         
 
 
-
-
         <div class="position-absolute top-50 start-50 translate-middle">
             <div style="position:relative;">
                 <div style="padding:30px 0px 0px 0px">
@@ -78,7 +76,7 @@
                             <canvas id="410c" class="a" width="25" height="25"></canvas>
                         </div>
                         <div class="col" style="left: 770px; width:30px;  bottom:152px; position:absolute;">
-                            <canvas id="409c" class="a"width="25" height="25"></canvas>
+                            <canvas id="409c" class="a" width="25" height="25"></canvas>
                         </div>
                     </div>
                     <div class="row align-items-center">
@@ -103,33 +101,26 @@
             
         
         </div>
-        
-
-
-
-
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-
-        
         <script type="module">
             // Import the functions you need from the SDKs you need
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
-            import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+            import { getDatabase, set, get, ref ,push, child, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
             import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
           
             // Your web app's Firebase configuration
             const firebaseConfig = {
-                apiKey: "AIzaSyB-QZL-1JtLFJ1Z59E_m4-d9H6ifsziDqQ",
-                authDomain: "check-83c37.firebaseapp.com",
-                databaseURL: "https://check-83c37-default-rtdb.firebaseio.com",
-                projectId: "check-83c37",
-                storageBucket: "check-83c37.appspot.com",
-                messagingSenderId: "227830654669",
-                appId: "1:227830654669:web:f8991b8bd395e6b0086b84"
+                apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+                authDomain: "team-a5651.firebaseapp.com",
+                databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+                projectId: "team-a5651",
+                storageBucket: "team-a5651.appspot.com",
+                messagingSenderId: "804446190852",
+                appId: "1:804446190852:web:66473b851c3cfc1792e451"
             };
                     
             // Initialize Firebase
@@ -138,29 +129,60 @@
             const auth = getAuth();   
 
            
-            $(function () {
-                function send() {
-                    var httpMethod = $('#method_status').attr('data-method');
-                }
+            // $(function () {
+            //     function send() {
+            //         var httpMethod = $('#method_status').attr('data-method');
+            //     }
 
-                $('#dropdown-menu li > a').on('click', function () {
-                    $('#method_status').text($(this).text());
-                    var httpMethod = $(this).attr('value');
-                    console.log('선택된 메소드: ' + httpMethod);
+            //     $('#dropdown-menu li > a').on('click', function () {
+            //         $('#method_status').text($(this).text());
+            //         var httpMethod = $(this).attr('value');
+            //         console.log('선택된 메소드: ' + httpMethod);
 
-                    $('#method_status').attr('data-method', httpMethod);
-                });    
-            });
+            //         $('#method_status').attr('data-method', httpMethod);
+            //     });    
+            // });
             
             function getTodayLabel(){
                 var week =new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
                 var today =new Date().getDay();
-                var todayLabel=week[today];
+                var todayLabel=week[today].charAt(0);
                 return todayLabel;
             }
             console.log(getTodayLabel())
 
+            const dbRef = ref(database,'user/')
+
+            onValue(dbRef,(snapshot)=>{
+                snapshot.forEach((childSnapshot)=>{
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    method_status.addEventListener('click',(e)=>{
             
+            
+                    $('#dropdown-menu li > a').on('click', function () {
+                        $('#method_status').text($(this).text());
+                        var httpMethod = $(this).attr('value');
+                        console.log('선택된 메소드: ' + httpMethod);
+
+                        $('#method_status').attr('data-method', httpMethod);
+                    });
+                    })
+                });
+            },)
+
+                get(child(ref, `class/${1}`)).then((snapshot) => {
+                    if (snapshot.exists()) {
+                        console.log(snapshot.val());
+                    } else {
+                        console.log("No data available");
+                    }
+                    }).catch((error) => {
+                    console.error(error);
+                });
+            
+
+      
 
 
 
