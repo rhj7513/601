@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Empty Lecture</title>
+    <style>
+        .a {
+        background-color: #BBDEFB;
+      }
+      .b {
+        background-color: #BBDEFB;
+        padding: 10px 20px;
+      }
+      .c {
+        background-color: #BBDEFB;
+        margin: 10px 20px;
+      }
+    </style>
+</head>
+<body>
+    <div style="padding:50px 0px 50px 0px">
+        <h1 class="text-center">빈 강의실 찾기!</h1>
+    </div>
+
+    <div class="row g-0 text-center">
+        <div class="col-sm-6 col-md-8">⁜ 공지! ⁜</div>
+        <div class="col-6 col-md-4">
+            <div class="dropdown">
+                <!-- <input type="hidden" id="httpMethod" value=""> -->
+                <button class="btn btn-secondary dropdown-toggle" id="method_status" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  시간 설정하기
+                </button>
+                <ul class="dropdown-menu" id="dropdown-menu">
+                    <!-- 드롭다운 누르면 나오는 아이템들 목록이다 -->
+                  <li><a class="dropdown-item" href="#" value="1">1교시(09:30 ~ 10:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="2">2교시(10:30 ~ 11:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="3">3교시(11:30 ~ 12:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="4">4교시(12:30 ~ 13:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="5">5교시(13:30 ~ 14:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="6">6교시(14:30 ~ 15:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="7">7교시(15:30 ~ 16:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="8">8교시(16:30 ~ 17:20)</a></li>
+                  <li><a class="dropdown-item" href="#"value="9">9교시(17:30 ~ 18:20)</a></li>
+                </ul>
+
+                <!-- <select id="dropdown" >
+                    <option class ="drop-down" value="1"> 1교시</option>
+                    <option class ="drop-down" value="2"> 2교시</option>
+                    <option class ="drop-down" value="3"> 3교시</option>
+                    <option class ="drop-down" value="4"> 4교시</option>
+                    <option class ="drop-down" value="5"> 5교시</option>
+                    <option class ="drop-down" value="6"> 6교시</option>
+
+                </select> -->
+
+
+
+              </div>
+            </div>
+        </div>
+        
+
+
+
+
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div style="position:relative;">
+                <div style="padding:30px 0px 0px 0px">
+                    <img src="floor plan.png" alt="My Image">  
+                    <div class="row align-items-center">
+                        <div class="col" style="left:27px; width:30px; bottom:152px; position:absolute;">
+                            <canvas id="436c" class="a" width="25" height="25"></canvas>
+                        </div>
+                        <div class="col" style="left:690px; width:30px;  bottom:152px; position:absolute;">
+                            <canvas id="410c" class="a" width="25" height="25"></canvas>
+                        </div>
+                        <div class="col" style="left: 770px; width:30px;  bottom:152px; position:absolute;">
+                            <canvas id="409c" class="a"width="25" height="25"></canvas>
+                        </div>
+                    </div>
+                    <div class="row align-items-center">
+                        <div class="col" style="left:500px; width:30px;  bottom:8px; position:absolute;">
+                            <canvas id="404c" class="a"width="25" height="25"></canvas>
+                        </div>
+                        <div class="col" style="left:580px; width:30px;  bottom:8px; position:absolute;">
+                            <canvas id="405c" class="a"width="25" height="25"></canvas>
+                        </div>
+                        <div class="col" style="left:670px;  width:30px; bottom:8px; position:absolute;">
+                            <canvas id="406c" class="a"width="25" height="25"></canvas>
+                        </div>
+                        <div class="col" style="left:755px; width:30px;  bottom:8px; position:absolute;">
+                            <canvas id="407c" class="a"width="25" height="25"></canvas>
+                        </div>
+                        
+                    </div>
+                    
+                    
+                </div>
+            </div>
+            
+        
+        </div>
+        
+
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+        
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+            import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+            import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+          
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyB-QZL-1JtLFJ1Z59E_m4-d9H6ifsziDqQ",
+                authDomain: "check-83c37.firebaseapp.com",
+                databaseURL: "https://check-83c37-default-rtdb.firebaseio.com",
+                projectId: "check-83c37",
+                storageBucket: "check-83c37.appspot.com",
+                messagingSenderId: "227830654669",
+                appId: "1:227830654669:web:f8991b8bd395e6b0086b84"
+            };
+                    
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+            const auth = getAuth();   
+
+           
+            $(function () {
+                function send() {
+                    var httpMethod = $('#method_status').attr('data-method');
+                }
+
+                $('#dropdown-menu li > a').on('click', function () {
+                    $('#method_status').text($(this).text());
+                    var httpMethod = $(this).attr('value');
+                    console.log('선택된 메소드: ' + httpMethod);
+
+                    $('#method_status').attr('data-method', httpMethod);
+                });    
+            });
+            
+            function getTodayLabel(){
+                var week =new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
+                var today =new Date().getDay();
+                var todayLabel=week[today];
+                return todayLabel;
+            }
+            console.log(getTodayLabel())
+
+            
+
+
+
+
+    
+        </script>
+    
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
