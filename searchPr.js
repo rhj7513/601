@@ -1,0 +1,57 @@
+var pName;
+var pMaj;
+var pOff
+var pMail;
+var pPossible;
+
+
+
+function search() {
+    var pcheck = document.getElementById("pro").getElementsByTagName("p").length; //p 태그 길이 저장 
+
+    if(pcheck>1){ //p태크 길이가 2개 이상이면 요소 삭제하기 
+        document.getElementById("pro").removeChild(document.getElementById("pro").childNodes[pcheck+1]);
+        document.getElementById("major").removeChild(document.getElementById("major").childNodes[pcheck+1]);
+        document.getElementById("bt").removeChild(document.getElementById("bt").childNodes[pcheck+1]);
+    }
+
+    const searchPr = document.getElementById('formGroupExampleInput').value; //사용자가 입력한 찾는 교수님 이름 searchPr변수에 저장
+    
+    $(document).ready(function() {
+        var rows = document.getElementById("dataTbl").getElementsByTagName("tr"); //tr요소 찾기
+
+        var check=0; //일치하는 이름 있는지 체크
+        
+        // tr만큼 루프돌면서 컬럼값 접근
+        for(var r=0; r<rows.length; r++ ){
+            var cells = rows[r].getElementsByTagName("td");
+
+            var cell_1 = cells[1].firstChild.data;		// 이름
+            var cell_2 = cells[2].firstChild.data;      // 전공
+            var cell_3 = cells[3].firstChild.data;      // 연구실
+
+            if(cell_1==searchPr) { //일치하는 교수 이름이 있으면 출력해주기
+                
+                check++; //일치하는 이름 있으면 1증가
+                
+                $("#pro").append("<p class='pro1'>"+searchPr+"</p>");
+                $("#major").append("<p class='major1'>컴퓨터공학부</p>");
+                $("#bt").append("<p class='bt1'><button type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
+
+                pNname = cell_1;
+                pMaj = cell_2;
+                pOff = cell_3;
+                pMail = cells[4].firstChild.data;
+                pPossible = cells[5].firstChild.data;
+            }
+        }
+        if(check==0) //check가 0이면 존재하지 않은 이름 출력
+        {
+            $("#pro").append("<p class='pro1'>X</p>");
+            $("#major").append("<p class='major1'>X</p>");
+            $("#bt").append("<p class='bt1'>X</p>");
+            alert("존재하지 않습니다.")
+        }
+        
+    });
+}
