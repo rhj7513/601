@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+
+    <title>Document</title>
+</head>
+<body>
+
+    <div class="row g-0 text-center">
+        <div class="col-sm-6 col-md-8">바뀐 시간 정보</div>
+        <div class="col-6 col-md-4">
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" id="method_status" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  시간 설정하기
+                </button>
+                <ul id="method_type" class="dropdown-menu" role="menu" aria-labelledby="searchType">
+                    <!-- 드롭다운 누르면 나오는 아이템들 목록이다 -->
+                  <li role="presentation"><a class="dropdown-item" href="#" value="GET">1교시(09:30 ~ 10:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">2교시(10:30 ~ 11:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">3교시(11:30 ~ 12:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">4교시(12:30 ~ 13:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">5교시(13:30 ~ 14:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">6교시(14:30 ~ 15:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">7교시(15:30 ~ 16:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">8교시(16:30 ~ 17:20)</a></li>
+                  <li><a class="dropdown-item" href="#" value="GET">9교시(17:30 ~ 18:20)</a></li>
+                </ul>
+
+               
+              </div>
+
+              
+            </div>
+
+            
+        </div>
+        <div class="dropdown">
+            <button class="btn btn-default dropdown-toggle" id="mystatus" value="title" type="button" data-toggle="dropdown" aria-expanded="true">
+            제목
+            <span class="caret"></span>
+            </button>
+            <ul id="mytype" class="dropdown-menu" role="menu" aria-labelledby="searchType">
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" value="a">A</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" value="b">B</a>
+                </li>
+                <li role="presentation">
+                    <a role="menuitem" tabindex="-1" href="#" value="c">C</a>
+                </li>
+                <li><a class="dropdown-item" href="#" value="GET">2교시(10:30 ~ 11:20)</a></li>
+
+            </ul>
+        </div>
+
+        <script type="text/javascript">
+            $('#mytype li > a').on('click', function() {
+                // 버튼에 선택된 항목 텍스트 넣기 
+                $('#mystatus').text($(this).text());
+                    
+                // 선택된 항목 값(value) 얻기
+                alert($(this).attr('value'));
+            });
+        </script>
+
+
+
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+ 
+</body>
+</html>
