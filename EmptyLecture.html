@@ -8,15 +8,13 @@
     <title>Empty Lecture</title>
     <style>
         .a {
-        background-color: #CF2A27;
+            background-color: #CF2A27;
         }
         .b {
             background-color: #2B78E4;
-            padding: 10px 20px;
         }
         .c {
             background-color: #009E0F;
-            margin: 10px 20px;
         }
     </style>
 </head>
@@ -30,7 +28,7 @@
         <div class="col-6 col-md-4">
             <div class="dropdown">
                 <!-- <input type="hidden" id="httpMethod" value=""> -->
-                <button class="btn btn-secondary dropdown-toggle" id="method_status" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" id="method_status" value="1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   시간 설정하기
                 </button>
                 <ul class="dropdown-menu" id="dropdown-menu">
@@ -70,27 +68,30 @@
                     <img src="floor plan.png" alt="My Image">  
                     <div class="row align-items-center">
                         <div class="col" style="left:27px; width:30px; bottom:152px; position:absolute;">
-                            <canvas id="436c" class="a" width="25" height="25"></canvas>
+                            <canvas id="436" value="436" class="b" width="25" height="25"></canvas>
                         </div>
                         <div class="col" style="left:690px; width:30px;  bottom:152px; position:absolute;">
-                            <canvas id="410c" class="a" width="25" height="25"></canvas>
+                            <canvas id="410" value="410" class="b" width="25" height="25"></canvas>
                         </div>
                         <div class="col" style="left: 770px; width:30px;  bottom:152px; position:absolute;">
-                            <canvas id="409c" class="a" width="25" height="25"></canvas>
+                            <canvas id="409" value="409" class="b" width="25" height="25"></canvas>
                         </div>
                     </div>
                     <div class="row align-items-center">
+                        <div class="col" style="left:330px; width:30px;  bottom:8px; position:absolute;">
+                            <canvas id="402" value="402" class="b"width="25" height="25"></canvas>
+                        </div>
                         <div class="col" style="left:500px; width:30px;  bottom:8px; position:absolute;">
-                            <canvas id="404c" class="a"width="25" height="25"></canvas>
+                            <canvas id="404" value="404" class="b"width="25" height="25"></canvas>
                         </div>
                         <div class="col" style="left:580px; width:30px;  bottom:8px; position:absolute;">
-                            <canvas id="405c" class="a"width="25" height="25"></canvas>
+                            <canvas id="405"  value="405" class="b" width="25" height="25"></canvas>
                         </div>
                         <div class="col" style="left:670px;  width:30px; bottom:8px; position:absolute;">
-                            <canvas id="406c" class="a"width="25" height="25"></canvas>
+                            <canvas id="406" value="406" class="b"width="25" height="25"></canvas>
                         </div>
                         <div class="col" style="left:755px; width:30px;  bottom:8px; position:absolute;">
-                            <canvas id="407c" class="a"width="25" height="25"></canvas>
+                            <canvas id="407" value="407" class="b"width="25" height="25"></canvas>
                         </div>
                         
                     </div>
@@ -129,19 +130,68 @@
             const auth = getAuth();   
 
            
-            // $(function () {
-            //     function send() {
-            //         var httpMethod = $('#method_status').attr('data-method');
-            //     }
+            $(function () {
+                function send() {
+                    var httpMethod = $('#method_status').attr('data-method');
+                }
 
-            //     $('#dropdown-menu li > a').on('click', function () {
-            //         $('#method_status').text($(this).text());
-            //         var httpMethod = $(this).attr('value');
-            //         console.log('선택된 메소드: ' + httpMethod);
+                $('#dropdown-menu li > a').on('click', function () {
+                    //모든 강의실 빨간색으로 바꾸기
+                    document.getElementById("402").className="b";
+                    document.getElementById("404").className="b";
+                    document.getElementById("405").className="b";
+                    document.getElementById("406").className="b";
+                    document.getElementById("407").className="b";
+                    document.getElementById("409").className="b";
+                    document.getElementById("410").className="b";
+                    document.getElementById("436").className="b";
 
-            //         $('#method_status').attr('data-method', httpMethod);
-            //     });    
-            // });
+
+
+
+                    $('#method_status').text($(this).text());
+                    var httpMethod = $(this).attr('value');
+                    console.log('선택된 메소드: ' + httpMethod);
+                    
+                    $('#method_status').attr('data-method', httpMethod);
+
+                    var Myelement =document.getElementById("method_status");
+                    Myelement.value=httpMethod;
+                    console.log(Myelement);
+                    console.log(document.getElementById("method_status").value);
+
+                    onValue(dbRef,(snapshot)=>{
+                        snapshot.forEach((childSnapshot)=>{
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+
+                            var cremove =childData.period.replaceAll(",","");//,를 먼저 없앰
+                            var check = new Array(cremove.split(" ")); //띄어쓰기로 나눔
+                            
+                            for (var i =0; i<check[0].length; i++){
+                                if (check[0][i].charAt(0)==now){
+                                    
+                                    for(var j=1; j<check[0][i].length; j++){
+                                        if (check[0][i].charAt(j)==httpMethod){
+                                            //console.log("!!!find!!!")
+                                            //console.log('강의실 : ' + childData.classroom+'시간표 : '+check[0])
+                                            
+                                            //강의실 색 변환!
+                                            var cr = childData.classroom.split(" ")[1];
+                                            //console.log(document.getElementById("404"));
+                                            var vc = document.getElementById(eval('"'+cr+'"'));
+                                            vc.className="a";
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    },)
+
+                });    
+                
+            });
+            
             
             function getTodayLabel(){
                 var week =new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
@@ -149,37 +199,12 @@
                 var todayLabel=week[today].charAt(0);
                 return todayLabel;
             }
-            console.log(getTodayLabel())
-
-            const dbRef = ref(database,'user/')
-
-            onValue(dbRef,(snapshot)=>{
-                snapshot.forEach((childSnapshot)=>{
-                    const childKey = childSnapshot.key;
-                    const childData = childSnapshot.val();
-                    method_status.addEventListener('click',(e)=>{
+            var now = getTodayLabel()
+            //console.log(now);
+            const dbRef = ref(database,'class/');
             
             
-                    $('#dropdown-menu li > a').on('click', function () {
-                        $('#method_status').text($(this).text());
-                        var httpMethod = $(this).attr('value');
-                        console.log('선택된 메소드: ' + httpMethod);
-
-                        $('#method_status').attr('data-method', httpMethod);
-                    });
-                    })
-                });
-            },)
-
-                get(child(ref, `class/${1}`)).then((snapshot) => {
-                    if (snapshot.exists()) {
-                        console.log(snapshot.val());
-                    } else {
-                        console.log("No data available");
-                    }
-                    }).catch((error) => {
-                    console.error(error);
-                });
+              
             
 
       
