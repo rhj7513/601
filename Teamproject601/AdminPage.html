@@ -22,21 +22,121 @@
     <div id="admin-box">
         <!-- <h1 id='status' style="padding-bottom:20px">수정할 내용 입력해주세요.</h1> -->
         <div class="left2">
+            <!-- action="Empty Lecture.html" -->
+            <!-- <form id="adm" method="get" action="Empty Lecture.html"> -->
             <input type="text" id="professorname" name="profassorname" placeholder="profassor name" />
-            <input type="text" id="Subject" name="Subject" placeholder="Subject" />
+            <input type="text" id="subject" name="Subject" placeholder="Subject" />
             <input type="text" id="time" name="time" placeholder="time" />
             
-            <input type="submit" id='Check' name="Check" value="Check" />
+            <!-- save Data 누르면 admin (key값)에 입력한 데이터 저장된다. -->
+            <input type="submit" id='saveData' name="newData" value="save Data" />
+            <!-- </form> -->
+            
+            <!-- delData를 누르면 admin(key값)에 있는 교수 이름과 비교해서 그 값을 삭제한다. -->
+            <input type="submit" id="delData" name="delData" value="del Data" />
+
+            <input type="submit" id="checkkkk" name="chekkkk" value="확인하러가기"  onClick="location.href='Empty Lecture.html'"/>
+            <!-- <button onClick="location.href='student_main_code.html'">확인하러가기</button> -->
+        </div>
+
         
-            </div>
+
+        
+
+        <!-- <div class="right">
+            <input type="text" id="delproname" name="delproname" placeholder="del profassor name" />
+            <input type="text" id="delsub" name="delsub" placeholder="del subject" />
+            <input type="text" id="deltime" name="deltime" placeholder="del time" />
+
+            <input type="submit" id="delData" name="delData" value="del Data" />
+        </div> -->
     </div>
 
     
-
-   
-   
-    
-    
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+    // 위에 있는 import 복붙해주고 주소 마지막 부분 firebase-app -> firebase-database로 바꿔준다 이유는 아직 모르겠다 근데 안 바꿔주면 안 된다고 알고있다.
+    // import{요기 내용도 수정해야 돼} initializeApp -> getDatabase, ref, set
+    import { getDatabase, ref, set, remove, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+      authDomain: "team-a5651.firebaseapp.com",
+      databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+      projectId: "team-a5651",
+      storageBucket: "team-a5651.appspot.com",
+      messagingSenderId: "804446190852",
+      appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    // 요것도 왜 해주는지 모르겠어 근데 해줘야 실행된대 ㅋㅋㅋ큐ㅠ 아는 게뭐지 일단 하고 나중에 찾아봐야지...
+    const database = getDatabase(app);
+
+    // inputData
+    // saveData로하는 이유는 위에 코드 보면 id중 saveData가 하나 있는데 고 버튼 눌렀을 때 이벤트가 발생해야 하기 때문에 이렇게 지정해줬다.
+    saveData.addEventListener('click',(e) => {
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+   
+
+        set(ref(database, 'admin/' + professorname),{
+            professername: professorname,
+            subject: subject,
+            time: time
+        });
+        alert('seved')
+
+        
+
+        
+    });
+
+    // remove data
+    delData.addEventListener('click',(e)=>{
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+
+        remove(ref(database, 'admin/' + professorname));
+        alert('remove')
+
+        // 데이터 가져와서 보여주는 코드 여기선 된다 근데 다른 페이지 가면 안 된다 끌끌
+        // const starCountRef = ref(database, 'admin/' + professorname);
+        //     onValue(starCountRef, (snapshot) => {
+        //         const data = snapshot.val();
+        //         document.getElementById('professorname').value = data.professorname;
+        //         document.getElementById('professorname').value = data.subject;
+        //         document.getElementById('professorname').value = data.time;
+        //     });
+    })
+   
+    // delData.addEventListener('click',(e) => {
+    //     var delproname = document.getElementById('delproname').value;
+    //     var delsub = document.getElementById('delsub').value;
+    //     var deltime = document.getElementById('deltime').value;
+    //     console.log(professorname);
+
+    //     remove(ref(database, 'admin/' + professorname));
+    //     alert('remove')
+
+    // })
+
+    
+
+        
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
 </html>
