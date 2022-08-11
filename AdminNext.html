@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+</body>
+</html>
+<script type="text/javascript">
+    const url = new URL(window.location.href);
+    const urlParams = url.searchParams;
+    document.write(urlParams.get('profassorname')+'<br>');
+    document.write(urlParams.get('Subject')+'<br>');
+    document.write(urlParams.get('time')+'<br>');
+
+    //console.log(window.location.href);
+</script>

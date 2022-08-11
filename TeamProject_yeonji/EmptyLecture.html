@@ -16,6 +16,8 @@
         .c {
             background-color: #009E0F;
         }
+
+
     </style>
 </head>
 <body>
@@ -43,19 +45,6 @@
                   <li><a class="dropdown-item" href="#" value="8">8교시(16:30 ~ 17:20)</a></li>
                   <li><a class="dropdown-item" href="#" value="9">9교시(17:30 ~ 18:20)</a></li>
                 </ul>
-
-                <!-- <select id="dropdown" >
-                    <option class ="drop-down" value="1"> 1교시</option>
-                    <option class ="drop-down" value="2"> 2교시</option>
-                    <option class ="drop-down" value="3"> 3교시</option>
-                    <option class ="drop-down" value="4"> 4교시</option>
-                    <option class ="drop-down" value="5"> 5교시</option>
-                    <option class ="drop-down" value="6"> 6교시</option>
-
-                </select> -->
-
-
-
               </div>
             </div>
         </div>
@@ -146,9 +135,6 @@
                     document.getElementById("410").className="b";
                     document.getElementById("436").className="b";
 
-
-
-
                     $('#method_status').text($(this).text());
                     var httpMethod = $(this).attr('value');
                     console.log('선택된 메소드: ' + httpMethod);
@@ -157,8 +143,9 @@
 
                     var Myelement =document.getElementById("method_status");
                     Myelement.value=httpMethod;
-                    console.log(Myelement);
-                    console.log(document.getElementById("method_status").value);
+                    //console.log(httpMethod);//교시
+                    //console.log(Myelement);
+                    //console.log(document.getElementById("method_status").value);
 
                     onValue(dbRef,(snapshot)=>{
                         snapshot.forEach((childSnapshot)=>{
@@ -168,19 +155,31 @@
                             var cremove =childData.period.replaceAll(",","");//,를 먼저 없앰
                             var check = new Array(cremove.split(" ")); //띄어쓰기로 나눔
                             
+                            // var classcheck = new Array(childData.split(",")); //강의실
+                            // console.log(classcheck);
+
                             for (var i =0; i<check[0].length; i++){
                                 if (check[0][i].charAt(0)==now){
-                                    
                                     for(var j=1; j<check[0][i].length; j++){
-                                        if (check[0][i].charAt(j)==httpMethod){
+                                        if (check[0][i].charAt(j)==httpMethod){//교시가 있으면
                                             //console.log("!!!find!!!")
                                             //console.log('강의실 : ' + childData.classroom+'시간표 : '+check[0])
+                                            if(childData.classroom.indexOf(',')!=-1)//,가 있으면 
+                                            {
+                                                var ec = childData.classroom.split(',')[i];//,가 있으면 뒤에값을 가져옴
+                                                var ecr = ec.split(" ")[1];
+                                                var evr = document.getElementById(eval('"'+ecr+'"'));
+                                                evr.className="a";
+                                            }
+                                            else{
+                                                //강의실 색 변환!
+                                                var cr = childData.classroom.split(" ")[1];
+                                                //console.log(document.getElementById("404"));
+                                                var vc = document.getElementById(eval('"'+cr+'"'));
+                                                vc.className="a";
+
+                                            }
                                             
-                                            //강의실 색 변환!
-                                            var cr = childData.classroom.split(" ")[1];
-                                            //console.log(document.getElementById("404"));
-                                            var vc = document.getElementById(eval('"'+cr+'"'));
-                                            vc.className="a";
                                         }
                                     }
                                 }
@@ -202,22 +201,7 @@
             var now = getTodayLabel()
             //console.log(now);
             const dbRef = ref(database,'class/');
-            
-            
-              
-            
-
-      
-
-
-
-
-    
         </script>
-    
-    
-    
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
