@@ -15,8 +15,11 @@
       <div class="left">
         <h1 id='status'>Login</h1>
             <div style="padding:10px 0px 10px 0px">
-                <input type="radio" name="check" value="학생" onClick="location.href='StudentLogin.html'" /> 학생
-                <input type="radio" name="check" value="교수님" onClick="location.href='ProfessorLogin.html'" /> 교수님
+                <input type="radio" name="check" id="stu" value="학생"  /> 학생
+                <input type="radio" name="check" id="pro" value="교수님"  /> 교수님
+                <!-- <input type="radio" name="check" id="stu" value="학생" onClick="location.href='StudentLogin.html'" />   학생
+                <input type="radio" name="check" id="pro" value="교수님"  onClick="location.href='ProfessorLogin.html'"/> 교수님 -->
+            
             </div>
             <input type="text" id="email" onkeyup='checkAdmin()' name="email" placeholder="E-mail" />
             <input type="password" id="password" onkeyup='checkAdmin()' name="password" placeholder="Password" />
@@ -69,37 +72,66 @@
         
 
         login.addEventListener('click',(e)=>{
+            sessionStorage.clear();
+
+
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
 
             signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 var email = document.getElementById('email').value;
-                
                 const user = userCredential.user;
-                const dbRef = ref(database,'students/');
-
-                onValue(dbRef,(snapshot)=>{
+                
+                if(document.getElementById('stu').checked) {    
+                    
+                    const dbRef = ref(database,'students/');
+                    onValue(dbRef,(snapshot)=>{
                     snapshot.forEach((childSnapshot)=>{
                         const childKey = childSnapshot.key;
                         const childData = childSnapshot.val();
                         
                         if (childData.email == email){
                             var mail = childData.email;
+                            alert('User loged in!');
                             console.log(childData.email);
                             //sessionStorage.clear();
                             sessionStorage.setItem('usermail',mail);
-                            location.href='StudentMain.html'
                         }
                     });
-            });
-            alert('User loged in!');
+                    if (sessionStorage.getItem('usermail')==null){
+                        alert('직급을 다시 선택해주세요');
+                    }
+                    
+                });
+
+                }else if(document.getElementById('pro').checked) {
+                    const dbRef = ref(database,'prouser/');
+                
+                    onValue(dbRef,(snapshot)=>{
+                        snapshot.forEach((childSnapshot)=>{
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+                            
+                            if (childData.email == email){
+                                var mail = childData.email;
+                                alert('User loged in!');
+                                console.log(childData.email);
+                                //sessionStorage.clear();
+                                sessionStorage.setItem('prousermail',mail);
+                                location.href='ProfessorPage.html';
+                            }
+                        });
+                        if (sessionStorage.getItem('prousermail')==null){
+                            alert('직급을 다시 선택해주세요');
+                        }
+                    });
+                }
             
             })
             .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            
             alert(errorMessage);
             });
         });
@@ -109,7 +141,5 @@
         </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 
-    </body>
-
-    
+    </body>    
 </html>
