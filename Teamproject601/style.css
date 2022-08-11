@@ -441,5 +441,16 @@ button.social-signin.google {
 
 
 
+/* 바닥 고정 */
+#wrapper{
+  height: auto;
+  min-height: 100%;
+  padding-bottom: (footer높이);
+}
+footer{
+  height: (footer높이);
+  position : relative;
+  transform : translateY(-100%);
+}
 
 
