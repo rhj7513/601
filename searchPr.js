@@ -1,11 +1,4 @@
-var pName;
-var pMaj;
-var pOff
-var pMail;
-var pPossible;
-
-
-
+//교수 찾기
 function search() {
     var pcheck = document.getElementById("pro").getElementsByTagName("p").length; //p 태그 길이 저장 
 
@@ -27,8 +20,6 @@ function search() {
             var cells = rows[r].getElementsByTagName("td");
 
             var cell_1 = cells[1].firstChild.data;		// 이름
-            var cell_2 = cells[2].firstChild.data;      // 전공
-            var cell_3 = cells[3].firstChild.data;      // 연구실
 
             if(cell_1==searchPr) { //일치하는 교수 이름이 있으면 출력해주기
                 
@@ -36,13 +27,28 @@ function search() {
                 
                 $("#pro").append("<p class='pro1'>"+searchPr+"</p>");
                 $("#major").append("<p class='major1'>컴퓨터공학부</p>");
-                $("#bt").append("<p class='bt1'><button type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
+                $("#bt").append("<p class='bt1'><button id='bt' type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
 
-                pNname = cell_1;
-                pMaj = cell_2;
-                pOff = cell_3;
-                pMail = cells[4].firstChild.data;
-                pPossible = cells[5].firstChild.data;
+
+                // var prInfo = {
+                //     "pName":cell_1,
+                //     "pMaj":cells[2].firstChild.data,
+                //     "pOff":cells[3].firstChild.data,
+                //     "pMail":cells[4].firstChild.data,
+                //     "pPossible":cells[5].firstChild.data
+                // };
+
+                // localStorage.setItem("pr", JSON.stringify(prInfo));
+
+                localStorage.setItem('pName',cell_1);
+                localStorage.setItem('pMaj',cells[2].firstChild.data);
+                localStorage.setItem('pOff',cells[3].firstChild.data);
+                localStorage.setItem('pMail',cells[4].firstChild.data);
+                localStorage.setItem('pPossible',cells[5].firstChild.data);
+                // pMaj = cells[2].firstChild.data;
+                // pOff = cells[3].firstChild.data;
+                // pMail = cells[4].firstChild.data;
+                // pPossible = cells[5].firstChild.data;
             }
         }
         if(check==0) //check가 0이면 존재하지 않은 이름 출력
@@ -55,3 +61,128 @@ function search() {
         
     });
 }
+
+//다음 페이지로 넘어가면 addRow() 함수 호출됨
+//선택한 교수님의 정보와 상담 가능 시간을 자세히 보여줌.
+window.onload=function addRow(){
+    //table element 찾기
+    const table = document.getElementById('proTable');
+    //새 행(row) 추가
+    const newRow = table.insertRow();
+    //새 행(row)에 cell 추가
+    newRow.insertCell(0).innerText=localStorage.getItem('pName');
+    newRow.insertCell(1).innerText=localStorage.getItem('pMaj');
+    newRow.insertCell(2).innerText=localStorage.getItem('pOff');
+    newRow.insertCell(3).innerText=localStorage.getItem('pMail');
+
+    //table element 찾기
+    const table2 = document.getElementById('ConTimeTable');
+
+    //새 행(row)에 cell 추가    
+    let spl = localStorage.getItem('pPossible').split(' ')
+
+    for(i=0; i<spl.length; i++)
+    {
+        if(i%2==1)
+        {
+            let spl2 = spl[i].split(',');
+            
+            for(j=0; j<spl2.length; j++)
+            {
+                for(k=0; k<2; k++)
+                {
+                    //새 행(row) 추가
+                    const newRow2 = table2.insertRow();
+                    newRow2.insertCell(0).innerText=possConsult(spl[i-1]);
+                    newRow2.insertCell(1).innerText=spl2[j]+(String.fromCharCode(65+k));
+                    localStorage.setItem('date',possConsult(spl[i-1]));
+                    localStorage.setItem('time',spl2[j]+(String.fromCharCode(65+k)));
+                    newRow2.insertCell(2).innerHTML="<input button id='btCheck' type='button' value='check' onclick='bbb()'></button>";
+                }
+            }
+        } 
+    }
+}
+
+// window.onload=document.getElementById('btCheck').addEventListener('click', function(e) {
+//     e.preventDefault()
+//     console.log('btCheck');
+// })
+
+function bbb() {
+    console.log('넘거감');
+    //console.log(localStorage.getItem('date'));
+}
+
+
+// let today = new Date();   
+
+// let year = today.getFullYear(); // 년도
+// let month = today.getMonth() + 1;  // 월(0~11), 1월은 0
+// let date = today.getDate();  // 날짜(0~31)
+// let day = today.getDay();  // 요일(0~6) 일요일0, 월요일1, 토요일6
+
+// let dbDate = year + '-' + month + '-' + (date+7) + '-' + day;
+
+// console.log(returnWeek('화'));
+
+//요일 구하는 function
+function returnWeek(uDay) {
+    if(uDay=='일') return 0;
+    else if(uDay=='월') return 1;
+    else if(uDay=='화') return 2;
+    else if(uDay=='수') return 3;
+    else if(uDay=='목') return 4;
+    else if(uDay=='금') return 5;
+    else if(uDay=='토') return 6;
+    // var week = ['일', '월', '화', '수', '목', '금', '토'];
+    // var dayOfWeek = week[uDay];   
+}
+
+//상담 가능 시간 날짜로 바꾸는 function
+function possConsult(uDay) {
+    let cac = returnWeek(uDay); //요일을 숫자로 바꿔주는 함수를 호출해 cac 저장
+
+    let today = new Date();   
+
+    //상담 가능 기간 동안에서 요일 구하기
+    let day = today.getDay();  // 요일(0~6) 일요일0, 월요일1, 토요일6
+    let aa = 7-day+cac;
+
+    let year = today.getFullYear(); // 년도
+    let month = today.getMonth() + 1;  // 월(0~11), 1월은 0
+    //기간을 현재 날짜에서 일주일 뒤이기 때문에, 7을 더한다.
+    let date = today.getDate()+7+aa;  // 날짜(0~31)
+    
+    let dbDate = year + '-' + month + '-' + date;
+
+    return dbDate;
+}
+
+
+// document.write(today.toLocaleDateString());
+
+// document.getElementById('bt').addEventListener('click',addRow);
+// var prInfo = {
+//     "name":"pName",
+//     // "maj":pMaj,
+//     // "off":pOff,
+//     // "mail":pMail,
+//     // "poss":pPossible
+// };
+
+// localStorage.setItem('z',pName);
+// localStorage.setItem('a',pMaj);
+
+// localStorage.setItem("pr", JSON.stringify(prInfo));
+
+// console.log(JSON.stringify(prInfo));
+
+
+
+
+
+// JSON.parse(window.localStorage.getItem("cast"));
+// console.log("consoel"+JSON.parse(localStorage.getItem("pr")));
+// console.log("console2"+localStorage.getItem('z'));
+// console.log("console3"+localStorage.getItem('a'));
