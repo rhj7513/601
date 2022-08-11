@@ -12,14 +12,17 @@
   
     <div id="login-box">
         <div class="left">
-            <h1 id='status'>SignUP</h1>
+            <h1 id='status'></h1>
             <input type="text" id="username" name="username" placeholder="username" />
             <input type="text" id="email" name="email" placeholder="E-mail" />
             <input type="password" id="password" name="password" placeholder="Password" />
             
             <input type="submit" id='sighUp' name="sighUp" value="sighUp" />
             <input type="submit" id='nextLogin' name="nextLogin" value="next Login" onClick="location.href='studentLogin.html'"/>
-        
+            <script type="text/javascript">
+                JSON.parse(window.localStorage.getItem("notice"));
+            </script>
+            
           </div>
 
         <!-- <h1 id='status'>login</h1>
