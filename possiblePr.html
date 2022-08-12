@@ -26,23 +26,37 @@
 
     <div class="col">
       <table class="table table-striped" id='ConTimeTable'>
+        <thread>
           <tbody>
-              <tr>
-                <td>상담 가능 요일</td>  
-                <td>상담 가능 시간</td>
-                <td>예약하기</td>
-              </tr>
-          </tbody>
+            <tr>
+              <td>상담 가능 요일</td>  
+              <td>상담 가능 시간</td>
+              <td>예약하기</td>
+            </tr>
+        </tbody>
+        </thread>
+          
       </table>
     </div>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    
+    <form class="gform pure-form pure-form-stacked" method="POST" target="iframe1" data-email="jbh092917@gmail.com"
+      action="https://script.google.com/macros/s/AKfycbz4xuRjA068z2NWSGJ-nQx82vcS9uXVrL63Xt3YPGmTI_1f-FYr6EFV_ib3nNllrvMUfQ/exec">
+        <!-- change the form action to your script url -->
 
+        <div class="form-elements">
+          <input type="hidden" id="consult_day" name="consult_day"/>
+          <input type="hidden" id="consult_time" name="consult_time"/>
+          <input type="hidden" id="site" name="site_link"/>
+
+          <button class="button-success pure-button button-xlarge" onClick="mailClick()">Send</button>
+        </div>
+    </form>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+      <script data-cfasync="false" src="form-submission-handler.js"></script>
+      <iframe id="iframe1" name="iframe1" style="display:none"></iframe>
     </body>
-    
-    <script src="searchPr.js">
-    </script>
+   
+
 
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
@@ -64,11 +78,11 @@
       
       function writeUserData() {
         const db = getDatabase();
-        const reference = ref(db, 'users/'+'id');
+        const reference = ref(db, 'users/'+'아이디');
 
         set(reference, {
-            consult_date: localStorage.getItem('date'),
-            consult_time: localStorage.getItem('time')
+            consult_date: sessionStorage.getItem("cDate"),
+            consult_time: sessionStorage.getItem("cTime")
         })
       }
       
@@ -77,5 +91,16 @@
     </script>
 
     <script src="https://smtpjs.com/v3/smtp.js">
+    </script>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="searchPr.js"></script>
+    <script>
+      function mailClick(){
+        //console.log("불러옴:"+sessionStorage.getItem('cDate'));
+        document.getElementById('consult_day').value=sessionStorage.getItem("cDate");
+        document.getElementById('consult_time').value=sessionStorage.getItem("cTime");
+        document.getElementById('site').value="https://www.naver.com/";
+      }
     </script>
 </html>
