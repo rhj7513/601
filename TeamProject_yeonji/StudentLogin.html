@@ -73,11 +73,13 @@
 
         login.addEventListener('click',(e)=>{
             sessionStorage.clear();
-
-
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
-
+            // if (email=="admin@gmail.com"){
+            //     if(password=="adminadmin"){
+            //         location
+            //     }
+            // }
             signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 var email = document.getElementById('email').value;
@@ -93,10 +95,12 @@
                         
                         if (childData.email == email){
                             var mail = childData.email;
+                            var username = childData.username;
                             alert('User loged in!');
                             console.log(childData.email);
                             //sessionStorage.clear();
                             sessionStorage.setItem('usermail',mail);
+                            sessionStorage.setItem('username',username);
                             location.href='StudentMain.html';
                         }
                     });
@@ -120,7 +124,7 @@
                                 console.log(childData.email);
                                 //sessionStorage.clear();
                                 sessionStorage.setItem('prousermail',mail);
-                                location.href='ProfessorPage.html';
+                                location.href='PrConsultPermission.html';
                             }
                         });
                         if (sessionStorage.getItem('prousermail')==null){

@@ -16,7 +16,8 @@
             <input type="text" id="username" name="username" placeholder="username" />
             <input type="text" id="email" name="email" placeholder="E-mail" />
             <input type="password" id="password" name="password" placeholder="Password" />
-            
+            <input type="text" id="StudentNum" name="StudentNumber" placeholder="Student Number" />
+            <input type="text" id="PhonNum" name="PhonNumber" placeholder="Phon Number" />
             <input type="submit" id='sighUp' name="sighUp" value="sighUp" />
             <input type="submit" id='nextLogin' name="nextLogin" value="next Login" onClick="location.href='studentLogin.html'"/>
         
@@ -49,12 +50,16 @@
         const database = getDatabase(app);
         const auth = getAuth();
         //console.log(databaseURL);
+        
+
 
         sighUp.addEventListener('click',(e) => {
 
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var username = document.getElementById('username').value;
+            var StudentNum = document.getElementById('StudentNum').value;
+            var PhonNum = document.getElementById('PhonNum').value;
 
             createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -63,7 +68,9 @@
 
                 set(ref(database, 'students/' + username),{
                     username: username,
-                    email: email
+                    email: email,
+                    StudentNum: StudentNum,
+                    PhonNum: PhonNum
                 })
 
                 alert('user created!');
