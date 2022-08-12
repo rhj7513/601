@@ -95,24 +95,76 @@ window.onload=function addRow(){
                     const newRow2 = table2.insertRow();
                     newRow2.insertCell(0).innerText=possConsult(spl[i-1]);
                     newRow2.insertCell(1).innerText=spl2[j]+(String.fromCharCode(65+k));
-                    localStorage.setItem('date',possConsult(spl[i-1]));
-                    localStorage.setItem('time',spl2[j]+(String.fromCharCode(65+k)));
-                    newRow2.insertCell(2).innerHTML="<input button id='btCheck' type='button' value='check' onclick='bbb()'></button>";
+                    newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='check'></button>";
+                    // window.onload=document.getElementById(newbt).addEventListener('click', function(e) {
+                    //     e.preventDefault()
+                    //     console.log("Date:"+localStorage.getItem(newbt+"0"));
+                    //     console.log("Time:"+localStorage.getItem(newbt+"1"));
+                    // });
+                    
                 }
             }
         } 
     }
 }
 
+$(document).ready(function() {
+    $(".btCheck").on('click',function() { 
+        console.log("콘솔창");
+                
+        var str = ""
+        var tdArr = new Array();	// 배열 선언
+        var checkBtn = $(this);
+        
+        // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+        // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+        var tr = checkBtn.parent().parent();
+        var td = tr.children();
+        
+        // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+        
+        var cDate = td.eq(0).text();
+        var cTime = td.eq(1).text();
+        console.log("cDate : "+cDate);
+        console.log("cTime : "+cTime);
+
+        sessionStorage.setItem("cDate",cDate);
+        sessionStorage.setItem("cTime",cTime);
+        
+        
+        // // 반복문을 이용해서 배열에 값을 담아 사용할 수 도 있다.
+        // td.each(function(i){	
+        //     tdArr.push(td.eq(i).text());
+        // });
+        
+        // console.log("배열에 담긴 값 : "+tdArr);
+        
+        // str +=	" * 클릭된 Row의 td값 = No. : <font color='red'>" + cDate + "</font>" +
+        //         ", 아이디 : <font color='red'>" + cTime + "</font>";	
+        // console.log(str);	
+    });
+    
+});
+
+
+
+// $(function() {
+//     $('.btCheck').on('click', function() {
+//         var num = $(this).data('num');    
+//         $(this).closest('li').find('.it_num').val(num);
+//     });
+// });
+
+
 // window.onload=document.getElementById('btCheck').addEventListener('click', function(e) {
 //     e.preventDefault()
 //     console.log('btCheck');
 // })
 
-function bbb() {
-    console.log('넘거감');
-    //console.log(localStorage.getItem('date'));
-}
+// function bbb() {
+//     console.log('넘거감');
+//     //console.log(localStorage.getItem('date'));
+// }
 
 
 // let today = new Date();   
