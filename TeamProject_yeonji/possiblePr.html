@@ -8,6 +8,9 @@
     <title>SearchConsult</title>
 </head>
 <body>
+    <div style="position: absolute; z-index: 2; right: 50px;">
+        <input class="right" type="submit" id='logOut' name="logOut" value="logOut" />
+    </div>
     <div style="padding: 50px;"><h1>교수검색</h1></div>
 
     <div class="col">
@@ -51,6 +54,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
         import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
@@ -65,6 +69,8 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const dbRef = ref(database,'consultcheck/');
+        const auth = getAuth();
+
         
         $(document).ready(function() {
             $(".btCheck").on('click',function() { 
@@ -92,23 +98,60 @@
                 
                 str +=   " * 클릭된 Row의 td값 = No. : <font color='red'>" + cDate + "</font>" +
                         ", 아이디 : <font color='red'>" + cTime + "</font>";   
-                // console.log(str);
-                // console.log(cDate);
-                // console.log(cTime);
-                // sessionStorage.setItem('date',cDate);
-                // sessionStorage.setItem('time',cTime);
-                set(ref(database, 'consultcheck/' +sessionStorage.getItem('usermail')),{//학생 이메일
-                    stumail : sessionStorage.getItem('usermail'),
-                    promail : sessionStorage.getItem('proemail'),
-                    date : cDate,
-                    time : cTime,
-                    state : "보류"
-                })
-                alert("저장됨")
                 
-            
+                
+                //console.log(pm1);
+                //console.log(pm);
+                // console.log(cDate.substr(cDate.length-2, cDate.length));
+                
+                var pm=sessionStorage.getItem('proemail');
+                var pm1=pm.split("@")[0]; //교수 아이디
+                var pd=cDate.substr(cDate.length-2, cDate.length);
+                var primary = pm1+pd+cTime;
+                var checknum=0;
+                //데이터베이스에 저장되어 있는지 확인
+                onValue(dbRef,(snapshot)=>{
+                    snapshot.forEach((childSnapshot)=>{
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+
+                        if (childKey==primary){
+                            checknum+=1;
+                        }
+                    });
+                },)
+                if (checknum==0){
+                    set(ref(database, 'consultcheck/' +primary),{//학생 이메일
+                        stumail : sessionStorage.getItem('usermail'),
+                        promail : sessionStorage.getItem('proemail'),
+                        date : cDate,
+                        time : cTime,
+                        state : "보류"
+                    })
+                    alert("저장됨")
+                }else{
+                    alert("이미 예약된 시간입니다.")
+                }
             });
         });
+
+        logOut.addEventListener('click',(e)=>{
+            signOut(auth).then(() => {
+            // Sign-out successful.
+            alert('user loged out');
+            sessionStorage.clear();
+            location.href='StudentLogin.html'
+            }).catch((error) => {
+                // An error happened.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                
+                //location.href='StudentLogin.html'
+                alert(errorMessage);
+            });
+
+        });
+
 
 
         
