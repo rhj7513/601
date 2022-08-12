@@ -96,7 +96,7 @@ window.onload=function addRow(){
                     const newRow2 = table2.insertRow();
                     newRow2.insertCell(0).innerText=possConsult(spl[i-1]);
                     newRow2.insertCell(1).innerText=spl2[j]+(String.fromCharCode(65+k));
-                    newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='check'></button>";
+                    newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button'class='btn btn-light' value='check'></button>";
                     // window.onload=document.getElementById(newbt).addEventListener('click', function(e) {
                     //     e.preventDefault()
                     //     console.log("Date:"+localStorage.getItem(newbt+"0"));
