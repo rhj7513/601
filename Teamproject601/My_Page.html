@@ -13,22 +13,22 @@
     <!-- <div style="padding: 50px 0px 70px 50px;" ><h1>My_Page</h1></div> -->
 
     <div class="p-5 mb-0">
-        <div class="container-fluid py-">
-          <div style="padding-left: 45px;">
+        <div class="container-fluid py-" style="margin:0px 80px 0px 30px">
+          <div style="padding-left: 60px;">
             <h1 class="display-5 fw-bold" style="color:wheat">My_Page</h1>
           </div>
           <br>
-          <div style="padding-left: 45px;">
-            <p class="col-md-8 fs-4">이 페이지는 마이페이지이다 너의 정보와 너가 예약한 교수의 정보와 예약 현황등을 알 수 있다.</p>
+          <div style="padding-left: 60px; padding-bottom:10px">
+            <h4 class="col-md-8 fs-4" style="color:wheat">마이페이지이다. 학생정보와 예약 현황을 알 수 있다.</h4>
           </div>
         </div>
     <br>
     <br>
-        <div class="p-4 mb-0 bg-light rounded-3" style="margin:0px 60px 0px 40px;">
+        <div class="p-4 mb-0 bg-light rounded-3" style="margin:0px 80px 0px 80px;">
             <div class="row align-items-center">
               <div class="container-fluid py-4">
                 <div style="margin:0px 60px 0px 40px;">
-                  <h4 class="bg-light">학생정보</h4>
+                  <h4 class="bg-light" style="padding-bottom:10px">학생정보</h4>
                   <table class="table">
                       <thead class="table-secondary">
                       <tr>
@@ -72,19 +72,19 @@
                       <tbody class="table-group-divider">
                         <tr>
                           <th scope="row">1</th>
-                          <td>Mark</td>
-                          <td>Mark</td>
-                          <td>Otto</td>
-                          <td>@mdo</td>
-                          <td><button>가능?</button></td>
+                          <td><div id="ma"></div></td>
+                          <td><div id="ma2"></div></td>
+                          <td><div id="ma3"></div></td>
+                          <td><div id="ma4"></div></td>
+                          <td><button type="button" class="btn btn-light"><div id="ma5"></div></button></td>
                         </tr>
-                        <tr>
+                        <!-- <tr>
                           <th scope="row">2</th>
                           <td>Jacob</td>
                           <td>Mark</td>
                           <td>Thornton</td>
                           <td>@fat</td>
-                          <td><button>불능?</button></td>
+                          <td><button type="button" class="btn btn-light">불능?</button></td>
                         </tr>
                         
                         <tr>
@@ -92,8 +92,8 @@
                           <td colspan="2">Larry the Bird</td>
                           <td>@twitter</td>
                           <td>Mark</td>
-                          <td><button>몰라?</button></td>
-                        </tr>
+                          <td><button type="button" class="btn btn-light">몰라?</button></td>
+                        </tr> -->
                       </tbody>
                     </table>
                   </div>
@@ -124,24 +124,51 @@
         const database = getDatabase(app);    
 
         function getUserData(){
-                const deRef = ref(database, "students/");
-            
-                onValue(deRef, (snapshot) => {
-                    snapshot.forEach((childSnapshot) => {
-                    const childData = childSnapshot.val();
-                    console.log(childData.email,  childData.username);
-                    document.querySelector("#ha").innerHTML =  childData.username;
-                    document.querySelector("#ha2").innerHTML =  childData.email;
-                    // if(){
-                        
-                    // }
+          const deRef = ref(database, "students/");
+      
+            onValue(deRef, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                console.log(childData.email,  childData.username);
+                document.querySelector("#ha").innerHTML =  childData.username;
+                document.querySelector("#ha2").innerHTML =  childData.email;
+                // if(){
+                    
+                // }
 
-                })
-                }, {
-                    onlyOnce: true
-                });
-            }
-            getUserData()
+            })
+            }, {
+                onlyOnce: true
+            });
+        }
+        getUserData()
+
+        function getReservation(){
+          const deRef = ref(database, "consultcheck/");
+      
+          onValue(deRef, (snapshot) => {
+              snapshot.forEach((childSnapshot) => {
+              const childData = childSnapshot.val();
+              console.log(childData.proname);
+              console.log(childData.promail, childData.date, childData.time, childData.state);
+              document.querySelector("#ma").innerHTML =  childData.proname;
+              document.querySelector("#ma2").innerHTML =  childData.promail;
+              document.querySelector("#ma3").innerHTML =  childData.date;
+              document.querySelector("#ma4").innerHTML =  childData.time;
+              document.querySelector("#ma5").innerHTML =  childData.state;
+              // if(){
+                  
+              // }
+
+          })
+          }, {
+              onlyOnce: true
+          });
+
+        }
+        getReservation()
+
+
 
             sessionStorage.setItem('students','email');//학생이메일
       </script>
