@@ -17,7 +17,7 @@
     <div class="col">
         <div class="mb-1">
             <div style="padding: 0px 0px 30px 50px;">
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="찾으실 교수님 성함을 입력해주세요.">
+                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="찾으실 교수님 성함을 입력해주세요." value="">
             </div>
         </div>
     </div>
@@ -75,7 +75,20 @@
 </html>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script>
+    //테이블에서 교수 선택하면 해당 이름으로 search
+    $("#dataTbl").on("click","tr",function(){
+        var str = ""
+        var tdArr = new Array();   // 배열 선언
 
+        //현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+        
+        var searchName =td.eq(1).text();
+        $('#formGroupExampleInput').val(searchName);
+    });
+</script>
 
 <script type="module">
   // Import the functions you need from the SDKs you need
