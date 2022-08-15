@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>MY_PAGE</title>
+</head>
+<body class="bg-secondary">
+    
+    
+    <!-- <div style="padding: 50px 0px 70px 50px;" ><h1>My_Page</h1></div> -->
+
+    <div class="p-4 mb-0 bg-secondary">
+        <div class="container-fluid py-5">
+          <div style="padding-left: 45px;">
+            <div class="position-absolute top-0 end-0" style="padding-right:80px;">
+              <!-- 로그아웃 버튼 -->
+              <input type="submit" id='logOut' name="logOut" value="logOut" />
+          </div>
+            <h1 class="display-5 fw-bold" style="color:wheat">My_Page</h1>
+          </div>
+          <br>
+          <div style="padding-left: 45px;">
+            <p class="col-md-8 fs-4" style="color:white">이 페이지는 마이페이지입니다 학생 정보와 예약한 상담 현황을 알 수 있습니다.</p>
+            <p class="col-md-8 fs-3" style="color:white">⁜상담 신청을 해당 주만 신청 가능합니다. 상담을 취소하려면 직접 연락하세요!⁜</p>
+          </div>
+        </div>
+    
+        <div style="padding-top:30px">
+          <div class="p-4 mb-0 bg-light rounded-3 " style="margin:0px 80px 10px 30px">
+              <div class="container-fluid py-5">
+                  <div class="col">
+                    <div style="margin:0px 60px 0px 40px;">
+                      <h4 class="bg-light">학생정보</h4>
+                      <table class="table">
+                          <thead class="table-secondary">
+                          <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">이름</th>
+                              <th scope="col">학번</th>
+                              <th scope="col">메일</th>
+                              <th scope="col">전화번호</th>
+            
+                          </tr>
+                          </thead>
+                          <tbody class="table-group-divider">
+                          <tr>
+                              
+                              <th scope="row">1</th>
+                              <td><div id="ha"></td>
+                              <td><div id="ha2"></td>
+                              <td><div id="ha3"></td>
+                              <td><div id="ha4"></td>
+                              </div>
+                              
+                          </tr>
+                          </tbody>
+                      </table>
+            
+                    </div>
+                    <br>
+                    <br>
+                    <br>
+                    <div style="margin:0px 60px 0px 40px;">
+                      <h4 class="bg-light">예약 현황</h4>
+                      <table class="table table-striped" id="dataTbl">
+                          <thead class="table-secondary">
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">교수님</th>
+                              <th scope="col">교수님 메일</th>
+                              <th scope="col">상담 날짜</th>
+                              <th scope="col">상담 시간</th>
+                              <th scope="col">상담 상태</th>
+                              <th scope="col">기타  </th>
+                            </tr>
+                          </thead>
+                          
+                        </table>
+                      </div>
+                  </div>
+              </div>
+          </div>
+        
+
+      </div>
+
+      <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+          authDomain: "team-a5651.firebaseapp.com",
+          databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+          projectId: "team-a5651",
+          storageBucket: "team-a5651.appspot.com",
+          messagingSenderId: "804446190852",
+          appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);    
+
+        function getUserData(){
+            const deRef = ref(database, "students/");
+        
+            onValue(deRef, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                //console.log(childData.email,  childData.username);
+                if (sessionStorage.getItem('usermail')==childData.email){
+                    document.querySelector("#ha").innerHTML =  childData.username;
+                    document.querySelector("#ha2").innerHTML =  childData.StudentNum;
+                    document.querySelector("#ha3").innerHTML =  childData.email;
+                    document.querySelector("#ha4").innerHTML =  childData.PhonNum;
+                }
+            })
+            }, {
+                onlyOnce: true
+            });
+        }
+        var rowNum = 0; 
+        function getUserCon(){
+            const deRef = ref(database, "consultcheck/");
+            onValue(deRef, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+
+                    //console.log(childKey);
+                    
+                    if (sessionStorage.getItem('usermail')==childData.stumail){
+                      //console.log(sessionStorage.getItem('usermail'));
+                      if (childData.state!="거절"){
+                        childData.message=" ";
+                      }
+                      rowNum += 1; 
+                      var row = "<tbody class='table-group-divider'><tr><td>" + rowNum +  "</td><td>" + childData.proname + "</td><td>"+ childData.promail + "</td><td>" + childData.date + "</td><td>" + childData.time + "</td><td>" + childData.state + "</td><td>" + childData.message+"</td></tr></tbody>"
+                      $(row).appendTo('#dataTbl');
+                    }
+                })
+            }, {
+                onlyOnce: true
+            }); 
+        }
+        getUserData();
+        getUserCon();
+            
+            
+      </script>
+      
+    </html>
+    
+    <script>
+        if (sessionStorage.getItem('usermail')==null){
+            alert('로그인을 해주세요');
+            location.href='Login.html';
+        }
+        
+    </script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    
+</body>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+  //import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+  import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+  
+  const firebaseConfig4 = {
+    apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+    authDomain: "team-a5651.firebaseapp.com",
+    databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+    projectId: "team-a5651",
+    storageBucket: "team-a5651.appspot.com",
+    messagingSenderId: "804446190852",
+    appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+  };
+  const app2 = initializeApp(firebaseConfig4);
+  //const database = getDatabase(app);
+  const auth = getAuth();
+
+
+  
+  logOut.addEventListener('click',(e)=>{
+      signOut(auth).then(() => {
+      // Sign-out successful.
+      alert('user loged out');
+      sessionStorage.clear();
+      location.href='Login.html'
+      }).catch((error) => {
+          // An error happened.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          
+          //location.href='StudentLogin.html'
+          alert(errorMessage);
+      });
+
+  });
+</script>
+<script>
+  if (sessionStorage.getItem('usermail')==null){
+      alert('로그인을 해주세요');
+      location.href='Login.html';
+  }
+  
+</script>
