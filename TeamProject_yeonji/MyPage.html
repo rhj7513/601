@@ -20,7 +20,7 @@
           <br>
           <div style="padding-left: 45px;">
             <p class="col-md-8 fs-4">이 페이지는 마이페이지입니다 학생 정보와 예약한 상담 현황을 알 수 있습니다.</p>
-            <p class="col-md-8 fs-3">⁜상담 신청을 해당 주만 신청 가능합니다. 상담을 취소하려면 직접 연락하세요!</p>
+            <p class="col-md-8 fs-5">⁜상담 신청을 해당 주만 신청 가능합니다. 상담을 취소하려면 직접 연락하세요!</p>
           </div>
         </div>
     
@@ -33,6 +33,8 @@
                   <th scope="col">#</th>
                   <th scope="col">이름</th>
                   <th scope="col">메일</th>
+                  <th scope="col">학번</th>
+                  <th scope="col">전화번호</th>
 
               </tr>
               </thead>
@@ -42,6 +44,8 @@
                   <th scope="row">1</th>
                   <td><div id="ha"></td>
                   <td><div id="ha2"></td>
+                  <td><div id="ha3"></td>
+                  <td><div id="ha4"></td>
                   </div>
                   
               </tr>
@@ -101,9 +105,16 @@
                 snapshot.forEach((childSnapshot) => {
                 const childData = childSnapshot.val();
                 //console.log(childData.email,  childData.username);
+                
                 if (sessionStorage.getItem('usermail')==childData.email){
                     document.querySelector("#ha").innerHTML =  childData.username;
                     document.querySelector("#ha2").innerHTML =  childData.email;
+                    document.querySelector("#ha3").innerHTML =  childData.StudentNum;
+                    var phone = childData.PhonNum.split("");
+                    phone.splice(3,0,'-');
+                    phone.splice(8,0,'-');
+                    const fp = phone.join('');
+                    document.querySelector("#ha4").innerHTML = fp;
                 }
             })
             }, {
