@@ -12,15 +12,31 @@
   
     <div id="login-box">
         <div class="left">
-            <h1 id='status'>SignUP</h1>
-            <input type="text" id="username" name="username" placeholder="username" />
-            <input type="text" id="email" name="email" placeholder="E-mail" />
-            <input type="password" id="password" name="password" placeholder="Password" />
-            
-            <input type="submit" id='sighUp' name="sighUp" value="sighUp" />
-            <input type="submit" id='nextLogin' name="nextLogin" value="next Login" onClick="location.href='studentLogin.html'"/>
-        
-          </div>
+            <h2 id='status'>SignUP</h2>
+            <div style="padding:2px 0px 10px 0px">
+                <h1 id='status'></h1>
+                <input type="text" id="username" name="username" placeholder="username" />
+                <input type="text" id="email" name="email" placeholder="E-mail" />
+                <input type="password" id="password" name="password" placeholder="Password" />
+                
+                <input type="submit" id='sighUp' name="sighUp" value="sighUp"/>
+    
+                <!-- <script type="text/javascript">
+                    JSON.parse(window.localStorage.getItem("notice"));
+                </script> -->
+            </div> 
+        </div>
+
+        <div class="right">
+            <div style="padding: 50px 0px"></h2>
+            <div style="padding:2px 0px 10px 0px">
+                <h1 id='status'></h1>
+                <input type="text" id="StudentNum" name="StudentNumber" placeholder="Student Number" />
+                <input type="text" id="PhonNum" name="PhonNumber" placeholder="Phon Number" />
+
+                <div style="padding:23px"></div>
+                <!-- <input type="submit" id='nextLogin' name="nextLogin" value="next Login" onClick="location.href='studentLogin.html'"/> -->
+        </div>
       </div>
       
     </div>
@@ -40,47 +56,53 @@
             projectId: "team-a5651",
             storageBucket: "team-a5651.appspot.com",
             messagingSenderId: "804446190852",
-            appId: "1:804446190852:web:66473b851c3cfc1792e451"
+            appId: "1:804446190852:web:0c224d3c24ade8b792e451"
         };
-
                 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth();
         //console.log(databaseURL);
-
         sighUp.addEventListener('click',(e) => {
 
             var email = document.getElementById('email').value;
             var password = document.getElementById('password').value;
             var username = document.getElementById('username').value;
+            var StudentNum = document.getElementById('StudentNum').value;
+            var PhonNum = document.getElementById('PhonNum').value;
+
+            console.log(email);
 
             createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
             // Signed in 
                 const user = userCredential.user;
-
-                set(ref(database, 'students/' + username),{
+                console.log(email);
+                set(ref(database, 'users/' + user.uid),{
                     username: username,
-                    email: email
+                    email: email,
+                    StudentNum: StudentNum,
+                    PhonNum: PhonNum
                 })
 
                 alert('user created!');
+                location.href='studentLogin.html';
                 
+                // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
-                const errorMessage = error.message;+
+                const errorMessage = error.message;
 
                 alert(errorMessage);
-                
             // ..
             });
-
+            
 
         });
 
+        
        
 
         </script>
