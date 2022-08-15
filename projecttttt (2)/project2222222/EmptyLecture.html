@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>Empty Lecture</title>
+    <style>
+        .a {
+            background-color: #CF2A27;
+        }
+        .b {
+            background-color: #2B78E4;
+        }
+        .c {
+            background-color: #009E0F;
+        }
+
+
+    </style>
+</head>
+<body class=" bg-secondary">
+
+    <div class="p-5 mb-0" >
+        <div class="container-fluid py-3" style="margin:0px 80px 0px 30px">
+            <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
+                <!-- 로그아웃 버튼 -->
+                <input type="submit" id='logOut' name="logOut" value="logOut" />
+            </div>
+            <div class="row" >
+                <div class="col-6" >
+                    <div class="mb-1">
+                        <div style="padding:50px 0px 60px 50px" >
+                            <h1 class="display-5 fw-bold" style="color:wheat">빈 강의실 찾기!</h1>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                
+                <div class="col">
+
+                </div>
+                
+                <div class="col">
+                    <div style="padding:60px 0px 0px 50px">
+                        <div class="dropdown">
+                            <!-- <input type="hidden" id="httpMethod" value=""> -->
+                            <button class="btn btn-light dropdown-toggle" id="method_status" value="1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            시간 설정하기
+                            </button>
+                            <ul class="dropdown-menu" id="dropdown-menu">
+                                <!-- 드롭다운 누르면 나오는 아이템들 목록이다 -->
+                            <li><a class="dropdown-item" href="#" value="1">1교시(09:30 ~ 10:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="2">2교시(10:30 ~ 11:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="3">3교시(11:30 ~ 12:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="4">4교시(12:30 ~ 13:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="5">5교시(13:30 ~ 14:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="6">6교시(14:30 ~ 15:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="7">7교시(15:30 ~ 16:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="8">8교시(16:30 ~ 17:20)</a></li>
+                            <li><a class="dropdown-item" href="#" value="9">9교시(17:30 ~ 18:20)</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- style에서 z-index사용하면 보여지는 화면에서 순서를 정할 수 있따 뭐가 먼저 올라올지 밑으로 내려가서 가려질지 -->
+        <div style="position: absolute; z-index: 2;" >
+            <div class="accordion" id="accordionExample" style="padding:0px 0px 60px 60px">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button  class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            ⁜    공지!    ⁜
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <table class="table table-striped" id='dataTbl'>
+                            <tbody>
+                                <tr>
+                                    <td>번호</td>
+                                    <td>교수님 명</td>
+                                    <td>과목</td>
+                                    <td>변경시간</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-0 text-center">
+            <div class="col-sm-6 col-md-8"></div>
+            <div class="col-6 col-md-4">
+               
+                </div>
+            </div>
+            
+            
+
+        <div class="position-absolute top-50 start-50 translate-middle">
+            <div style="padding:0px 0px 0px 500px">
+                <div style="padding-top:30px">
+                    <div class="p-4 mb-0 bg-light rounded-3 " style="margin:0px 80px 10px 30px">
+                        <div class="container-fluid py-5">
+                                <div style="position:relative; z-index: 1;">
+                                    <div style="padding:30px 0px 0px 0px">
+                                        <img src="floor plan.png" alt="My Image">  
+                                        <div class="row align-items-center">
+                                            <div class="col" style="left:27px; width:30px; bottom:152px; position:absolute;">
+                                                <canvas id="436" value="436" class="b" width="25" height="25"></canvas>
+                                            </div>
+                                            <div class="col" style="left:690px; width:30px;  bottom:152px; position:absolute;">
+                                                <canvas id="410" value="410" class="b" width="25" height="25"></canvas>
+                                            </div>
+                                            <div class="col" style="left: 770px; width:30px;  bottom:152px; position:absolute;">
+                                                <canvas id="409" value="409" class="b" width="25" height="25"></canvas>
+                                            </div>
+                                        </div>
+                                        <div class="row align-items-center">
+                                            <div class="col" style="left:330px; width:30px;  bottom:8px; position:absolute;">
+                                                <canvas id="402" value="402" class="b"width="25" height="25"></canvas>
+                                            </div>
+                                            <div class="col" style="left:500px; width:30px;  bottom:8px; position:absolute;">
+                                                <canvas id="404" value="404" class="b"width="25" height="25"></canvas>
+                                            </div>
+                                            <div class="col" style="left:580px; width:30px;  bottom:8px; position:absolute;">
+                                                <canvas id="405"  value="405" class="b" width="25" height="25"></canvas>
+                                            </div>
+                                            <div class="col" style="left:670px;  width:30px; bottom:8px; position:absolute;">
+                                                <canvas id="406" value="406" class="b"width="25" height="25"></canvas>
+                                            </div>
+                                            <div class="col" style="left:755px; width:30px;  bottom:8px; position:absolute;">
+                                                <canvas id="407" value="407" class="b"width="25" height="25"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script type="module">
+            // Import the functions you need from the SDKs you need
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+            import { getDatabase, set, get, ref ,push, child, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+            import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+            // TODO: Add SDKs for Firebase products that you want to use
+            // https://firebase.google.com/docs/web/setup#available-libraries
+
+          
+            // Your web app's Firebase configuration
+            const firebaseConfig = {
+                apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+                authDomain: "team-a5651.firebaseapp.com",
+                databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+                projectId: "team-a5651",
+                storageBucket: "team-a5651.appspot.com",
+                messagingSenderId: "804446190852",
+                appId: "1:804446190852:web:66473b851c3cfc1792e451"
+            };
+                    
+            // Initialize Firebase
+            const app = initializeApp(firebaseConfig);
+            const database = getDatabase(app);
+            const auth = getAuth(); 
+
+            $(function () {
+                function send() {
+                    var httpMethod = $('#method_status').attr('data-method');
+                }
+
+                $('#dropdown-menu li > a').on('click', function () {
+                    //모든 강의실 빨간색으로 바꾸기
+                    document.getElementById("402").className="b";
+                    document.getElementById("404").className="b";
+                    document.getElementById("405").className="b";
+                    document.getElementById("406").className="b";
+                    document.getElementById("407").className="b";
+                    document.getElementById("409").className="b";
+                    document.getElementById("410").className="b";
+                    document.getElementById("436").className="b";
+
+                    $('#method_status').text($(this).text());
+                    var httpMethod = $(this).attr('value');
+                    console.log('선택된 메소드: ' + httpMethod);
+                    
+                    $('#method_status').attr('data-method', httpMethod);
+
+                    var Myelement =document.getElementById("method_status");
+                    Myelement.value=httpMethod;
+                    //console.log(httpMethod);//교시
+                    //console.log(Myelement);
+                    //console.log(document.getElementById("method_status").value);
+
+                    onValue(dbRef,(snapshot)=>{
+                        snapshot.forEach((childSnapshot)=>{
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+
+                            var cremove =childData.period.replaceAll(",","");//,를 먼저 없앰
+                            var check = new Array(cremove.split(" ")); //띄어쓰기로 나눔
+                            
+                            // var classcheck = new Array(childData.split(",")); //강의실
+                            // console.log(classcheck);
+
+                            for (var i =0; i<check[0].length; i++){
+                                if (check[0][i].charAt(0)==now){
+                                    for(var j=1; j<check[0][i].length; j++){
+                                        if (check[0][i].charAt(j)==httpMethod){//교시가 있으면
+                                            //console.log("!!!find!!!")
+                                            //console.log('강의실 : ' + childData.classroom+'시간표 : '+check[0])
+                                            if(childData.classroom.indexOf(',')!=-1)//,가 있으면 
+                                            {
+                                                var ec = childData.classroom.split(',')[i];//,가 있으면 뒤에값을 가져옴
+                                                var ecr = ec.split(" ")[1];
+                                                var evr = document.getElementById(eval('"'+ecr+'"'));
+                                                evr.className="a";
+                                            }
+                                            else{
+                                                //강의실 색 변환!
+                                                var cr = childData.classroom.split(" ")[1];
+                                                //console.log(document.getElementById("404"));
+                                                var vc = document.getElementById(eval('"'+cr+'"'));
+                                                vc.className="a";
+
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    },)
+
+                });    
+                
+            });
+            
+            
+            function getTodayLabel(){
+                var week =new Array('일요일','월요일','화요일','수요일','목요일','금요일','토요일');
+                var today =new Date().getDay();
+                var todayLabel=week[today].charAt(0);
+                return todayLabel;
+            }
+            var now = getTodayLabel()
+            //console.log(now);
+            const dbRef = ref(database,'class/');
+            logOut.addEventListener('click',(e)=>{
+                signOut(auth).then(() => {
+                // Sign-out successful.
+                alert('user loged out');
+                sessionStorage.clear();
+                location.href='Login.html'
+                }).catch((error) => {
+                    // An error happened.
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    
+                    //location.href='StudentLogin.html'
+                    alert(errorMessage);
+                });
+
+            });
+
+           
+            // $("#bt").append("<p class='bt1'><button id='bt' type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
+
+            function getData(){
+                const deRef = ref(database, "admin/");
+                var rowNum = 0; 
+                onValue(deRef, (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                    console.log(childData.professername,  childData.subject);
+                    //document.querySelector("#ha").innerHTML = "<pre>" + "<b>교수님 성함:</b> " + childData.professername + "<br> <b>바뀐 과목:</b> " + childData.subject + "<br> <b>바뀐 시간:</b> " + childData.time + "<br>";
+                    
+                    //document.querySelector("#ha1").innerHTML = "<b>교수님 성함:</b> " + childData.professername + "<br> <b>바뀐 과목:</b> " + childData.subject + "<br> <b>바뀐 시간:</b> " + childData.time + "<br>";
+                    
+                    rowNum += 1; 
+                    var row = "<tr><td>" + rowNum + "</td><td>" + childData.professername + "</td><td>" + childData.subject + "</td><td>" + childData.time +  "</td></tr>"
+                    //var row = document.querySelector("#ha1").innerHTML
+                    $(row).appendTo('#dataTbl');
+
+                    })
+                }, {
+                    onlyOnce: true
+                });
+            }
+            getData()
+
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>
