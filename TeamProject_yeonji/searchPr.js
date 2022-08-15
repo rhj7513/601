@@ -47,48 +47,7 @@ function search() {
     });
 }
 
-// 다음 페이지로 넘어가면 addRow() 함수 호출됨
-// 선택한 교수님의 정보와 상담 가능 시간을 자세히 보여줌.
-// window.onload=function addRow(){
-//     //table element 찾기
-//     const table = document.getElementById('proTable');
-//     //새 행(row) 추가
-//     const newRow = table.insertRow();
-//     //새 행(row)에 cell 추가
-//     newRow.insertCell(0).innerText=localStorage.getItem('pName');
-//     newRow.insertCell(1).innerText=localStorage.getItem('pMaj');
-//     newRow.insertCell(2).innerText=localStorage.getItem('pOff');
-//     newRow.insertCell(3).innerText=localStorage.getItem('pMail');
-//     sessionStorage.setItem('proemail',localStorage.getItem('pMail'));
-//     sessionStorage.setItem('proname',localStorage.getItem('pName'));
 
-//     //table element 찾기
-//     const table2 = document.getElementById('ConTimeTable');
-
-//     //새 행(row)에 cell 추가    
-//     const spl = localStorage.getItem('pPossible').split(' ');
-//     //const spl = localStorage.getItem('pPossible') || '';
-//     console.log(spl);   
-//     for(i=0; i<spl.length; i++)
-//     {
-//         if(i%2==1)
-//         {
-//             const spl2 = spl[i].split(',');
-            
-//             for(j=0; j<spl2.length; j++)
-//             {
-//                 for(k=0; k<2; k++)
-//                 {
-//                     //새 행(row) 추가
-//                     const newRow2 = table2.insertRow();
-//                     newRow2.insertCell(0).innerText=possConsult(spl[i-1]);
-//                     newRow2.insertCell(1).innerText=spl2[j]+(String.fromCharCode(65+k));
-//                     newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='check'></button>";
-//                 }
-//             }
-//         } 
-//     }
-// }
 
 //요일 구하는 function
 function returnWeek(uDay) {
@@ -104,7 +63,7 @@ function returnWeek(uDay) {
 //상담 가능 시간 날짜로 바꾸는 function
 function possConsult(uDay) {
     let cac = returnWeek(uDay); //요일을 숫자로 바꿔주는 함수를 호출해 cac 저장
-
+    
     let today = new Date();   
 
     //상담 가능 기간 동안에서 요일 구하기
@@ -114,8 +73,32 @@ function possConsult(uDay) {
     let year = today.getFullYear(); // 년도
     let month = today.getMonth() + 1;  // 월(0~11), 1월은 0
     //기간을 현재 날짜에서 일주일 뒤이기 때문에, 7을 더한다.
-    let date = today.getDate()+7+aa;  // 날짜(0~31)
-    
+    let date = today.getDate()+aa;  // 날짜(0~31)
+
+    if (month==1 || month==3 || month==5 || month==7 ||month==8 || month==10 || month==12){
+        if (date>31){
+            month+=1;
+            date-=31;
+        }
+    }
+    if (month==2){
+        if(((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)){//윤년이면 29일까지 있고
+            if (date>29){
+                month+=1;
+                date-=29;
+            }
+        }else{
+            if (date>28){
+                month+=1;
+                date-=28;
+            }
+        }
+    }else{
+        if (date>30){
+            month+=1;
+            date-=30;
+        }
+    }
     let dbDate = year + '-' + month + '-' + date;
 
     return dbDate;
