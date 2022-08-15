@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <title>ForgotEmail?</title>
+</head>
+<body>
+    <div style="padding:50px 0px 50px 0px">
+        <h2 class="text-center">어떻게 메일을 까먹냐~~~~.</h2>
+    </div>
+    <div class="form-gap"></div>
+
+    <div id="forgot-box">
+      <div class="text-center" style="padding-top:40px">
+        <h1 id='status'>Forgot email?</h1>
+        <p>You can reset your email here.</p>
+        
+      </div>
+      <br>  
+      <div class="position-absolute top-50 start-50 translate-middle" style="padding-top:70px">
+        <input id="name" name="name" placeholder="name" class="form-control"  type="name">
+        <br>
+        <input id="studentnumber" name="studentnumber" placeholder="studentnumber" class="form-control"  type="studentnumber">
+       
+        
+        <div style="padding-left:40px">
+            <input  type="submit" id='find' name="find" value="find" />
+        </div>
+        
+      </div>
+      <div class="position-absolute top-50 start-50 translate-middle" style="padding-top:260px">
+        <input  type="submit" id='Login' name="Login" value="Login" onClick="location.href='StudentLogin.html'"/>
+        <input  type="submit" id='findPw' name="findPw" value="findPw" onClick="location.href='Forgot_password.html'"/>
+      </div>
+
+    
+  </div>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+    import { getDatabase, set, ref, update ,onValue,get,child} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+        authDomain: "team-a5651.firebaseapp.com",
+        databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+        projectId: "team-a5651",
+        storageBucket: "team-a5651.appspot.com",
+        messagingSenderId: "804446190852",
+        appId: "1:804446190852:web:66473b851c3cfc1792e451"
+    };
+            
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    
+    find.addEventListener('click',(e)=>{
+        var name=document.getElementById("name").value;
+        var stunum=document.getElementById("studentnumber").value;
+        const deRef = ref(database, "students/");
+        var check=0;
+        var totalchild=0;
+        onValue(deRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                totalchild+=1;
+                if (name==childData.username){
+                    if (stunum==childData.StudentNum){
+                        var findmail=childData.email.split("@");
+                        var mailarry = findmail[0].split("");
+                        
+                        if(mailarry.length<=3){
+                            alert(childData.email);
+                            check-=1;
+                        }else {
+                            for(var i=3; i<findmail[0].length; i+=1){
+                                //console.log("*");
+                                mailarry[i]="*";
+                            }
+                            var fm=mailarry.join('');
+                            //console.log(fm);
+                            alert(fm+findmail[1]);
+                            check-=1;
+                        }
+                    }else{
+                        check+=1;
+                    }
+                }else{
+                    check+=1;
+                }
+            })
+            if (totalchild==check){
+                alert("아이디를 찾을 수 없습니다")
+            }
+        }, {
+            onlyOnce: true,
+            
+        }); 
+    });
+    
+    
+    
+
+
+
+  </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+</body>
+</html>

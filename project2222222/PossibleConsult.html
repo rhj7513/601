@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -39,12 +39,8 @@
     </table>
   </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
-    <form method="post">
-      <input type="button" id="sendCheck" value="Send Email" onclick="sendEmail()"/>
-    </form>  
   </body>
-  <script src="https://smtpjs.com/v3/smtp.js"></script>
-  <script src="searchPr.js"></script>
+
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
@@ -79,7 +75,6 @@
         
         var cDate = td.eq(0).text();
         var cTime = td.eq(1).text();  
-        console.log("cdate:"+cDate);
         
         var pm=sessionStorage.getItem('proemail');
         //console.log(pm);
@@ -90,6 +85,7 @@
         var totalchild=0;
         //데이터베이스에 저장되어 있는지 확인
         onValue(dbRef,(snapshot)=>{
+            console.log("asdf:",check);
             snapshot.forEach((childSnapshot)=>{
               totalchild+=1;
               console.log("total"+totalchild);
@@ -114,18 +110,6 @@
                     state : "보류"
                 })
                 alert("저장됨");
-                Email.send({
-                  Host: "smtp.elasticemail.com",
-                  Username : "team601@gmail.com",
-                  Password : "39AA6DF7E849A6132E470F49E336D45376DD",
-                  To : sessionStorage.getItem('usermail'),
-                  From : "jbh092917@gmail.com",
-                  Subject : "상담 예약 신청("+sessionStorage.getItem('username')+")",
-                  Body : "밑에 사이트 주소로 들어가, 수락 또는 거절 버튼을 눌러주세요!<br>Site Link: https://github.com/rhj7513/601<br><br>상담 신청하는 학생: "+sessionStorage.getItem('username')+"<br><br>상담 신청 날짜: "+cDate+"<br><br>상담 신청 시간(교시): "+cTime,
-                })
-                .then(function(message){
-                  alert("mail sent successfully")
-                });
             }else{
                alert("이미 예약된 시간입니다.")        
             }
@@ -187,19 +171,26 @@
               const newRow2 = table2.insertRow();
               newRow2.insertCell(0).innerText=possConsult(spl[i-1]);
               newRow2.insertCell(1).innerText=spl2[j]+(String.fromCharCode(65+k));
-              newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='reserve' onclik=\"$('#sendCheck').trigger('click');\">"
+              newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='check'></button>";
             }
           }
         }
       }
     }
     addRow();
-    //email button 숨기기
-    document.getElementById('sendCheck').style.display='none';
   </script>
 
- 
+  <script src="https://smtpjs.com/v3/smtp.js">
+  </script>
   
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-  
-</html>
+  <script src="searchPr.js"></script>
+  <script>
+    function mailClick(){
+      //console.log("불러옴:"+sessionStorage.getItem('cDate'));
+      document.getElementById('consult_day').value=sessionStorage.getItem("cDate");
+      document.getElementById('consult_time').value=sessionStorage.getItem("cTime");
+      document.getElementById('site').value="https://www.naver.com/";
+    }
+  </script>
+</html> -->

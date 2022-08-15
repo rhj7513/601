@@ -75,7 +75,7 @@
             // Sign-out successful.
             alert('user loged out');
             sessionStorage.clear();
-            location.href='StudentLogin.html'
+            location.href='Login.html'
             }).catch((error) => {
                 // An error happened.
                 const errorCode = error.code;
@@ -90,7 +90,7 @@
     <script>
         if (sessionStorage.getItem('usermail')==null){
             alert('로그인을 해주세요');
-            location.href='StudentLogin.html';
+            location.href='Login.html';
         }
         
     </script>
