@@ -32,14 +32,18 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ProfessorPage.html">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="MyPage.html">My Schedule</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ReservationService.html">Change time</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ProfessorPage.html">My Schedule</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ConsultModify.html">Change time</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
 
         <section class="page-section cta">
+            <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
+                <!-- 로그아웃 버튼 -->
+                <input type="submit" id='logOut' name="logOut" value="logOut" />
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-xl-9 mx-auto">
@@ -162,7 +166,7 @@
         // Sign-out successful.
         alert('user loged out');
         sessionStorage.clear();
-        location.href='Login.html'
+        location.href='index.html'
         }).catch((error) => {
             // An error happened.
             const errorCode = error.code;

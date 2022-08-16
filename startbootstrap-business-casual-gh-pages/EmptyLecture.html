@@ -48,8 +48,8 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Home</a></li>
                     <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="MyPage.html">MyPage</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ReservationService.html">ReservationService</a></li>
-                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="EmptyRoom.html">EmptyRoom</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="searchPr.html">ReservationService</a></li>
+                    <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="EmptyLecture.html">EmptyRoom</a></li>
                 </ul>
             </div>
         </div>
@@ -285,7 +285,7 @@
             // Sign-out successful.
             alert('user loged out');
             sessionStorage.clear();
-            location.href='Login.html'
+            location.href='index.html'
             }).catch((error) => {
                 // An error happened.
                 const errorCode = error.code;
