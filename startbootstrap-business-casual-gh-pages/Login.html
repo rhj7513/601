@@ -67,6 +67,7 @@
         login.addEventListener('click',(e)=>{
             sessionStorage.clear();
             var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
 
             signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -141,9 +142,9 @@
                 }
             })
             .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            alert(errorMessage);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage);
             });
         });
         </script>
