@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Business Casual - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+        <div style="position: absolute; z-index: 2; right: 50px;">
+            <input type="submit" id='logOut' name="logOut" value="logOut" />
+        </div>
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Welcome to the site</span>
+                <span class="site-heading-lower">Call Reservation</span> <br>
+                <span class="site-heading-lower">Find an empty room!</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">MyPage</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">ReservationService</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">EmptyRoom</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <section class="page-section">
+            <div class="container">
+                <div class="product-item">
+                    <div class="product-item-title d-flex">
+                        <div class="bg-faded p-5 d-flex me-auto rounded">
+                            <h2 class="section-heading mb-0">
+                                <span class="section-heading-upper">Adming Page</span>
+                                <span class="section-heading-lower">Enter the contents to be modified</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                
+                <div class="bg-faded p-5 rounded">
+                    현재 저장된 데이터
+                    <br><br>
+                    <table class="table table-striped" id='dataTbl'>
+                        <tbody>
+                            <tr>
+                                <td>번호</td>
+                                <td>교수명</td>
+                                <td>과목</td>
+                                <td>시간</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div id="admin-box" class="intro-text left-0 text-center bg-faded p-5 rounded">
+                    <input type="text" id="professorname" name="profassorname" placeholder="profassor name" />
+                    <br><br>
+                    <input type="text" id="subject" name="Subject" placeholder="Subject" />
+                    <br><br>
+                    <input type="text" id="time" name="time" placeholder="time" />
+                    <br><br>
+                    <!-- save Data 누르면 admin (key값)에 입력한 데이터 저장된다. -->
+                    <input class="btn btn-primary btn-x" type="submit" id='saveData' name="newData" value="save Data" />
+                    <input class="btn btn-primary btn-x" type="submit" id="delData" name="delData" value="del Data" />
+                    <br><br>
+                    <div style="padding-left:20px">
+                        <input class="btn btn-primary btn-x" type="submit"  id="checkkkk" name="chekkkk" value="확인하러가기"  onClick="location.href='EmptyLecture.html'"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section">
+            <div class="container">
+                <div class="bg-faded p-5 rounded">
+                    <h3 id='status'>교수님 추가, 수정, 삭제 할 수  있습니다</h3>
+                    <h5 id="status">예시를 보고 형식에 맞춰서 넣어주세요  </h5>
+                    <br><br>
+                    <table class="table table-striped" id='dataTbl2'>
+                        <tbody>
+                            <tr>
+                                <td>번호</td>
+                                <td>이름</td>
+                                <td>전공</td>
+                                <td>연구실</td>
+                                <td>이메일</td>
+                                <td>상담 가능 시간</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="admin-box" class="intro-text left-0 text-center bg-faded p-5 rounded">
+                    <input id="proname" name="proname" placeholder="ex)홍길동" class="form-control" type="text"/>
+                    <br>
+                    <input id="email" name="email" placeholder="ex)abcd@gmail.com" class="form-control"  type="text">
+                    <br>
+                    <input id="consultTime" name="consultTime" placeholder="ex)월 1,2 화 4" class="form-control"  type="text">
+                    <br>
+                    <input id="proOffice" name="proOffice" placeholder="ex)인문관 123호" class="form-control"  type="text">
+                    <br>
+                    <input id="protell" name="protell" placeholder="ex)010-1234-5678" class="form-control"  type="text">
+                    <br>
+                    <input class="btn btn-primary btn-x" type="submit" id='insert' name="insert" value="추가" />
+                    <input class="btn btn-primary btn-x" type="submit"  id="modify" name="modify" value="수정"/>
+                    <input class="btn btn-primary btn-x" type="submit" id="deletepro" name="deletepro" value="삭제" />
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Team 601 did a great job on the project!</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+    import { getDatabase, set, ref, update, remove, onValue, get, child} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+      authDomain: "team-a5651.firebaseapp.com",
+      databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+      projectId: "team-a5651",
+      storageBucket: "team-a5651.appspot.com",
+      messagingSenderId: "804446190852",
+      appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+    
+    saveData.addEventListener('click',(e) => {
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+
+        //remove(ref(database, 'admin/' + professorname));
+        const deRef = ref(database, "admin/");
+        var check=0;
+        var totalchild=0;
+        onValue(deRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            
+            if(professorname==childData.professername && subject==childData.subject && time==childData.time){
+                check+=1;
+            }
+        })
+        var title=subject+time;
+        if (check==0){
+            set(ref(database, 'admin/' + title),{
+                    professername: professorname,
+                    subject: subject,
+                    time: time
+                });
+            alert('저장되었습니다') 
+        }else{
+            alert("다시 입력해주세요")
+        }
+
+        }, {
+            onlyOnce: true
+    });
+    })
+
+    // remove data
+    delData.addEventListener('click',(e)=>{
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+
+        //remove(ref(database, 'admin/' + professorname));
+        const deRef = ref(database, "admin/");
+        var check=0;
+        var totalchild=0;
+        onValue(deRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            
+            if(professorname==childData.professername && subject==childData.subject){
+                check+=1;
+            }
+        })
+        if (check>=1){
+            if(!confirm("같은 수업, 교수님 입니다 시간이 다른가요?")){
+                alert("다시 입력하세요");
+            }else {
+                set(ref(database, 'admin/' + professorname),{
+                    professername: professorname,
+                    subject: subject,
+                    time: time
+                });
+                alert('저장되었습니다')
+            }
+        }
+
+
+        }, {
+            onlyOnce: true
+    });
+    })
+
+    insert.addEventListener('click',(e)=>{
+        var proname=document.getElementById("proname").value;
+        var email=document.getElementById("email").value;
+        var protell=document.getElementById("protell").value;
+        var consultTime=document.getElementById("consultTime").value;
+        var proOffice=document.getElementById("proOffice").value;
+      
+        const deRef = ref(database, "prouser/");
+        
+        var check=0;
+        var totalchild=0;
+        //동일한 게 있는지 확인
+        onValue(deRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                
+                totalchild+=1;
+
+                if (proOffice==childData.user_pOffice){
+                    alert("이미 저장된 연구실 입니다")
+                    check-=1;
+                }else if (email==childData.email){
+                    alert("동일한 이메일이 있습니다");
+                    check-=1;
+                }
+                else{
+                    check+=1;
+                }
+            })
+
+            var pass = proOffice.split(" ")[1];
+            var word = pass.replaceAll("호","");
+            var password=word+word;
+            console.log(password);
+
+            if(check==totalchild){//동일한게 없으면
+                createUserWithEmailAndPassword(auth, email, password)
+                    .then((userCredential) => {
+                        console.log(email);
+                        console.log(password);
+                    // Signed in 
+                        set(ref(database,'prouser/'+proname),{
+                            email:email,
+                            tell:protell,
+                            user_conTime:consultTime,
+                            user_pOffice:proOffice,
+                            username:proname
+                        })
+                        alert('user created!');
+                    })
+                    .catch((error) => {
+                        const errorCode = error.code;
+                        const errorMessage = error.message;
+
+                        alert(errorMessage);
+                        
+                    // ..
+                    });
+            }
+            if (email==null || proname==null || protell==null || consultTime==null || proOffice==null){
+                alert("다시 입력해주세요")
+            }
+           
+        }, {
+            onlyOnce: true
+        });
+    });
+
+    modify.addEventListener('click',(e)=>{
+        console.log("check");
+        var proname=document.getElementById("proname").value;
+        var email=document.getElementById("email").value;
+        var protell=document.getElementById("protell").value;
+        var consultTime=document.getElementById("consultTime").value;
+        var proOffice=document.getElementById("proOffice").value;
+
+        const deRef = ref(database, "prouser/");
+
+        var check=0;
+        var checkoffice=0;
+        onValue(deRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                
+                if(proOffice==childData.user_pOffice){
+                    console.log("checkeckejdkdkd"+checkoffice);
+                    checkoffice+=1;
+                }
+                if (email==childData.email){
+                    if (proname==childData.username){   
+                        check+=1;
+                    }
+                }
+            })
+            console.log("check"+check);
+        
+            if (email==null || proname==null || protell==null || consultTime==null || proOffice==null ){
+                alert("교수님 정보를 빠짐없이 입력해주세요")
+            }
+            else if (check<=1){
+                if (checkoffice<=1){
+                    //console.log("동일한게 있음");
+                    if(!confirm("정말 수정하시겠습니까?")){
+                        alert("수정 취소");
+                    }else {
+                        alert("수정 되었습니다");
+                        console.log("check2")
+                        update  (ref(database,"prouser/" + proname),{
+                            email:email,
+                            tell:protell,
+                            user_conTime:consultTime,
+                            user_pOffice:proOffice,
+                            username:proname
+                        }). then(()=>{
+                            alert("updated");
+                        })
+                        .catch((error)=>{
+                            alert(err);
+                        })
+                    }
+                }else{
+                    alert("동일한 연구실이 있으면 안됩니다")
+                }
+                
+            }else{
+                alert("다시입력해주세요")
+            }
+        }, {
+            onlyOnce: true
+        });
+    });
+
+    deletepro.addEventListener('click',(e)=>{
+      var email=document.getElementById("email").value;
+      var proname=document.getElementById("proname").value;
+      const deRef = ref(database, "prouser/");
+      var check=0;
+      var totalchild=0;
+      onValue(deRef, (snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const childData = childSnapshot.val();
+            totalchild+=1;
+            if (email==childData.email){
+                if (proname==childData.username){
+                    if(!confirm("정말 삭제하시겠습니까?")){
+                        alert("취소되었습니다");
+                    }else {
+                        alert("삭제되었습니다");
+                        remove(ref(database, 'prouser/' + proname));
+                    }
+                    check-=1;
+                }else{
+                    check+=1;
+                }
+            }else{
+                check+=1;
+            }
+        })
+        if (email==null || proname==null ){
+            ("삭제할 교수님 정보를 모두 입력해주세요")
+        }
+        else if(check==totalchild){
+            alert("해당되는 교수님 정보가 없습니다")
+        }
+        }, {
+            onlyOnce: true
+      });
+      
+    });
+
+    var rowNum = 0; 
+    const dbRef = ref(database, 'admin/');
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            // ...
+           
+            rowNum += 1; 
+            var row = "<tr><td>" + rowNum + "</td><td>" + childData.professername + "</td><td>" + childData.subject + "</td><td>" + childData.time+"</td>" 
+            $(row).appendTo('#dataTbl');
+            
+        })
+        }, {
+            onlyOnce: true
+    });
+
+    //테이블에서 교수 선택하면 해당 이름으로 search
+    $("#dataTbl").on("click","tr",function(){
+        var str = ""
+        var tdArr = new Array();   // 배열 선언
+
+        //현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+        
+        var professorname =td.eq(1).text();
+        var subject = td.eq(2).text();
+        var time = td.eq(3).text();
+
+        $('#professorname').val(professorname);
+        $('#subject').val(subject);
+        $('#time').val(time);
+        
+    });
+
+   
+    const dbRefPro = ref(database, 'prouser/');
+    var rowNum2 = 0;
+    onValue(dbRefPro, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            // ...
+           
+            if (childData.username!="admin"){
+                rowNum2 += 1; 
+                var row = "<tr><td>" + rowNum2 + "</td><td>" + childData.username + "</td><td>" + "컴퓨터공학부" + "</td><td>" + childData.user_pOffice + "</td><td>" + childData.email + "</td><td>" + childData.user_conTime + "</td></tr>"
+                $(row).appendTo('#dataTbl2');
+            }
+            
+        })
+        }, {
+            onlyOnce: true
+    });
+
+    //테이블에서 교수 선택하면 해당 이름으로 search
+    $("#dataTbl2").on("click","tr",function(){
+        var str = ""
+        var tdArr = new Array();   // 배열 선언
+
+        //현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+        
+        var modifyName =td.eq(1).text();
+        var modifymail = td.eq(4).text();
+        var modifyconT = td.eq(5).text();
+        var modifyoff = td.eq(3).text();
+        $('#proname').val(modifyName);
+        $('#email').val(modifymail);
+        $('#consultTime').val(modifyconT);
+        $('#proOffice').val(modifyoff);
+        
+    });
+
+
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
