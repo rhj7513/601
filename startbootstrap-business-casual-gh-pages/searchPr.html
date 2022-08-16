@@ -14,6 +14,9 @@
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
+        <div style="position: absolute; z-index: 2; right: 50px;">
+            <input type="submit" id='logOut' name="logOut" value="logOut" />
+        </div>
     </head>
     <body>
         <header>
@@ -222,8 +225,8 @@
     });
   </script>
   <script>
-    if (sessionStorage.getItem('usermail')==null){
-        alert('로그인을 해주세요');
-        location.href='Login.html';
-    }
+    // if (sessionStorage.getItem('usermail')==null){
+    //     alert('로그인을 해주세요');
+    //     location.href='Login.html';
+    // }
   </script>
