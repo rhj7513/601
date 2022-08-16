@@ -14,11 +14,10 @@
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
-        <div style="position: absolute; z-index: 2; right: 50px;">
-            <input type="submit" id='logOut' name="logOut" value="logOut" />
-        </div>
+       
     </head>
     <body>
+        
         <header>
             <h1 class="site-heading text-center text-faded d-none d-lg-block">
                 <span class="site-heading-upper text-primary mb-3">Welcome to the site</span>
@@ -26,22 +25,17 @@
                 <span class="site-heading-lower">Find an empty room!</span>
             </h1>
         </header>
+        
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-            <div class="container">
-                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mx-auto">
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Home</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="about.html">MyPage</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="products.html">ReservationService</a></li>
-                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="store.html">EmptyRoom</a></li>
-                    </ul>
-                </div>
-            </div>
+            
         </nav>
         <section class="page-section">
+            <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
+                <!-- 로그아웃 버튼 -->
+                <input type="submit" id='logOut' name="logOut" value="logOut" />
+            </div>
+            
             <div class="container">
                 <div class="product-item">
                     <div class="product-item-title d-flex">
@@ -155,43 +149,57 @@
     const app = initializeApp(firebaseConfig);
     const database = getDatabase(app);
     const auth = getAuth();
-    
+
+    //공지 추가
     saveData.addEventListener('click',(e) => {
         var professorname = document.getElementById('professorname').value;
         var subject = document.getElementById('subject').value;
         var time = document.getElementById('time').value;
-
-        //remove(ref(database, 'admin/' + professorname));
+        
         const deRef = ref(database, "admin/");
         var check=0;
         var totalchild=0;
+        var dataname=professorname+subject+time
         onValue(deRef, (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            const childKey = childSnapshot.key;
-            const childData = childSnapshot.val();
-            
-            if(professorname==childData.professername && subject==childData.subject && time==childData.time){
-                check+=1;
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+                
+                if(professorname==childData.professername){
+                    if (subject==childData.subject){
+                        check+=1;
+                    }
+                    
+                } 
+            })
+            if (check>=1){ 
+                if(!confirm("같은수업, 교수님 입니다 시간이 다른가요?")){
+                    alert("다시 입력하세요");
+                }else {
+                    set(ref(database, 'admin/' + dataname),{
+                        professername: professorname,
+                        subject: subject,
+                        time: time
+                    });
+                    alert('저장되었습니다')
+                }
+            }else{
+                set(ref(database, 'admin/' + dataname),{
+                        professername: professorname,
+                        subject: subject,
+                        time: time
+                    });
+                alert('저장되었습니다')
             }
-        })
-        var title=subject+time;
-        if (check==0){
-            set(ref(database, 'admin/' + title),{
-                    professername: professorname,
-                    subject: subject,
-                    time: time
-                });
-            alert('저장되었습니다') 
-        }else{
-            alert("다시 입력해주세요")
-        }
+
 
         }, {
             onlyOnce: true
     });
     })
 
-    // remove data
+
+    // 공지 삭제
     delData.addEventListener('click',(e)=>{
         var professorname = document.getElementById('professorname').value;
         var subject = document.getElementById('subject').value;
@@ -201,34 +209,34 @@
         const deRef = ref(database, "admin/");
         var check=0;
         var totalchild=0;
+
+        var dataname=professorname+subject+time;
+
         onValue(deRef, (snapshot) => {
-        snapshot.forEach((childSnapshot) => {
-            const childKey = childSnapshot.key;
-            const childData = childSnapshot.val();
-            
-            if(professorname==childData.professername && subject==childData.subject){
-                check+=1;
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+                
+                if(professorname==childData.professername && subject==childData.subject){
+                    check+=1;
+                }
+            })
+            if (check>=1){
+                if(!confirm("정말 삭제하시겠습니까?")){
+                    alert("삭제 취소");
+                }else {
+                    remove(ref(database, 'admin/' + dataname));
+                    alert('삭제되었습니다')
+                }
             }
-        })
-        if (check>=1){
-            if(!confirm("같은 수업, 교수님 입니다 시간이 다른가요?")){
-                alert("다시 입력하세요");
-            }else {
-                set(ref(database, 'admin/' + professorname),{
-                    professername: professorname,
-                    subject: subject,
-                    time: time
-                });
-                alert('저장되었습니다')
-            }
-        }
 
 
-        }, {
-            onlyOnce: true
+            }, {
+                onlyOnce: true
+        });
     });
-    })
 
+    //교수 추가
     insert.addEventListener('click',(e)=>{
         var proname=document.getElementById("proname").value;
         var email=document.getElementById("email").value;
@@ -297,6 +305,7 @@
         });
     });
 
+    //교수 수정
     modify.addEventListener('click',(e)=>{
         console.log("check");
         var proname=document.getElementById("proname").value;
@@ -314,7 +323,7 @@
                 const childData = childSnapshot.val();
                 
                 if(proOffice==childData.user_pOffice){
-                    console.log("checkeckejdkdkd"+checkoffice);
+                    //console.log("checkeckejdkdkd"+checkoffice);
                     checkoffice+=1;
                 }
                 if (email==childData.email){
@@ -361,6 +370,7 @@
         });
     });
 
+    //교수 삭제
     deletepro.addEventListener('click',(e)=>{
       var email=document.getElementById("email").value;
       var proname=document.getElementById("proname").value;
