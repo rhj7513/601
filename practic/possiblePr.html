@@ -68,37 +68,10 @@
   </div>
 
   </div>
- 
-  <!-- <div style="padding: 50px;"><h1>교수검색</h1></div> -->
 
-  <!-- <div class="col">
-    <table class="table table-striped" id='proTable'>
-        <tbody>
-            <tr>
-                <td>교수명</td>
-                <td>전공</td>
-                <td>연구실</td>
-                <td>이메일</td>
-            </tr>
-        </tbody>
-    </table>
-  </div>
-  
-
-  <div class="col">
-    <table class="table table-striped" id='ConTimeTable'>
-      <tbody>
-        <tr>
-          <td>상담 가능 요일</td>  
-          <td>상담 가능 시간</td>
-          <td>예약하기</td>
-        </tr>
-    </tbody>
-    </table>
-  </div> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <form method="post">
-      <input type="button" id="sendCheck" value="Send Email" onclick="sendEmail()"/>
+      <input type="button" id="sendCheck" value="Send Email"/>
     </form>  
   </body>
   <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -245,7 +218,7 @@
               const newRow2 = table2.insertRow();
               newRow2.insertCell(0).innerText=possConsult(spl[i-1]);
               newRow2.insertCell(1).innerText=spl2[j]+(String.fromCharCode(65+k));
-              newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='reserve' onclik=\"$('#sendCheck').trigger('click');\">"
+              newRow2.insertCell(2).innerHTML="<input class='btCheck' type='button' value='reserve' onClick=\"$('#sendCheck').trigger('click');\">"
             }
           }
         }
