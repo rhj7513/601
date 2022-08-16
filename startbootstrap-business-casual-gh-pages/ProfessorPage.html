@@ -72,9 +72,13 @@
                                 </table>
                             </div>
                             <br><br><br>
-                            <input type="submit" id='schedule' name="schedule" value="your schedule" />
+                            
                             <input type="submit" id='modify' name="modify" value="modify your schedule" onclick="location.href='ConsultModify.html'"/>
-                        
+                            <br><br><br>
+                            <p class="address mb-5">
+                                <strong>상담 예약 현황 및 중도 거절할 경우 아래로 스크롤하세요</strong>
+                                <br />
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -397,7 +401,7 @@
         // Sign-out successful.
         alert('user loged out');
         sessionStorage.clear();
-        location.href='index.html'
+        location.href='Login.html'
         }).catch((error) => {
             // An error happened.
             const errorCode = error.code;
