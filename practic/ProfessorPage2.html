@@ -149,9 +149,6 @@
             const database = getDatabase(initializeApp(firebaseConfig2));
             const reference = ref(database, 'consultcheck/'+pKey);
 
-            var message =$(".refuseText").val();
-            console.log("message:"+message);
-
             update(reference, {
                 state: "중도거절",
                 message : $(".refuseText").val()
