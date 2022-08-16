@@ -60,7 +60,7 @@
 <script type="module">
     // Import the functions you need from the SDKs you need
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getDatabase, set, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+    import { getDatabase, set, remove, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
   
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
@@ -80,6 +80,10 @@
     
     // Get a reference to the database service
     const database = getDatabase(app);
+
+    //오늘날짜 구해줌
+    const today = new Date();
+    console.log(today);
   
     const dbRef = ref(database, 'consultcheck/');
     onValue(dbRef, (snapshot) => {
@@ -97,6 +101,25 @@
                 }
               
             }  
+            const today2 = new Date(childData1.date);
+            console.log(today2);
+            console.log(today > today2);
+            if( today > today2){
+                var pm1=childData1.promail.split("@")[0]; //교수 아이디
+                var pd=childData1.date.substr(childData1.date.length-2, childData1.date.length);
+                var primary = pm1+pd+childData1.time;
+                const reference = ref(database, 'consultcheck/'+ primary);
+                if(childData1.state === '수락'){
+                    update(reference,{
+                        state: "완료"
+                    })
+                }
+                else if(childData1.state === '보류' || childData1.state === '거절' || childData1.state === '중도거절'){
+                    console.log("remove");
+                    remove(ref(database, 'consultcheck/' + primary));
+                    // alert('remove')
+                }
+            }
         })
     }, {
         onlyOnce: true
