@@ -144,7 +144,7 @@
             console.log("rTime : "+rTime);
 
             //교수 로그인 유지 시킨 데이터
-            var pemail = "yypark@sunmoon.ac.kr";
+            var pemail = sessionStorage.getItem('prousermail');
             var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime;
             const database = getDatabase(initializeApp(firebaseConfig2));
             const reference = ref(database, 'consultcheck/'+pKey);
