@@ -6,15 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
-    <title>Admin</title>
+    <title>AdminPage</title>
 </head>
 <body>
-    <div style="position: absolute; z-index: 2; right: 50px;">
-        <input class="right" type="submit" id='logOut' name="logOut" value="logOut" />
-    </div>
-    <div style="position: absolute; z-index: 2; right: 50px;">
-        <input class="right" type="submit" id='logOut' name="logOut" value="logOut" />
-    </div>
     <div class="text-bg-secondary p-3">
         <div class="container text-center">
                 <h3 class="hn-font">관리자 페이지 입니다.</h3>  
@@ -24,56 +18,185 @@
     <div style="padding:100px 0px 0px 0px" class="text-center">
         <h3 id='status'>수정할 내용 입력해주세요.</h3>
     </div>
- 
+    현재 저장된 데이터
+    <div class="col" style="padding-top:20px">
+        <table class="table table-striped" id='dataTbl'>
+            <tbody>
+                <tr>
+                    <td>번호</td>
+                    <td>교수명</td>
+                    <td>과목</td>
+                    <td>시간</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <div id="admin-box">
         <!-- <h1 id='status' style="padding-bottom:20px">수정할 내용 입력해주세요.</h1> -->
-        <div class="left2">
+        <div class="position-absolute top-50 start-50 translate-middle" style="padding-top:10px">
+            
             <input type="text" id="professorname" name="profassorname" placeholder="profassor name" />
-            <input type="text" id="Subject" name="Subject" placeholder="Subject" />
+            <input type="text" id="subject" name="Subject" placeholder="Subject" />
             <input type="text" id="time" name="time" placeholder="time" />
             
-            <input type="submit" id='Check' name="Check" value="Check" />
-        
+            <!-- save Data 누르면 admin (key값)에 입력한 데이터 저장된다. -->
+            <input type="submit" id='saveData' name="newData" value="save Data" />
+           
+            <input type="submit" id="delData" name="delData" value="del Data" />
+            <div style="padding-left:60px">
+            <input type="submit"  id="checkkkk" name="chekkkk" value="확인하러가기"  onClick="location.href='EmptyLecture.html'"/>
             </div>
-    </div>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-analytics.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+      </div>
         
-        const firebaseConfig = {
-            apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
-            authDomain: "team-a5651.firebaseapp.com",
-            databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
-            projectId: "team-a5651",
-            storageBucket: "team-a5651.appspot.com",
-            messagingSenderId: "804446190852",
-            appId: "1:804446190852:web:66473b851c3cfc1792e451"
-        };
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const auth = getAuth();
+    </div>
 
-
-        logOut.addEventListener('click',(e)=>{
-            signOut(auth).then(() => {
-            // Sign-out successful.
-            alert('user loged out');
-            sessionStorage.clear();
-            location.href='StudentLogin.html'
-            }).catch((error) => {
-                // An error happened.
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                
-                //location.href='StudentLogin.html'
-                alert(errorMessage);
-            });
-
-        });
-
-    </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    
 </body>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+
+    import { getDatabase, ref, set, remove, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+      authDomain: "team-a5651.firebaseapp.com",
+      databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+      projectId: "team-a5651",
+      storageBucket: "team-a5651.appspot.com",
+      messagingSenderId: "804446190852",
+      appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    
+    saveData.addEventListener('click',(e) => {
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+
+        //remove(ref(database, 'admin/' + professorname));
+        const deRef = ref(database, "admin/");
+        var check=0;
+        var totalchild=0;
+        onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            
+            if(professorname==childData.professername && subject==childData.subject && time==childData.time){
+                check+=1;
+            }
+        })
+        var title=subject+time;
+        if (check==0){
+            set(ref(database, 'admin/' + title),{
+                    professername: professorname,
+                    subject: subject,
+                    time: time
+                });
+                alert('저장되었습니다') 
+            alert("저장합니다")
+        }else{
+            alert("다시 입력해주세요")
+        }
+
+        }, {
+            onlyOnce: true
+    });
+    })
+
+
+
+
+
+    // remove data
+    delData.addEventListener('click',(e)=>{
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+
+        //remove(ref(database, 'admin/' + professorname));
+        const deRef = ref(database, "admin/");
+        var check=0;
+        var totalchild=0;
+        onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            
+            if(professorname==childData.professername && subject==childData.subject){
+                check+=1;
+            }
+        })
+        if (check>=1){
+            if(!confirm("같은 수업, 교수님 입니다 시간이 다른가요?")){
+                alert("다시 입력하세요");
+            }else {
+                set(ref(database, 'admin/' + professorname),{
+                    professername: professorname,
+                    subject: subject,
+                    time: time
+                });
+                alert('저장되었습니다')
+            }
+        }
+
+
+        }, {
+            onlyOnce: true
+    });
+    })
+
+
+
+    var rowNum = 0; 
+    const dbRef = ref(database, 'admin/');
+    
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            // ...
+           
+            rowNum += 1; 
+            var row = "<tr><td>" + rowNum + "</td><td>" + childData.professername + "</td><td>" + childData.subject + "</td><td>" + childData.time+"</td>" 
+            $(row).appendTo('#dataTbl');
+            
+        })
+        }, {
+            onlyOnce: true
+    });
+
+    //테이블에서 교수 선택하면 해당 이름으로 search
+    $("#dataTbl").on("click","tr",function(){
+        var str = ""
+        var tdArr = new Array();   // 배열 선언
+
+        //현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+        
+        var professorname =td.eq(1).text();
+        var subject = td.eq(2).text();
+        var time = td.eq(3).text();
+
+        $('#professorname').val(professorname);
+        $('#subject').val(subject);
+        $('#time').val(time);
+        
+    });
+
+
+
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
 </html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
