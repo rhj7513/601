@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Business Casual - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="position-absolute top-0 end-0" style="padding-right:80px;">
+            <!-- 로그아웃 버튼 -->
+            <input type="submit" id='logOut' name="logOut" value="logOut" />
+        </div>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Welcome to the site</span>
+                <span class="site-heading-lower">Call Reservation</span> <br>
+                <span class="site-heading-lower">Find an empty room!</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+         <!-- Navigation-->
+         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="ProfessorPage.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ProfessorPage.html">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="MyPage.html">My Schedule</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ReservationService.html">Change time</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <section class="page-section cta">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 mx-auto">
+                        <div class="cta-inner bg-faded text-center rounded">
+                            <h2 class="section-heading mb-5">
+                                <span class="section-heading-upper">Consultation reservation</span>
+                                <span class="section-heading-lower">reservation status</span>
+                            </h2>
+                            <p class="address mb-5">
+                                <strong>날짜를 확인하고 수락할지 거절할지 선택해주세요</strong>
+                                <br />
+                                거절할 경우, 사유를 작성해주세요
+                            </p>
+                            <div class="col">
+                                <table class="table table-striped" id='ConTimeTable'>
+                                <tbody>
+                                    <tr>
+                                        <td>학생 이름</td>  
+                                        <td>날짜</td>
+                                        <td>시간</td>
+                                        <td>확인</td>
+                                        <td>거절</td>
+                                        <td>기타(거절사유를 작성해주세요)</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+                            </div>
+                            <br><br><br>
+                            <input type="submit" id='schedule' name="schedule" value="your schedule" />
+                            <input type="submit" id='modify' name="modify" value="modify your schedule" onclick="location.href='ConsultModify.html'"/>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section about-heading">
+            <div class="container">
+                <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
+                <div class="about-heading-content">
+                    <div id="div1" class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                                <h2 class="section-heading mb-4">
+                                    <span class="section-heading-upper">Consultation</span>
+                                    <span class="section-heading-lower">reservation schedule</span>
+                                </h2>
+                                <p class="address mb-5">
+                                    <strong>실시간으로 확인하려면 새로고침 해주세요</strong>
+                                    <br />
+                                    중도 거절할 경우 사유를 작성한 후 거절해주세요
+                                </p>
+                                <div class="col">
+                                    <table class="table table-striped" id='ConTimeTable2'>
+                                    <tbody>
+                                        <tr>
+                                            <td>학생 이름</td>
+                                            <td>학생 메일</td>  
+                                            <td>날짜</td>
+                                            <td>시간</td>
+                                            <td>중도 거절</td>
+                                            <td>기타(거절사유를 작성해주세요)</td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                </div>
+
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Team 601 did a great job on the project!</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    </body>
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script>	
+    $(document).ready(function(){		
+        $('#schedule').click(function(){			
+            var offset = $('#div1').offset(); //선택한 태그의 위치를 반환                
+            //animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 	        
+            $('html').animate({scrollTop : offset.top}, 400);		
+        });	
+    });
+</script>
+
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, set, remove, update, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+  
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+  
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+      authDomain: "team-a5651.firebaseapp.com",
+      databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+      projectId: "team-a5651",
+      storageBucket: "team-a5651.appspot.com",
+      messagingSenderId: "804446190852",
+      appId: "1:804446190852:web:66473b851c3cfc1792e451"
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    // Get a reference to the database service
+    const database = getDatabase(app);
+
+    //오늘날짜 구해줌
+    const today = new Date();
+    console.log(today);
+
+
+    //수락 거절 선택
+    const dbRef = ref(database, 'consultcheck/');
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childData1 = childSnapshot.val();
+
+            const dbRef2 = ref(database, 'students/');
+
+            if(sessionStorage.getItem('prousermail')==childData1.promail)
+            {
+                if(childData1.state==='보류'){
+                    var row = "<tr><td>" + childData1.stuname + "</td><td>" + childData1.date + "</td><td>" + childData1.time + "</td><td><input class='btAccept' type='button' value='Accept'></button></td>" + "<td><input class='btRefuse' type='button' value='Refuse'></button></td>" + "<td><input class='refuseText' id='refuseText' type='text'></td>" + "</td></tr>"
+                    $(row).appendTo('#ConTimeTable');
+
+                }
+              
+            }  
+            const today2 = new Date(childData1.date);
+            console.log(today2);
+            console.log(today > today2);
+            if( today > today2){
+                var pm1=childData1.promail.split("@")[0]; //교수 아이디
+                var pd=childData1.date.substr(childData1.date.length-2, childData1.date.length);
+                var primary = pm1+pd+childData1.time;
+                const reference = ref(database, 'consultcheck/'+ primary);
+                if(childData1.state === '수락'){
+                    update(reference,{
+                        state: "완료"
+                    })
+                }
+                else if(childData1.state === '보류' || childData1.state === '거절' || childData1.state === '중도거절'){
+                    remove(ref(database, 'consultcheck/' + primary));
+                    // alert('remove')
+                }
+            }
+        })
+    }, {
+        onlyOnce: true
+    });
+
+
+
+    //중도거절할 때 
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childData1 = childSnapshot.val();
+
+            const dbRef2 = ref(database, 'students/');
+
+            if(sessionStorage.getItem('prousermail')==childData1.promail)
+            {
+                if(childData1.state==='수락'){
+                    var row = "<tr><td>" + childData1.stuname + "</td><td>" + childData1.stumail + "</td><td>" + childData1.date + "</td><td>" + childData1.time + "<td><input class='btreRefuse' type='button' value='Refuse'></button></td>" + "<td><input class='refuseText' id='refuseText' type='text'></td>" + "</td></tr>"
+                    $(row).appendTo('#ConTimeTable2');
+
+                }
+              
+            }  
+        })
+    }, {
+        onlyOnce: true
+    });
+
+
+
+    //수락을 누르면
+    $(document).ready(function() {
+        $(document).on('click',".btAccept",function() { 
+            console.log("btAccept");
+                    
+            var str = ""
+            var tdArr = new Array();   // 배열 선언
+            var checkBtn = $(this);
+            
+            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+            var tr = checkBtn.parent().parent();
+            var td = tr.children();
+            
+            // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+            
+            var aName = td.eq(0).text();
+            var aDate = td.eq(1).text();
+            var aTime = td.eq(2).text();
+            console.log("aName : "+aName);
+            console.log("aDate : "+aDate);
+            console.log("aTime : "+aTime);
+
+            //교수 로그인 유지 시킨 데이터
+            var pemail = sessionStorage.getItem('prousermail');
+            var pKey = pemail.split("@")[0]+aDate.split("-")[2]+aTime;
+            const database = getDatabase(initializeApp(firebaseConfig));
+            const reference = ref(database, 'consultcheck/'+pKey);
+            update(reference, {
+                state: "수락"
+            })
+            alert("수락하였습니다")
+        });
+    });
+    
+    
+    //거절을 누르면
+    $(document).ready(function() {
+        $(document).on('click',".btRefuse",function() { 
+            console.log("btRefuse");
+                    
+            var str = ""
+            var tdArr = new Array();   // 배열 선언
+            var checkBtn = $(this);
+            
+            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+            var tr = checkBtn.parent().parent();
+            var td = tr.children();
+            
+            // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+            
+            var rName = td.eq(0).text();
+            var rDate = td.eq(1).text();
+            var rTime = td.eq(2).text();
+            console.log("rName : "+rName);
+            console.log("rDate : "+rDate);
+            console.log("rTime : "+rTime);
+
+            //교수 로그인 유지 시킨 데이터
+            var pemail = sessionStorage.getItem('prousermail');
+            var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime;
+            const database = getDatabase(initializeApp(firebaseConfig));
+            const reference = ref(database, 'consultcheck/'+pKey);
+
+
+            var message =$(".refuseText").val();
+            console.log("message:"+message);
+
+            update(reference, {
+                state: "거절",
+                message : $(".refuseText").val()
+            })
+            alert("거절하였습니다")
+        });
+    });
+
+
+
+    //중도거절
+    $(document).ready(function() {
+        $(document).on('click',".btreRefuse",function() { 
+            console.log("btreRefuse");
+                    
+            var str = ""
+            var tdArr = new Array();   // 배열 선언
+            var checkBtn = $(this);
+            
+            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
+            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
+            var tr = checkBtn.parent().parent();
+            var td = tr.children();
+            
+            // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
+            
+            var rName = td.eq(0).text();
+            var rmail = td.eq(1).text();
+            var rDate = td.eq(2).text();
+            var rTime = td.eq(3).text();
+            
+            console.log("rName : "+rName);
+            console.log("rDate : "+rDate);
+            console.log("rTime : "+rTime);
+
+            //교수 로그인 유지 시킨 데이터
+            var pemail = sessionStorage.getItem('prousermail');
+            var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime;
+            const database = getDatabase(initializeApp(firebaseConfig));
+            const reference = ref(database, 'consultcheck/'+pKey);
+
+            update(reference, {
+                state: "중도거절",
+                message : $(".refuseText").val()
+            })
+            Email.send({
+                  Host: "smtp.elasticemail.com",
+                  Username : "team601@gmail.com",
+                  Password : "39AA6DF7E849A6132E470F49E336D45376DD",
+                  To : rmail,
+                  From : "jbh092917@gmail.com",
+                  Subject : "상담 중도 거절("+sessionStorage.getItem('prousername')+")",
+                  Body : "**"+sessionStorage.getItem('prousername')+"교수님이 상담을 중도 거절했습니다.**<br>Site Link: https://github.com/rhj7513/601<br><br>상담 신청한 교수님: "+sessionStorage.getItem('prousername')+"<br><br>상담 신청 날짜: "+rDate+"<br><br>상담 신청 시간(교시): "+rTime+"<br><br>중도 거절 이유: "+$(".refuseText").val(),
+                })
+                .then(function(message){
+                  alert("중도 거절이 완료되었습니다. 학생에게 메일로 변경 사항을 전송했습니다.")
+                });
+        });
+    });
+    document.getElementById('sendCheck').style.display='none';
+  
+    
+    
+
+    
+  </script>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+    //import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+    
+    const firebaseConfig3 = {
+        apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+        authDomain: "team-a5651.firebaseapp.com",
+        databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+        projectId: "team-a5651",
+        storageBucket: "team-a5651.appspot.com",
+        messagingSenderId: "804446190852",
+        appId: "1:804446190852:web:66473b851c3cfc1792e451"
+    };
+    const app1 = initializeApp(firebaseConfig3);
+    //const database = getDatabase(app);
+    const auth = getAuth();
+
+
+    
+    logOut.addEventListener('click',(e)=>{
+        signOut(auth).then(() => {
+        // Sign-out successful.
+        alert('user loged out');
+        sessionStorage.clear();
+        location.href='Login.html'
+        }).catch((error) => {
+            // An error happened.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            
+            //location.href='StudentLogin.html'
+            alert(errorMessage);
+        });
+
+    });
+
+</script>
+<script>
+    if (sessionStorage.getItem('prousermail')==null){
+        alert('로그인을 해주세요');
+        location.href='Login.html';
+    }
+    
+  </script>
