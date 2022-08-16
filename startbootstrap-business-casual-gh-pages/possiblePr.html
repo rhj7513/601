@@ -187,7 +187,7 @@
                   To : sessionStorage.getItem('usermail'),
                   From : "jbh092917@gmail.com",
                   Subject : "상담 예약 신청("+sessionStorage.getItem('username')+")",
-                  Body : "밑에 사이트 주소로 들어가, 수락 또는 거절 버튼을 눌러주세요!<br>Site Link: https://github.com/rhj7513/601<br><br>상담 신청하는 학생: "+sessionStorage.getItem('username')+"<br><br>상담 신청 날짜: "+cDate+"<br><br>상담 신청 시간(교시): "+cTime,
+                  Body : "밑에 사이트 주소로 들어가, 수락 또는 거절 버튼을 눌러주세요!<br>Site Link: https://rhj7513.github.io/601/startbootstrap-business-casual-gh-pages<br><br>상담 신청하는 학생: "+sessionStorage.getItem('username')+"<br><br>상담 신청 날짜: "+cDate+"<br><br>상담 신청 시간(교시): "+cTime,
                 })
                 .then(function(message){
                   alert("mail sent successfully")

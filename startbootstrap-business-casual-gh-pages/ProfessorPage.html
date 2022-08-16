@@ -72,13 +72,9 @@
                                 </table>
                             </div>
                             <br><br><br>
-                            
+                            <input type="submit" id='schedule' name="schedule" value="your schedule" />
                             <input type="submit" id='modify' name="modify" value="modify your schedule" onclick="location.href='ConsultModify.html'"/>
-                            <br><br><br>
-                            <p class="address mb-5">
-                                <strong>상담 예약 현황 및 중도 거절할 경우 아래로 스크롤하세요</strong>
-                                <br />
-                            </p>
+                        
                         </div>
                     </div>
                 </div>
@@ -361,7 +357,7 @@
                   To : rmail,
                   From : "jbh092917@gmail.com",
                   Subject : "상담 중도 거절("+sessionStorage.getItem('prousername')+")",
-                  Body : "**"+sessionStorage.getItem('prousername')+"교수님이 상담을 중도 거절했습니다.**<br>Site Link: https://github.com/rhj7513/601<br><br>상담 신청한 교수님: "+sessionStorage.getItem('prousername')+"<br><br>상담 신청 날짜: "+rDate+"<br><br>상담 신청 시간(교시): "+rTime+"<br><br>중도 거절 이유: "+$(".refuseText").val(),
+                  Body : "**"+sessionStorage.getItem('prousername')+"교수님이 상담을 중도 거절했습니다.**<br>Site Link: https://rhj7513.github.io/601/startbootstrap-business-casual-gh-pages<br><br>상담 신청한 교수님: "+sessionStorage.getItem('prousername')+"<br><br>상담 신청 날짜: "+rDate+"<br><br>상담 신청 시간(교시): "+rTime+"<br><br>중도 거절 이유: "+$(".refuseText").val(),
                 })
                 .then(function(message){
                   alert("중도 거절이 완료되었습니다. 학생에게 메일로 변경 사항을 전송했습니다.")
@@ -401,7 +397,7 @@
         // Sign-out successful.
         alert('user loged out');
         sessionStorage.clear();
-        location.href='Login.html'
+        location.href='index.html'
         }).catch((error) => {
             // An error happened.
             const errorCode = error.code;
