@@ -11489,3 +11489,27 @@ p {
 .address strong {
   font-size: 1.2rem;
 }
+
+.table {
+  table-layout:fixed;
+  width:100%;
+  text-align:center;
+}
+.table th { 
+  background:#ccc;
+}
+.table td, .table th {
+  padding:10px 20px;
+  border-top:1px solid #ccc;
+  word-break:break-all
+}
+.table--min {
+  min-width:700px;
+}
+
+@media screen and (max-width:768px) {
+  /*normal*/
+  .table-box {
+    overflow-x:auto;
+  }
+}
