@@ -26,8 +26,8 @@ function search() {
                 
                 check++; //일치하는 이름 있으면 1증가
                 
-                $("#pro").append("<p class='pro1'>"+searchPr+"</p>");
-                $("#major").append("<p class='major1'>컴퓨터공학부</p>");
+                $("#pro").append("<p class='pro1' style='color:wheat'>"+searchPr+"</h6>");
+                $("#major").append("<p class='major1' style='color:wheat'>컴퓨터공학부</p>");
                 $("#bt").append("<p class='bt1'><button id='bt' type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
 
                 localStorage.setItem('pName',cell_1);
