@@ -316,33 +316,53 @@
 
         const deRef = ref(database, "prouser/");
 
-        var check=0;
+        var checkE=0;
         var checkoffice=0;
-        var totalchild=0;
+        var checkN=0;
         onValue(deRef, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
                 const childData = childSnapshot.val();
                 
                 if(proOffice==childData.user_pOffice){
                     //console.log("checkeckejdkdkd"+checkoffice);
-                    checkoffice+=1;
+                    if(childData.username!=proname)
+                    {
+                        checkoffice+=1;
+                    }
                 }
                 if (email==childData.email){
-                    if (proname==childData.username){   
-                        check+=1;
+                    if(childData.username!=proname)
+                    {
+                        checkE+=1;
+                    }
+                }
+                if (proname==childData.username){   
+                    if(childData.username!=proname)
+                    {
+                        checkN+=1;
                     }
                 }
             })
-            console.log("check"+check);
+            console.log("checkE"+checkE);
+            console.log("checkN"+checkN);
         
             if (email==null || proname==null || protell==null || consultTime==null || proOffice==null ){
                 alert("교수님 정보를 빠짐없이 입력해주세요")
             }
-            else if (check<=1){
+            else if(checkE>=1)
+            {
+                alert("동일한 이메일이 있으면 안됩니다")
+            }
+            else if(checkN>=1)
+            {
+                alert("동일한 이름이 있으면 안됩니다")
+            }
+            else if(checkoffice>=1){
+                alert("동일한 연구실이 있으면 안됩니다")
+            }
+            else{
                 console.log("checkoffice"+checkoffice);
-                if (checkoffice<=1){
-                    //console.log("동일한게 있음");
-                    if(!confirm("정말 수정하시겠습니까?")){
+                if(!confirm("정말 수정하시겠습니까?")){
                         alert("수정 취소");
                     }else {
                         alert("수정 되었습니다");
@@ -360,13 +380,8 @@
                             alert(err);
                         })
                     }
-                }else{
-                    alert("동일한 연구실이 있으면 안됩니다")
-                }
-                
-            }else{
-                alert("다시입력해주세요")
             }
+
         }, {
             onlyOnce: true
         });
