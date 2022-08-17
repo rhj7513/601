@@ -318,6 +318,7 @@
 
         var check=0;
         var checkoffice=0;
+        var totalchild=0;
         onValue(deRef, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
                 const childData = childSnapshot.val();
@@ -338,6 +339,7 @@
                 alert("교수님 정보를 빠짐없이 입력해주세요")
             }
             else if (check<=1){
+                console.log("checkoffice"+checkoffice);
                 if (checkoffice<=1){
                     //console.log("동일한게 있음");
                     if(!confirm("정말 수정하시겠습니까?")){
