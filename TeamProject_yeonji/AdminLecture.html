@@ -178,7 +178,7 @@
                                                 <button id="436" value="436" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
                                             <div class="col" style="left:100px; width:30px; bottom:155px; position:absolute;">
-                                                <button id="437" class="c" onclick="reply_click(this.id)"></button>
+                                                <button id="437" class="" onclick="reply_click(this.id)"></button>
                                             </div>
                                             <div class="col" style="left:190px; width:30px; bottom:155px; position:absolute;">
                                                 <button id="438" class="c" onclick="reply_click(this.id)"></button>
@@ -218,7 +218,7 @@
                                             </div>
                                         </div>
                                         <div class="row align-items-center">
-                                            <div class="col" style="left:320px; width:30px; bottom:8px; position:absolute;">
+                                            <div class="col" style="left:310px; width:30px; bottom:8px; position:absolute;">
                                                 <!-- <canvas id="402" value="402" class="b"width="25" height="25"></canvas> -->
                                                 <button id="402" value="402" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
@@ -276,7 +276,7 @@
             document.getElementById("search").innerHTML="<div style='text-align: center;' class='searchLecture' id='search'> <h4>"+
                 clicked_id+"</h4>";
             document.getElementById("pre").innerHTML = "<h6> 검정 버튼을 클릭하세요 </h6> <div style='padding:10px 0px 10px 0px'> "; 
-            document.getElementById("lecture").innerHTML = "<input class='circle' type='button' id='lecture' value='lecture' onclick='lecture()'/> 강의실&nbsp;&nbsp;";
+            document.getElementById("lecture").innerHTML = "<input class='circle' type='button' id='lecture' value='lecture' onclick='lecture()'/> 강의실 추가/삭제&nbsp;&nbsp;";
             document.getElementById("prolab").innerHTML = "<input class='circle' type='button' id='pro' value='pro' onclick='prolab()' /> 교수님 연구실&nbsp;&nbsp;";
             document.getElementById("etc").innerHTML = "<input class='circle' type='button' id='etc' value='etc' onclick='etc()' /> 기타 </div>";
         }
@@ -355,15 +355,58 @@
         }
 
         //lecture 데이터베이스에 있는 값 읽어와서 class를 b
+        //처음에만 실행
+        //getLectureData();
         function getLectureData(){
-            const deRef = ref(database, "lecture/");
+            const deRef = ref(database, "class/");
+            const db= ref(database,"lecture/");
             var i=0;
             onValue(deRef, (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
                     const childKey = childSnapshot.key;
                     const childData = childSnapshot.val();
-                   
-                    
+
+                    if(childData.classroom.indexOf(',')!=-1){//,가 있으면
+                        var ec = childData.classroom.split(',')[1];//,가 있으면 뒤에 값을 가져옴
+                        var ecr = ec.split(" ")[1];
+                        console.log(ecr);
+                        set(ref(database,'lecture/'+ecr),{
+                            lecture:ecr,
+                            classlec:"b"
+                        })
+                    }
+                    else{
+                        //강의실 색 변환!
+                        var cr = childData.classroom.split(" ")[1];
+                        //console.log(document.getElementById("404"));
+                        set(ref(database,'lecture/'+cr),{
+                            lecture:cr,
+                            classlec:"b"
+                        })
+                    }
+                })
+                
+            }, {
+                onlyOnce: true
+            });
+        }
+
+        // 강의실인 것은 파란색 버튼으로 나오게 함
+        function getLectureState(){
+            const db= ref(database,"lecture/");
+
+            var i=0;
+            onValue(db, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+
+                    if(childData.classlec=="b"){
+                        document.getElementById(childKey).className="b";
+                    }
+                    else if(childData.classlec=="c"){
+                        document.getElementById(childKey).className="c";
+                    }
                 })
                 
             }, {
@@ -372,27 +415,49 @@
         }
 
         getProData();
-        getLectureData();
+        getLectureState();
 
-        
-
+        //강의실 추가
         lecture.addEventListener('click',(e)=>{
             const deRef = ref(database, "lecture/");
-
             var lec = document.getElementById("search").innerText;
-            if(confirm("정말 "+lec+"호에 강의실을 추가 하실 건가요?")==true){
-                if(lec == document.getElementById(lec).value){
-                    alert("이미 있는 강의실 입니다");
-                }else{
-                    //html추가
-                    document.getElementById(lec).className="b";
-                    var div= document.getElementById(lec).innerHTML;
-                    console.log(div);
-                    set(ref(database,'lecture/'+lec),{
-                          lecture:lec 
+            
+
+            if(confirm("정말 "+lec+"호에 강의실을 추가하거나 삭제하실 건가요?")==true){
+                var del =0;
+                var ins=0;
+                const deRef = ref(database, "lecture/");
+                onValue(deRef, (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        
+                        if(lec == childKey && childData.classlec=="b"){
+                            del+=1;
+                        }else if(lec == childKey){
+                            ins+=1;
+                            document.getElementById(lec).className="b";
+                            set(ref(database,'lecture/'+lec),{
+                                lecture:lec,
+                                classlec:"b"
+                            })
+                            alert("추가되었습니다.")
+                        }
                     })
-                    alert("추가되었습니다.")
-                }
+                    if(del==1){
+                        set(ref(database,'lecture/'+lec),{
+                            lecture:lec,
+                            classlec:"c"
+                        })
+                        alert("삭제되었습니다");
+                    }
+                    
+
+
+
+                }, {
+                    onlyOnce: true
+                });   
             }else{
                 return;
             }
@@ -400,86 +465,149 @@
         
 
         //새 교수님 추가
-       
+        
+
 
         //기타 추가
         
         
       
-        var arrlecture=new Array();
-        var i=0;
+        
+       
         $(function () {
             function send() {
                 var httpMethod = $('#method_status').attr('data-method');
             }
 
             $('#dropdown-menu li > a').on('click', function () {
+                var arrlecture=new Array();
+                var i=0;
                 
-                //모든 강의실 파란색으로 바꾸기
-                document.getElementById("402").className="b";
-                document.getElementById("404").className="b";
-                document.getElementById("405").className="b";
-                document.getElementById("406").className="b";
-                document.getElementById("407").className="b";
-                document.getElementById("409").className="b";
-                document.getElementById("410").className="b";
-                document.getElementById("436").className="b";
-                // for(var j=0;j<arrlecture.length; j++){
-                //     document.getElementById(arrlecture[j]).className="b";
-                // }
+                const deRef = ref(database, "lecture/");
 
-
-                $('#method_status').text($(this).text());
-                var httpMethod = $(this).attr('value');
-                console.log('선택된 메소드: ' + httpMethod);
-                
-                $('#method_status').attr('data-method', httpMethod);
-
-                var Myelement =document.getElementById("method_status");
-                Myelement.value=httpMethod;
-                //console.log(httpMethod);//교시
-                //console.log(Myelement);
-                //console.log(document.getElementById("method_status").value);
-                const db = ref(database, "class/");
-                onValue(db,(snapshot)=>{
-                    snapshot.forEach((childSnapshot)=>{
+                onValue(deRef, (snapshot) => {
+                    snapshot.forEach((childSnapshot) => {
                         const childKey = childSnapshot.key;
                         const childData = childSnapshot.val();
-
-                        var cremove =childData.period.replaceAll(",","");//,를 먼저 없앰
-                        var check = new Array(cremove.split(" ")); //띄어쓰기로 나눔
                         
-                        // var classcheck = new Array(childData.split(",")); //강의실
-                        // console.log(classcheck);
+                        var l= childData.lecture; 
+                        if(childData.classlec=="b"){
+                            //console.log(l);
+                            arrlecture[i]=l;
+                            i+=1;
+                        }
+                    })
+                    console.log(arrlecture.length);
+                    //모든 강의실 파란색으로 바꾸기
+                    // document.getElementById("402").className="b";
+                    // document.getElementById("404").className="b";
+                    // document.getElementById("405").className="b";
+                    // document.getElementById("406").className="b";
+                    // document.getElementById("407").className="b";
+                    // document.getElementById("409").className="b";
+                    // document.getElementById("410").className="b";
+                    // document.getElementById("436").className="b";
+                    for(var j=0; j<arrlecture.length; j++){
+                        document.getElementById(arrlecture[j]).className="b";
+                    }
+                    $('#method_status').text($(this).text());
+                    var httpMethod = $(this).attr('value');
+                    console.log('선택된 메소드: ' + httpMethod);
+                    
+                    $('#method_status').attr('data-method', httpMethod);
 
-                        for (var i =0; i<check[0].length; i++){
-                            if (check[0][i].charAt(0)==now){
-                                for(var j=1; j<check[0][i].length; j++){
-                                    if (check[0][i].charAt(j)==httpMethod){//교시가 있으면
-                                        //console.log("!!!find!!!")
-                                        //console.log('강의실 : ' + childData.classroom+'시간표 : '+check[0])
-                                        if(childData.classroom.indexOf(',')!=-1)//,가 있으면 
-                                        {
-                                            var ec = childData.classroom.split(',')[i];//,가 있으면 뒤에값을 가져옴
-                                            var ecr = ec.split(" ")[1];
-                                            var evr = document.getElementById(eval('"'+ecr+'"'));
-                                            evr.className="a";
-                                        }
-                                        else{
-                                            //강의실 색 변환!
-                                            var cr = childData.classroom.split(" ")[1];
-                                            //console.log(document.getElementById("404"));
-                                            var vc = document.getElementById(eval('"'+cr+'"'));
-                                            vc.className="a";
+                    var Myelement =document.getElementById("method_status");
+                    Myelement.value=httpMethod;
+                    //console.log(httpMethod);//교시
+                    //console.log(Myelement);
+                    //console.log(document.getElementById("method_status").value);
+                    const db = ref(database, "class/");
+                    onValue(db,(snapshot)=>{
+                        snapshot.forEach((childSnapshot)=>{
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
 
+                            var cremove =childData.period.replaceAll(",","");//,를 먼저 없앰
+                            var check = new Array(cremove.split(" ")); //띄어쓰기로 나눔
+                            
+                            // var classcheck = new Array(childData.split(",")); //강의실
+                            // console.log(classcheck);
+
+                            for (var i =0; i<check[0].length; i++){
+                                if (check[0][i].charAt(0)==now){
+                                    for(var j=1; j<check[0][i].length; j++){
+                                        if (check[0][i].charAt(j)==httpMethod){//교시가 있으면
+                                            //console.log("!!!find!!!")
+                                            //console.log('강의실 : ' + childData.classroom+'시간표 : '+check[0])
+                                            if(childData.classroom.indexOf(',')!=-1)//,가 있으면 
+                                            {
+                                                var ec = childData.classroom.split(',')[i];//,가 있으면 뒤에값을 가져옴
+                                                var ecr = ec.split(" ")[1];
+                                                var evr = document.getElementById(eval('"'+ecr+'"'));
+                                                //lecture DB에서 classlec이 b인지 즉 강의실인지를 확인하고 바꿔야함
+                                                const deRef = ref(database, "lecture/"); 
+                                                onValue(deRef, (snapshot) => {
+                                                    var check =0;
+                                                    snapshot.forEach((childSnapshot) => {
+                                                        const childData = childSnapshot.val();
+                                                        
+                                                        if(childData.lecture==ecr && childData.classlec=="b"){
+                                                            check+=1;
+                                                        }
+                                                    })
+                                                    if(check==1){
+                                                        evr.className="a";
+                                                    }
+
+                                                }, {
+                                                    onlyOnce: true
+                                                });
+
+
+                                                
+                                            }
+                                            else{
+                                                //강의실 색 변환!
+                                                var cr = childData.classroom.split(" ")[1];
+                                                //console.log(document.getElementById("404"));
+                                                var vc = document.getElementById(eval('"'+cr+'"'));
+                                                
+                                                const deRef = ref(database, "lecture/"); 
+                                                onValue(deRef, (snapshot) => {
+                                                    var check =0;
+                                                    snapshot.forEach((childSnapshot) => {
+                                                        const childData = childSnapshot.val();
+                                                        
+                                                        if(childData.lecture==cr && childData.classlec=="b"){
+                                                            check+=1;
+                                                        }
+                                                    })
+                                                    if(check==1){
+                                                        vc.className="a";
+                                                    }
+
+                                                }, {
+                                                    onlyOnce: true
+                                                });
+                                            }
                                         }
-                                        
                                     }
                                 }
                             }
-                        }
-                    });
-                },)
+                        });
+                    },)
+
+
+
+                }, {
+                    onlyOnce: true
+                });   
+
+                
+               
+
+
+                
 
             });    
             
