@@ -12,12 +12,12 @@
             <style>
                 .a {
                     background-color: #CF2A27;
-                    width: 25px;
+                    width: 40px;
                     height: 25px;
                 }
                 .b {
                     background-color: #2B78E4;
-                    width: 25px;
+                    width: 40px;
                     height: 25px;
                 }
                 .c {
@@ -173,7 +173,7 @@
                                             </div>
                                         </div>
                                         <div class="row align-items-center">
-                                            <div class="col" style="left:27px; width:30px; bottom:160px; position:absolute;">
+                                            <div class="col" style="left:15px; width:30px; bottom:160px; position:absolute;">
                                                 <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
                                                 <button id="436" value="436" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
@@ -190,11 +190,11 @@
                                                 <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
                                                 <button id="440" value="440" class="c" onclick="reply_click(this.id)"></button>
                                             </div>
-                                            <div class="col" style="left:670px; width:30px;  bottom:152px; position:absolute;">
+                                            <div class="col" style="left:653px; width:30px;  bottom:152px; position:absolute;">
                                                 <!-- <canvas id="410" value="410" class="b" width="25" height="25"></canvas> -->
                                                 <button id="410" value="410" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
-                                            <div class="col" style="left: 720px; width:30px;  bottom:152px; position:absolute;">
+                                            <div class="col" style="left: 705px; width:30px;  bottom:152px; position:absolute;">
                                                 <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
                                                 <button id="409" value="409" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
@@ -230,17 +230,19 @@
                                                 <!-- <canvas id="404" value="404" class="b"width="25" height="25"></canvas> -->
                                                 <button id="404" value="404" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
-                                            <div class="col" style="left:560px; width:30px;  bottom:8px; position:absolute;">
+                                            <div class="col" style="left:550px; width:30px;  bottom:8px; position:absolute;">
                                                 <!-- <canvas id="405"  value="405" class="b" width="25" height="25"></canvas> -->
                                                 <button id="405"  value="405" class="b" onclick="reply_click(this.id)"></button>
                                             </div>
-                                            <div class="col" style="left:640px;  width:30px; bottom:8px; position:absolute;">
+                                            <div class="col" style="left:630px;  width:30px; bottom:8px; position:absolute;">
                                                 <!-- <canvas id="406" value="406" class="b"width="25" height="25"></canvas> -->
                                                 <button id="406" value="406" class="b"  onclick="reply_click(this.id)"></button>
                                             </div>
-                                            
+                                            <div class="col" style="left:700px; width:30px;  bottom:8px; position:absolute;">
+                                                <button  id="407" value="407" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
                                             <!-- <canvas id="407" value="407" class="b"width="25" height="25"></canvas> -->
-                                            <button style="left:710px; width:30px;  bottom:8px; position:absolute;" id="407" value="407" class="b" onclick="reply_click(this.id)"></button>
+                                            
                                             
                                         </div>
                                     </table>
@@ -257,6 +259,10 @@
                             <div style=" float: left; width: 33%;">
                                 <div class="text" id="etc"></div>
                             </div>
+                            <br><br>
+                            <div class='text' id='etctext'></div>
+                            <br><br>
+                            <div class='text' id='bt'></div>
                         </div>
 
                     </div>
@@ -280,6 +286,7 @@
             document.getElementById("prolab").innerHTML = "<input class='circle' type='button' id='pro' value='pro' onclick='prolab()' /> 교수님 연구실&nbsp;&nbsp;";
             document.getElementById("etc").innerHTML = "<input class='circle' type='button' id='etc' value='etc' onclick='etc()' /> 기타 </div>";
         }
+        
         
         
 
@@ -354,6 +361,7 @@
 
         }
 
+
         //lecture 데이터베이스에 있는 값 읽어와서 class를 b
         //처음에만 실행
         //getLectureData();
@@ -395,72 +403,124 @@
         function getLectureState(){
             const db= ref(database,"lecture/");
 
-            var i=0;
+            var i=1;
+            var arrpur = new Array();
             onValue(db, (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
                     const childKey = childSnapshot.key;
                     const childData = childSnapshot.val();
-
+                    
                     if(childData.classlec=="b"){
                         document.getElementById(childKey).className="b";
                     }
                     else if(childData.classlec=="c"){
                         document.getElementById(childKey).className="c";
+                        
+                        if(childData.purpose!="undefined" &childKey!="438"){
+                            console.log(childData.purpose);
+                            var text;
+                            const btnElement = document.getElementById(childKey); 
+                            if(childData.purpose=="event") text = "행사";
+                            if(childData.purpose=="storage") text="창고";
+                            if(childData.purpose=="depoffice") text="과사";
+                            btnElement.innerText=text;
+                        }
                     }
                 })
+                
+
                 
             }, {
                 onlyOnce: true
             });
         }
 
+
+        
         getProData();
         getLectureState();
 
         //강의실 추가
         lecture.addEventListener('click',(e)=>{
             const deRef = ref(database, "lecture/");
+            const db = ref(database, "prouser/");
             var lec = document.getElementById("search").innerText;
-            
 
-            if(confirm("정말 "+lec+"호에 강의실을 추가하거나 삭제하실 건가요?")==true){
-                var del =0;
-                var ins=0;
-                const deRef = ref(database, "lecture/");
-                onValue(deRef, (snapshot) => {
-                    snapshot.forEach((childSnapshot) => {
-                        const childKey = childSnapshot.key;
-                        const childData = childSnapshot.val();
-                        
-                        if(lec == childKey && childData.classlec=="b"){
-                            del+=1;
-                        }else if(lec == childKey){
-                            ins+=1;
+            var arrpro = new Array();
+            var i=0;
+            onValue(db, (snapshot) => { //교수님 연구실인지 아닌지 확인
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    
+                    var po =childData.user_pOffice+"";
+                    var proo =po.split(" ")[1]+"";
+                    var office = proo.replace("호","");
+                    
+                    if(office!="undefined"){
+                        arrpro[i]=office;
+                        i+=1;
+                    }
+                })
+                
+                if(confirm("정말 "+lec+"호에 강의실을 추가하거나 삭제하실 건가요?")==true){
+                    var del =0;
+                    var check=0;
+
+                    const deRef = ref(database, "lecture/");
+                    onValue(deRef, (snapshot) => {
+                        var bo = 0;
+                        var ins=0;
+                        //bo가 1이면 교수님 연구실
+                        for(var j=0; j<arrpro.length; j++){
+                            if(lec==arrpro[j]){
+                                bo=1;
+                            }
+                        }
+
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+                            
+                            if(lec == childKey && childData.classlec=="b"){
+                                del+=1;
+                            }else if(lec==childKey && childData.classlec=="c"){
+                                ins=1;
+                            }else if(bo==1){
+                                check=1;
+                            }
+                        })
+                        if(del==1){
+                            set(ref(database,'lecture/'+lec),{
+                                lecture:lec,
+                                classlec:"c"
+                            })
+                            alert("삭제되었습니다");
+                        }
+                        if(check==1){
+                            
+                            alert("교수님 연구실입니다 수정할 수 없습니다.")
+                        }
+                        else if(ins==1){
                             document.getElementById(lec).className="b";
                             set(ref(database,'lecture/'+lec),{
                                 lecture:lec,
                                 classlec:"b"
                             })
                             alert("추가되었습니다.")
+
                         }
-                    })
-                    if(del==1){
-                        set(ref(database,'lecture/'+lec),{
-                            lecture:lec,
-                            classlec:"c"
-                        })
-                        alert("삭제되었습니다");
-                    }
-                    
+                    }, {
+                        onlyOnce: true
+                    });   
+                }else{
+                    return;
+                }
 
-
-
-                }, {
-                    onlyOnce: true
-                });   
-            }else{
-                return;
-            }
+                
+            }, {
+                onlyOnce: true
+            });   
         })
         
 
@@ -469,11 +529,141 @@
 
 
         //기타 추가
-        
-        
-      
-        
+        etc.addEventListener('click',(e)=>{
+            document.getElementById("etctext").innerHTML = "<form><select id='star_value'><option value='none'>=== 선택 ===</option>"+
+                "<option value='event'>행사</option><option value='storage'>창고</option><option value='depOffice'>학과사무실</option>"+
+                "</select></form>"+
+                "<input class='form-control' type='text' id='validity' placeholder='[행사 선택 시 작성사항]사용할 날짜의 다음 날을 입력하세요 ex)2022/8/30' value=''/></div>";
+            document.getElementById("bt").innerHTML = "<input class='button' type='button' id='bt' value='change'/></div>";
+        })
+
+        bt.addEventListener('click',(e)=>{
+            var lec = document.getElementById("search").innerText;
+            const deRef = ref(database, "lecture/");
+            const db = ref(database, "prouser/");
+            var lec = document.getElementById("search").innerText;
+
+            var arrpro = new Array();
+            var i=0;
+            onValue(db, (snapshot) => { //교수님 연구실인지 아닌지 확인 arrpro
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    
+                    var po =childData.user_pOffice+"";
+                    var proo =po.split(" ")[1]+"";
+                    var office = proo.replace("호","");
+                    
+                    if(office!="undefined"){
+                        arrpro[i]=office;
+                        i+=1;
+                    }
+                })
+                
+                var s = document.getElementById("star_value");
+                var drop = s.options[s.selectedIndex].value;
+                
+                if(drop=="none"){ //아무것도 선택하지 않았을 때
+                    alert("드롭다운을 눌러 선택해주세요")
+                }
+                else if (drop=="event" && document.getElementById("validity").value==""){
+                    alert("행사를 선택했으면 날짜를 입력하셔야합니다")
+                }
+                else{
+                    if(confirm("정말 "+lec+"호를 수정하실 건가요?")==true){
+                        var del =0; //삭제
+                        var check=0; 
+                        var ins=0;
+
+                        const deRef = ref(database, "lecture/");
+                        onValue(deRef, (snapshot) => {
+                            var bo = 0;
+                            //bo가 1이면 교수님 연구실
+                            for(var j=0; j<arrpro.length; j++){
+                                if(lec==arrpro[j]){
+                                    bo=1;
+                                }
+                            }
+
+                            snapshot.forEach((childSnapshot) => {
+                                const childKey = childSnapshot.key;
+                                const childData = childSnapshot.val();
+                                
+                                if(lec == childKey && childData.classlec=="c" && childData.purpose!=null){
+                                    del=1;
+                                }else if (lec ==childKey && childData.classlec=="c" && childData.purpose==null){// null값이라면 추가
+                                    ins==1;
+                                }else if(bo==1){//교수님 연구실이면
+                                    check=1;
+                                }else if(bo==0){
+                                    ins=1;
+                                }
+                            })
+                            if(del==1){
+                                set(ref(database,'lecture/'+lec),{
+                                    lecture:lec,
+                                    classlec:"c"
+                                })
+                                alert("삭제되었습니다");
+                            }
+                            if(check==1){
+                                console.log()
+                                alert("교수님 연구실입니다 수정할 수 없습니다.")
+                            }
+                            if(ins==1){
+                                document.getElementById(lec).className="c";
+                                var div = document.getElementById(lec).innerHTML;
+                                set(ref(database, "lecture/"+lec),{
+                                    lecture : lec,
+                                    classlec : "c",
+                                    purpose:$("#star_value").val(),
+                                    date:document.getElementById("validity").value
+                                })
+                                alert("추가되었습니다.")
+                            }
+                            
+                        }, {
+                            onlyOnce: true
+                        });   
+                    }else{
+                        return;
+                    }
+                }
+            }, {
+                onlyOnce: true
+            });   
+            
+
+
+        })
+
        
+        function date(){
+            //오늘날짜 구해줌
+            let today = new Date();   
+
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            
+            let eventDate=year+"/"+month+"/"+date;
+            console.log(eventDate);
+
+            const dbRefD = ref(database, 'lecture/');
+            onValue(dbRefD, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                    const today2 = new Date(childData.date);
+                    if( today > today2){ //오늘 날짜를 지났을 경우
+                        remove(ref(database, 'lecture/' + childData.lecture)); //해당 정보 삭제
+                    }
+                })
+            }, {
+                onlyOnce: true
+            });
+        }
+        date();
+
         $(function () {
             function send() {
                 var httpMethod = $('#method_status').attr('data-method');
@@ -602,13 +792,6 @@
                 }, {
                     onlyOnce: true
                 });   
-
-                
-               
-
-
-                
-
             });    
             
         });
