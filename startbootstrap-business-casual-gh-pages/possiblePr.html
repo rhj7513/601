@@ -71,6 +71,7 @@
                                                 <td>전공</td>
                                                 <td>연구실</td>
                                                 <td>이메일</td>
+                                                <td>상세 리뷰</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -108,7 +109,7 @@
     </body>
 
 
-
+    <!--이메일 보내기 위한 -->
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <script src="js/searchPr.js"></script>
     <script type="module">
@@ -133,74 +134,67 @@
         const auth = getAuth();
         
         $(document).ready(function() {
-      $(".btCheck").on('click',function() { 
-        var str = ""
-        var tdArr = new Array();   // 배열 선언
-        var checkBtn = $(this);
-        
-        // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-        // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-        var tr = checkBtn.parent().parent();
-        var td = tr.children();
-        
-        var cDate = td.eq(0).text();
-        var cTime = td.eq(1).text();  
-        console.log("cdate:"+cDate);
-        
-        var pm=sessionStorage.getItem('proemail');
-        //console.log(pm);
-        var pm1=pm.split("@")[0]; //교수 아이디
-        var pd=cDate.substr(cDate.length-2, cDate.length);
-        var primary = pm1+pd+cTime;
-        var check=0;
-        var totalchild=0;
-        //데이터베이스에 저장되어 있는지 확인
-        onValue(dbRef,(snapshot)=>{
-            snapshot.forEach((childSnapshot)=>{
-              totalchild+=1;
-              console.log("total"+totalchild);
-                const childKey = childSnapshot.key;
-                const childData = childSnapshot.val();
-                //console.log(childKey==primary);
-                if (childKey==primary){
-                    check-=1;
-                }else{
-                  check+=1;
-                }
-            })
-            console.log("checknum"+check);
-            if(check==totalchild){
-                set(ref(database, 'consultcheck/' +primary),{//학생 이메일
-                    stumail : sessionStorage.getItem('usermail'),
-                    promail : sessionStorage.getItem('proemail'),
-                    stuname : sessionStorage.getItem('username'),
-                    proname : sessionStorage.getItem('proname'),
-                    date : cDate,
-                    time : cTime,
-                    state : "보류"
-                })
-                alert("저장됨");
-                Email.send({
-                  Host: "smtp.elasticemail.com",
-                  Username : "team601@gmail.com",
-                  Password : "39AA6DF7E849A6132E470F49E336D45376DD",
-                  To : sessionStorage.getItem('usermail'),
-                  From : "jbh092917@gmail.com",
-                  Subject : "상담 예약 신청("+sessionStorage.getItem('username')+")",
-                  Body : "밑에 사이트 주소로 들어가, 수락 또는 거절 버튼을 눌러주세요!<br>Site Link: https://rhj7513.github.io/601/startbootstrap-business-casual-gh-pages<br><br>상담 신청하는 학생: "+sessionStorage.getItem('username')+"<br><br>상담 신청 날짜: "+cDate+"<br><br>상담 신청 시간(교시): "+cTime,
-                })
-                .then(function(message){
-                  alert("mail sent successfully")
+            $(".btCheck").on('click',function() { 
+                var tdArr = new Array();   // 배열 선언
+                var checkBtn = $(this);
+                
+                var tr = checkBtn.parent().parent(); //checkBtn의 부모는 <td>, <td>의 부모는 <tr>
+                var td = tr.children();
+                
+                var cDate = td.eq(0).text(); 
+                var cTime = td.eq(1).text();  
+                
+                var pm=sessionStorage.getItem('proemail');
+                var pm1=pm.split("@")[0]; //교수 아이디
+                var pd=cDate.substr(cDate.length-2, cDate.length);
+                var primary = pm1+pd+cTime; //consultcheck db 기본키
+                var check=0;
+                var totalchild=0;
+                //데이터베이스에 저장되어 있는지 확인
+                onValue(dbRef,(snapshot)=>{
+                    snapshot.forEach((childSnapshot)=>{
+                        totalchild+=1;
+                        const childKey = childSnapshot.key;
+                        const childData = childSnapshot.val();
+                        if (childKey==primary){
+                            check-=1;
+                        }else{
+                            check+=1;
+                        }
+                    })
+                    if(check==totalchild){ //이미 예약되어있는 시간이 아니면
+                        set(ref(database, 'consultcheck/' +primary),{//학생 이메일
+                            stumail : sessionStorage.getItem('usermail'),
+                            promail : sessionStorage.getItem('proemail'),
+                            stuname : sessionStorage.getItem('username'),
+                            proname : sessionStorage.getItem('proname'),
+                            date : cDate,
+                            time : cTime,
+                            state : "보류"
+                        })
+                        alert("저장됨");
+                        //Email 보내는 내용
+                        Email.send({
+                        Host: "smtp.elasticemail.com",
+                        Username : "team601@gmail.com",
+                        Password : "39AA6DF7E849A6132E470F49E336D45376DD",
+                        To : sessionStorage.getItem('usermail'), //받는 사람
+                        From : "jbh092917@gmail.com", //보내는 사람
+                        Subject : "상담 예약 신청("+sessionStorage.getItem('username')+")", //제목
+                        Body : "밑에 사이트 주소로 들어가, 수락 또는 거절 버튼을 눌러주세요!<br>Site Link: https://rhj7513.github.io/601/startbootstrap-business-casual-gh-pages<br><br>상담 신청하는 학생: "+sessionStorage.getItem('username')+"<br><br>상담 신청 날짜: "+cDate+"<br><br>상담 신청 시간(교시): "+cTime,
+                        })
+                        .then(function(message){
+                        alert("mail sent successfully")
+                        });
+                    }else{
+                        alert("이미 예약된 시간입니다.")        
+                    }
+                },{
+                    onlyOnce: true,
+                    
                 });
-            }else{
-               alert("이미 예약된 시간입니다.")        
-            }
-          },{
-            onlyOnce: true,
-            
+            });
         });
-      });
-    });
         
         logOut.addEventListener('click',(e)=>{
           signOut(auth).then(() => {
@@ -230,6 +224,7 @@
             newRow.insertCell(1).innerText=localStorage.getItem('pMaj');
             newRow.insertCell(2).innerText=localStorage.getItem('pOff');
             newRow.insertCell(3).innerText=localStorage.getItem('pMail');
+            newRow.insertCell(4).innerHTML="<input class='btreview' type='button' value='review' onclick=\"location.href=\'detailReview.html\'\">"
             sessionStorage.setItem('proemail',localStorage.getItem('pMail'));
             sessionStorage.setItem('proname',localStorage.getItem('pName'));
 
@@ -239,6 +234,7 @@
             //새 행(row)에 cell 추가    
             const spl = localStorage.getItem('pPossible').split(' ')
 
+            //상담 가능 시간을 가져와서 A와 B타임으로 쪼개서 보여주기
             for(var i=0; i<spl.length; i++)
             {
                 if(i%2==1)
@@ -259,8 +255,8 @@
                 }
             }
         }
-    addRow();
-        function changeimg(){
+        addRow();
+        function changeimg(){ //교수님 사진 가져오기
             var pname = localStorage.getItem('pName');
             if (pname=="강필성"){
                 document.getElementById("pimg").src = "assets/img/강필성교수님.png";
@@ -293,3 +289,9 @@
       </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 </html>
+<script>
+    if (sessionStorage.getItem('usermail')==null){
+        alert('로그인을 해주세요');
+        location.href='Login.html';
+    }
+  </script>

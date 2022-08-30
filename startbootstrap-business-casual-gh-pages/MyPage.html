@@ -39,7 +39,6 @@
             </div>
         </nav>
 
-
         <!--디자인-->
         <section class="page-section about-heading">
             <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
@@ -84,9 +83,7 @@
                                     </tbody>
                                 </table>
 
-
                                 <br><br>
-                                
                                 
                                 <h4>예약 현황</h4>
                                 <table class="table table-striped" id="dataTbl">
@@ -98,14 +95,11 @@
                                         <th scope="col">상담 날짜</th>
                                         <th scope="col">상담 시간</th>
                                         <th scope="col">상담 상태</th>
-                                        <th scope="col">기타  </th>
+                                        <th scope="col">기타</th>
+                                        <th scope="col">후기 작성</th>
                                     </tr>
                                     </thead>
                                 </table>
-                                 
-
-
-
                             </div>
                             
                         </div>
@@ -145,14 +139,16 @@
         const database = getDatabase(app);    
         const auth = getAuth(); 
 
+        //학생정보 출력
         function getUserData(){
-            const deRef = ref(database, "students/");
-        
+            const deRef = ref(database, "students/"); 
+            //학생 정보 출력하기 위해 students db에 접근
             onValue(deRef, (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
                 const childData = childSnapshot.val();
-                //console.log(childData.email,  childData.username);
-                if (sessionStorage.getItem('usermail')==childData.email){
+                
+                if (sessionStorage.getItem('usermail')==childData.email){ //학생의 이메일이 같으면
+                    //해당 정보를 테이블에 내용 추가
                     document.querySelector("#ha").innerHTML =  childData.username;
                     document.querySelector("#ha2").innerHTML =  childData.StudentNum;
                     document.querySelector("#ha3").innerHTML =  childData.email;
@@ -167,23 +163,30 @@
                 onlyOnce: true
             });
         }
+
+        //예약 현황 출력
         var rowNum = 0; 
         function getUserCon(){
             const deRef = ref(database, "consultcheck/");
             onValue(deRef, (snapshot) => {
                 snapshot.forEach((childSnapshot) => {
-                    const childKey = childSnapshot.key;
                     const childData = childSnapshot.val();
-
-                    //console.log(childKey);
                     
-                    if (sessionStorage.getItem('usermail')==childData.stumail){
-                      //console.log(sessionStorage.getItem('usermail'));
-                      if (childData.state!="거절"){
-                        childData.message=" ";
+                    if (sessionStorage.getItem('usermail')==childData.stumail){ //학생의 이메일이 같으면
+                      rowNum += 1; //행 번호 1 증가
+                      if (childData.state=="완료"){ //상담 상태가 완료일 경우
+                        childData.message=" "; //message가 없으므로 공백처리를 해준다
+                        //후기 작성할 수 있는 review 버튼도 생성
+                        var row = "<tbody class='table-group-divider'><tr><td>" + rowNum +  "</td><td>" + childData.proname + "</td><td>"+ childData.promail + "</td><td>" + childData.date + "</td><td>" + childData.time + "</td><td>" + childData.state + "</td><td>" + childData.message+"</td><td><input class='review' type='button' value='review' onclick=\"location.href=\'ReviewPage.html\'\"></td></tr></tbody>";
                       }
-                      rowNum += 1; 
-                      var row = "<tbody class='table-group-divider'><tr><td>" + rowNum +  "</td><td>" + childData.proname + "</td><td>"+ childData.promail + "</td><td>" + childData.date + "</td><td>" + childData.time + "</td><td>" + childData.state + "</td><td>" + childData.message+"</td></tr></tbody>"
+                      else //상담 상태가 완료가 아닐 경우(거절, 중도 거절, 보류)
+                      {
+                        if(childData.state=="보류") { //상담 상태가 보류일 경우
+                            childData.message=" "; //message가 없으므로 공백처리를 해준다
+                        }
+                        var row = "<tbody class='table-group-divider'><tr><td>" + rowNum +  "</td><td>" + childData.proname + "</td><td>"+ childData.promail + "</td><td>" + childData.date + "</td><td>" + childData.time + "</td><td>" + childData.state + "</td><td>" + childData.message+"</td><td>"+" "+ "</td></tr></tbody>";
+                      }
+                      //해당 행을 dataTbl id를 가진 테이블에 추가
                       $(row).appendTo('#dataTbl');
                     }
                 })
@@ -193,6 +196,29 @@
         }
         getUserData();
         getUserCon();
+
+        //리뷰쓰러가기
+        $(document).ready(function() {
+            $(document).on('click',".review",function() {      
+                var tdArr = new Array();   // 배열 선언
+                var checkBtn = $(this);
+                
+                var tr = checkBtn.parent().parent(); //checkBtn의 부모<td>의 부모 <tr>
+                var td = tr.children(); //변수 tr의 자식
+                
+                var reName = td.eq(1).text(); //td행에 1열=교수명
+                var remail = td.eq(2).text().split("@")[0]; //td행에 2열, @로 나눈 앞의 값 저장=교수메일
+                var reDate = td.eq(3).text(); //td행에 3열=상담날짜
+                var rePDate = reDate.substr(reDate.length-2, reDate.length); //reDate에서 필요한 것만 추출
+                var reTime = td.eq(4).text(); //td행에 4열=상담시간
+
+                var primary = remail+rePDate+reTime; //consultcheck에 들어가는 기본키를 똑같이 만들었다
+
+                //교수명과 기본키를 session에 유지시킨다. 리뷰쓰는 페이지로 넘어갈때 사용하기 위해
+                sessionStorage.setItem("pm_name", reName);
+                sessionStorage.setItem("pm", primary);
+            });
+        });        
             
         logOut.addEventListener('click',(e)=>{
             signOut(auth).then(() => {
@@ -209,9 +235,7 @@
                 alert(errorMessage);
             });
 
-        });
-
-            
+        }); 
       </script>
 </html>
 <script>
@@ -219,7 +243,6 @@
         alert('로그인을 해주세요');
         location.href='Login.html';
     }
-    
 </script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>

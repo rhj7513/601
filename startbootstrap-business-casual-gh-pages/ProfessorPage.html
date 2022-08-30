@@ -74,6 +74,7 @@
                             <br><br><br>
                             
                             <input type="submit" id='modify' name="modify" value="modify your schedule" onclick="location.href='ConsultModify.html'"/>
+                            <input type="submit" id='check' name="check" value="check your a consultation rating" onclick="location.href='ProfessorReview.html'"/>
                             <br><br><br>
                             
                             <h4>
@@ -172,8 +173,6 @@
 
     //오늘날짜 구해줌
     const today = new Date();
-    console.log(today);
-
 
     //수락 거절 선택
     const dbRef = ref(database, 'consultcheck/');
@@ -183,31 +182,28 @@
 
             const dbRef2 = ref(database, 'students/');
 
-            if(sessionStorage.getItem('prousermail')==childData1.promail)
+            if(sessionStorage.getItem('prousermail')==childData1.promail) //로그인한 교수님의 정보일 경우
             {
-                if(childData1.state==='보류'){
+                if(childData1.state==='보류'){ //상태가 보류일때 
                     var row = "<tr><td>" + childData1.stuname + "</td><td>" + childData1.date + "</td><td>" + childData1.time + "</td><td><input class='btAccept' type='button' value='Accept'></button></td>" + "<td><input class='btRefuse' type='button' value='Refuse'></button></td>" + "<td><input class='refuseText' id='refuseText' type='text'></td>" + "</td></tr>"
-                    $(row).appendTo('#ConTimeTable');
+                    $(row).appendTo('#ConTimeTable'); //ConTimeTable id를 가진 테이블의 행 추가
 
                 }
               
             }  
             const today2 = new Date(childData1.date);
-            console.log(today2);
-            console.log(today > today2);
-            if( today > today2){
+            if( today > today2){ //상담 날짜가 오늘 날짜를 지났을 경우
                 var pm1=childData1.promail.split("@")[0]; //교수 아이디
                 var pd=childData1.date.substr(childData1.date.length-2, childData1.date.length);
-                var primary = pm1+pd+childData1.time;
+                var primary = pm1+pd+childData1.time; //consultcheck db 기본키
                 const reference = ref(database, 'consultcheck/'+ primary);
-                if(childData1.state === '수락'){
+                if(childData1.state === '수락'){ //수락일 경우
                     update(reference,{
-                        state: "완료"
+                        state: "완료" //상태를 완료로 바꿔줌
                     })
                 }
-                else if(childData1.state === '보류' || childData1.state === '거절' || childData1.state === '중도거절'){
-                    remove(ref(database, 'consultcheck/' + primary));
-                    // alert('remove')
+                else if(childData1.state === '보류' || childData1.state === '거절' || childData1.state === '중도거절'){ //보류, 거절, 중도거절일 경우
+                    remove(ref(database, 'consultcheck/' + primary)); //해당 정보 삭제
                 }
             }
         })
@@ -224,11 +220,11 @@
 
             const dbRef2 = ref(database, 'students/');
 
-            if(sessionStorage.getItem('prousermail')==childData1.promail)
+            if(sessionStorage.getItem('prousermail')==childData1.promail) //로그인한 교수님의 정보일 경우
             {
-                if(childData1.state==='수락'){
+                if(childData1.state==='수락'){ //상태가 수락일 때 
                     var row = "<tr><td>" + childData1.stuname + "</td><td>" + childData1.stumail + "</td><td>" + childData1.date + "</td><td>" + childData1.time + "<td><input class='btreRefuse' type='button' value='Refuse'></button></td>" + "<td><input class='refuseText' id='refuseText' type='text'></td>" + "</td></tr>"
-                    $(row).appendTo('#ConTimeTable2');
+                    $(row).appendTo('#ConTimeTable2'); //ConTimeTable2 id를 가진 테이블의 행 추가
 
                 }
               
@@ -243,33 +239,23 @@
     //수락을 누르면
     $(document).ready(function() {
         $(document).on('click',".btAccept",function() { 
-            console.log("btAccept");
-                    
-            var str = ""
             var tdArr = new Array();   // 배열 선언
             var checkBtn = $(this);
             
-            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-            var tr = checkBtn.parent().parent();
+            var tr = checkBtn.parent().parent(); //checkBtn의 부모는 <td>, <td>의 부모는 <tr>
             var td = tr.children();
-            
-            // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
-            
+
             var aName = td.eq(0).text();
             var aDate = td.eq(1).text();
             var aTime = td.eq(2).text();
-            console.log("aName : "+aName);
-            console.log("aDate : "+aDate);
-            console.log("aTime : "+aTime);
 
             //교수 로그인 유지 시킨 데이터
             var pemail = sessionStorage.getItem('prousermail');
-            var pKey = pemail.split("@")[0]+aDate.split("-")[2]+aTime;
+            var pKey = pemail.split("@")[0]+aDate.split("-")[2]+aTime; //consultcheck db 기본키
             const database = getDatabase(initializeApp(firebaseConfig));
             const reference = ref(database, 'consultcheck/'+pKey);
             update(reference, {
-                state: "수락"
+                state: "수락" //상태를 수락으로 바꿔줌
             })
             alert("수락하였습니다")
         });
@@ -279,29 +265,19 @@
     //거절을 누르면
     $(document).ready(function() {
         $(document).on('click',".btRefuse",function() { 
-            console.log("btRefuse");
-                    
-            var str = ""
             var tdArr = new Array();   // 배열 선언
             var checkBtn = $(this);
             
-            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-            var tr = checkBtn.parent().parent();
+            var tr = checkBtn.parent().parent(); //checkBtn의 부모는 <td>, <td>의 부모는 <tr>
             var td = tr.children();
-            
-            // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
             
             var rName = td.eq(0).text();
             var rDate = td.eq(1).text();
             var rTime = td.eq(2).text();
-            console.log("rName : "+rName);
-            console.log("rDate : "+rDate);
-            console.log("rTime : "+rTime);
 
             //교수 로그인 유지 시킨 데이터
             var pemail = sessionStorage.getItem('prousermail');
-            var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime;
+            var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime; //consultcheck db 기본키
             const database = getDatabase(initializeApp(firebaseConfig));
             const reference = ref(database, 'consultcheck/'+pKey);
 
@@ -310,8 +286,8 @@
             console.log("message:"+message);
 
             update(reference, {
-                state: "거절",
-                message : $(".refuseText").val()
+                state: "거절", //상태를 거절로 바꿔줌
+                message : $(".refuseText").val() //작성한 거절 메시지를 message에 추가
             })
             alert("거절하였습니다")
         });
@@ -322,39 +298,28 @@
     //중도거절
     $(document).ready(function() {
         $(document).on('click',".btreRefuse",function() { 
-            console.log("btreRefuse");
-                    
-            var str = ""
             var tdArr = new Array();   // 배열 선언
             var checkBtn = $(this);
-            
-            // checkBtn.parent() : checkBtn의 부모는 <td>이다.
-            // checkBtn.parent().parent() : <td>의 부모이므로 <tr>이다.
-            var tr = checkBtn.parent().parent();
+
+            var tr = checkBtn.parent().parent(); //checkBtn의 부모는 <td>, <td>의 부모는 <tr>
             var td = tr.children();
-            
-            // console.log("클릭한 Row의 모든 데이터 : "+tr.text());
             
             var rName = td.eq(0).text();
             var rmail = td.eq(1).text();
             var rDate = td.eq(2).text();
             var rTime = td.eq(3).text();
-            
-            console.log("rName : "+rName);
-            console.log("rDate : "+rDate);
-            console.log("rTime : "+rTime);
 
             //교수 로그인 유지 시킨 데이터
             var pemail = sessionStorage.getItem('prousermail');
-            var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime;
+            var pKey = pemail.split("@")[0]+rDate.split("-")[2]+rTime; //consultcheck db 기본키
             const database = getDatabase(initializeApp(firebaseConfig));
             const reference = ref(database, 'consultcheck/'+pKey);
 
             update(reference, {
-                state: "중도거절",
-                message : $(".refuseText").val()
+                state: "중도거절", //상태를 중도거절로 바꿔줌
+                message : $(".refuseText").val() //작성한 중도 거절 메시지를 message에 추가
             })
-            Email.send({
+            Email.send({ //이메일 내용
                   Host: "smtp.elasticemail.com",
                   Username : "team601@gmail.com",
                   Password : "39AA6DF7E849A6132E470F49E336D45376DD",
@@ -368,12 +333,8 @@
                 });
         });
     });
+    //메일 버튼 숨기기
     document.getElementById('sendCheck').style.display='none';
-  
-    
-    
-
-    
   </script>
 
 <script type="module">
@@ -414,10 +375,9 @@
     });
 
 </script>
-<!-- <script>
+<script>
     if (sessionStorage.getItem('prousermail')==null){
         alert('로그인을 해주세요');
         location.href='Login.html';
-    }
-    
-  </script> -->
+    }    
+</script>

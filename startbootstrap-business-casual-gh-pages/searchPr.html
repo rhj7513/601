@@ -99,6 +99,11 @@
                                         상담 가능 시간
                                     </h5>
                                 </div>
+                                <div id="str" class="col">
+                                    <h5 class="display-10 fw-bold" class="str1" style="color:wheat">
+                                        상담 평점
+                                    </h5>
+                                </div>
                             </div>
                         </div> 
                     </div> 
@@ -132,62 +137,85 @@
     </body>
 </html>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script>
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getDatabase, set, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+    // TODO: Add SDKs for Firebase products that you want to use
+    // https://firebase.google.com/docs/web/setup#available-libraries
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+        authDomain: "team-a5651.firebaseapp.com",
+        databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+        projectId: "team-a5651",
+        storageBucket: "team-a5651.appspot.com",
+        messagingSenderId: "804446190852",
+        appId: "1:804446190852:web:66473b851c3cfc1792e451"
+    };
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    
+    // Get a reference to the database service
+    const database = getDatabase(app);
+
+    var rowNum = 0; 
+    const dbRef = ref(database, 'prouser/');
+
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            
+            if (childData.username!="admin"){ //admin이 아닐 경우
+                rowNum += 1; //행 번호 1추가
+                var row = "<tr><td>" + rowNum + "</td><td>" + childData.username + "</td><td>" + "컴퓨터공학부" + "</td><td>" + childData.user_pOffice + "</td><td>" + childData.email + "</td><td>" + childData.user_conTime + "</td></tr>"
+                $(row).appendTo('#dataTbl'); //dataTbl id를 가진 테이블에 행 추가
+            }
+        })
+        }, {
+            onlyOnce: true
+    });
+
     //테이블에서 교수 선택하면 해당 이름으로 search
     $("#dataTbl").on("click","tr",function(){
-        var str = ""
         var tdArr = new Array();   // 배열 선언
 
         //현재 클릭된 Row(<tr>)
         var tr = $(this);
         var td = tr.children();
         
-        var searchName =td.eq(1).text();
-        $('#formGroupExampleInput').val(searchName);
+        var searchName =td.eq(1).text(); //해당 행의 첫번 째 열 가져옴=교수명
+        $('#formGroupExampleInput').val(searchName); //formGroupExampleInput id를 가진 value에 searchName 입력
+
+        const dbRefC = ref(database,'consultcheck/');
+        var star = 0; //상담 평점 점수 누적시킬 변수
+        var starPeople = 0; //상담 평점 사람 누적시킬 변수
+        var che = 0; //상팜 평점이 있는지 없는지 확인하기 위한 변수
+        onValue(dbRefC, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childData = childSnapshot.val();
+                if(childData.proname==searchName && childData.star!=null) { //교수명이 일치하고, star이 비어있지 않은 경우
+                    che += 1;
+                    star += Number(childData.star); //상담 평점 점수 누적시키기
+                    starPeople += 1; //상담 평점 살마 누적시키기
+                    //star, starPeople session으로 유지
+                    sessionStorage.setItem("star", star);
+                    sessionStorage.setItem("starPeople", starPeople);
+                }
+                if(che==0) { //상담 평점이 하나도 없는 경우
+                    //star, starPeople 모두 0으로 session 유지
+                    sessionStorage.setItem("star", 0);
+                    sessionStorage.setItem("starPeople", 0);
+                }
+            })
+            }, {
+                onlyOnce: true
+        });
     });
-</script>
-
-<script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-  import { getDatabase, set, ref ,push, child, onValue} from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
-
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
-    authDomain: "team-a5651.firebaseapp.com",
-    databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
-    projectId: "team-a5651",
-    storageBucket: "team-a5651.appspot.com",
-    messagingSenderId: "804446190852",
-    appId: "1:804446190852:web:66473b851c3cfc1792e451"
-  };
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  
-  // Get a reference to the database service
-  const database = getDatabase(app);
-
-  var rowNum = 0; 
-  const dbRef = ref(database, 'prouser/');
-  
-  onValue(dbRef, (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        const childKey = childSnapshot.key;
-        const childData = childSnapshot.val();
-        // ...
-        if (childData.username!="admin"){
-                rowNum += 1; 
-                var row = "<tr><td>" + rowNum + "</td><td>" + childData.username + "</td><td>" + "컴퓨터공학부" + "</td><td>" + childData.user_pOffice + "</td><td>" + childData.email + "</td><td>" + childData.user_conTime + "</td></tr>"
-                $(row).appendTo('#dataTbl');
-            }
-    })
-    }, {
-        onlyOnce: true
-   });
+    
 </script>
 
 <script src="js/searchPr.js">

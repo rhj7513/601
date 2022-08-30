@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>MyPage</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+    <body>
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Welcome to the site</span>
+                <span class="site-heading-lower">Call Reservation</span> <br>
+                <span class="site-heading-lower">Find an empty room!</span>
+            </h1>
+        </header>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="index.html">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="MyPage.html">MyPage</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="searchPr.html">ReservationService</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="EmptyLecture.html">EmptyRoom</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!--디자인-->
+        <section class="page-section about-heading">
+            <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
+                <!-- 로그아웃 버튼 -->
+                <input type="submit" id='logOut' name="logOut" value="logOut" />
+            </div>
+            <div class="container">
+                <img class="img-fluid rounded about-heading-img mb-3 mb-lg-0" src="assets/img/about.jpg" alt="..." />
+                <div class="about-heading-content">
+                    <div class="row">
+                        <div class="col-xl-9 col-lg-10 mx-auto">
+                            <div class="bg-faded rounded p-5">
+                                <h2 class="section-heading mb-4">
+                                    <span class="section-heading-upper">선문대학교</span>
+                                    <span class="section-heading-lower">상담 리뷰</span>
+                                </h2>
+                                <link href="css/star.css" rel="stylesheet"/>
+
+                                <form class="mb-3" name="myform" id="myform" method="post">
+                                <fieldset>
+                                    <span class="text-bold">별점을 선택해주세요</span>
+                                    <input type="radio" name="reviewStar" value="5" id="rate1"><label
+                                        for="rate1">★</label>
+                                    <input type="radio" name="reviewStar" value="4" id="rate2"><label
+                                        for="rate2">★</label>
+                                    <input type="radio" name="reviewStar" value="3" id="rate3"><label
+                                        for="rate3">★</label>
+                                    <input type="radio" name="reviewStar" value="2" id="rate4"><label
+                                        for="rate4">★</label>
+                                    <input type="radio" name="reviewStar" value="1" id="rate5"><label
+                                        for="rate5">★</label>
+                                </fieldset>
+                                <div>
+                                    <textarea class="col-auto form-control" type="text" id="reviewContents"
+                                            placeholder="교수님과의 상담 완료 후 평을 남겨주세요!!"></textarea>
+                                </div>
+                                </form>
+                                <button type="button" class="complete">
+                                    등록
+                                </button>				
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Team 601 did a great job on the project!</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+        import { getDatabase, ref, set, update, onValue } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+          apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+          authDomain: "team-a5651.firebaseapp.com",
+          databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+          projectId: "team-a5651",
+          storageBucket: "team-a5651.appspot.com",
+          messagingSenderId: "804446190852",
+          appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);    
+        const auth = getAuth(); 
+
+        const dbRef2 = ref(database, 'consultcheck/');
+        onValue(dbRef2, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+                //리뷰쓰려는 상담이 미리 리뷰가 작성되있으면, 해당 값을 가져와서 화면에 보여준다.
+                if(childKey==sessionStorage.getItem('pm') && childData.review!=null) {
+                    document.getElementById("reviewContents").value=childData.review;
+                }
+            })
+            }, {
+                onlyOnce: true
+        });
+
+        //리뷰쓰러가기
+        $(document).ready(function() {
+            $(document).on('click',".complete",function() { 
+                if (! $('input[name="reviewStar"]:checked').val()) { //별을 선택안했을 경우
+                    alert("★별을 선택해주세요.★"); //별 선택하라는 알림창
+                } 
+                else { //별을 선택했을 경우
+                    alert("등록이 완료되었습니다."); //등록 완료되었다는 알림창
+
+                    var star = document.getElementsByName('reviewStar'); //사용자가 입력한 별점 점수 가져오기 위해 star 변수에 reviewStar이름을 가지고 있는 것 저장
+                    for(var i=0; i<star.length; i++) //star 길이만큼 for문 돌리기
+                    {
+                        if(star[i].checked) //star[i]가 check가 되어있어 true일 경우
+                        {
+                            //star[i].value로 해당 별점 점수를 가져온다.
+                            //이를 이용해 각 db에 맞게 저장한다.
+                            const reference = ref(database, 'consultcheck/'+ sessionStorage.getItem('pm'));
+                            update(reference,{
+                                star: Number(star[i].value),
+                                review: document.getElementById("reviewContents").value
+                            })
+                        }
+                    }
+                }
+            });
+        });        
+            
+        logOut.addEventListener('click',(e)=>{ //로그아웃을 클릭했을 경우
+            signOut(auth).then(() => {
+            // Sign-out successful.
+            alert('user loged out'); //로그아웃 성공했음을 알림창에 보여줌
+            sessionStorage.clear(); //로그아웃을 했으니, session 값을 다 삭제
+            location.href='index.html' //메인화면으로             }).catch((error) => { //에러가 났을 경우
+                // An error happened.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                alert(errorMessage);
+            });
+        }); 
+      </script>
+</html>
+<script>
+    if (sessionStorage.getItem('usermail')==null){ //로그인이 되어있지 않을 경우
+        alert('로그인을 해주세요'); //로그인하라는 알림창
+        location.href='Login.html'; //로그인 페이지로 이동
+    }
+</script>
+<!--juqery 사용하기 위한 것-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
