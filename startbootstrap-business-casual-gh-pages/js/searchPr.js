@@ -1,13 +1,12 @@
 //교수 찾기
 function search() {
     var pcheck = document.getElementById("pro").getElementsByTagName("p").length; //p 태그 길이 저장 
-    console.log("p길이: "+document.getElementById("pro").getElementsByTagName("p").length);
 
-    if(pcheck>=1){ //p태크 길이가 2개 이상이면 요소 삭제하기 
-        console.log(document.getElementById("pro").childNodes[pcheck+2]);
+    if(pcheck>=1){ //p태크 길이가 2개 이상이면 요소 삭제하기 = 검색한 해당 교수만 나오게 하기 위해서
         document.getElementById("pro").removeChild(document.getElementById("pro").childNodes[pcheck+2]);
         document.getElementById("major").removeChild(document.getElementById("major").childNodes[pcheck+2]);
         document.getElementById("bt").removeChild(document.getElementById("bt").childNodes[pcheck+2]);
+        document.getElementById("str").removeChild(document.getElementById("str").childNodes[pcheck+2]);
     }
 
     const searchPr = document.getElementById('formGroupExampleInput').value; //사용자가 입력한 찾는 교수님 이름 searchPr변수에 저장
@@ -26,10 +25,13 @@ function search() {
                 
                 check++; //일치하는 이름 있으면 1증가
                 
-                $("#pro").append("<p class='pro1' style='color:wheat'>"+searchPr+"</h6>");
-                $("#major").append("<p class='major1' style='color:wheat'>컴퓨터공학부</p>");
+                //해당하는 id에 추가
+                $("#pro").append("<p class='pro1'>"+searchPr+"</p>");
+                $("#major").append("<p class='major1'>컴퓨터공학부</p>");
                 $("#bt").append("<p class='bt1'><button id='bt' type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
+                $("#str").append("<p class='str1'>"+(sessionStorage.getItem("star")/sessionStorage.getItem("starPeople")).toFixed(2)+"</p>");
 
+                //교수 정보를 Storage 저장
                 localStorage.setItem('pName',cell_1);
                 localStorage.setItem('pMaj',cells[2].firstChild.data);
                 localStorage.setItem('pOff',cells[3].firstChild.data);
