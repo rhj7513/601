@@ -28,8 +28,17 @@
         
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
-            
-        </nav>
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="index.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="AdminPage.html">ModifyTotal</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="AdminLecture.html">EmptyRoomModify</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav> 
         <section class="page-section">
             <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
                 <!-- 로그아웃 버튼 -->
@@ -316,53 +325,31 @@
 
         const deRef = ref(database, "prouser/");
 
-        var checkE=0;
+        var check=0;
         var checkoffice=0;
-        var checkN=0;
         onValue(deRef, (snapshot) => {
             snapshot.forEach((childSnapshot) => {
                 const childData = childSnapshot.val();
                 
                 if(proOffice==childData.user_pOffice){
                     //console.log("checkeckejdkdkd"+checkoffice);
-                    if(childData.username!=proname)
-                    {
-                        checkoffice+=1;
-                    }
+                    checkoffice+=1;
                 }
                 if (email==childData.email){
-                    if(childData.username!=proname)
-                    {
-                        checkE+=1;
-                    }
-                }
-                if (proname==childData.username){   
-                    if(childData.username!=proname)
-                    {
-                        checkN+=1;
+                    if (proname==childData.username){   
+                        check+=1;
                     }
                 }
             })
-            console.log("checkE"+checkE);
-            console.log("checkN"+checkN);
+            console.log("check"+check);
         
             if (email==null || proname==null || protell==null || consultTime==null || proOffice==null ){
                 alert("교수님 정보를 빠짐없이 입력해주세요")
             }
-            else if(checkE>=1)
-            {
-                alert("동일한 이메일이 있으면 안됩니다")
-            }
-            else if(checkN>=1)
-            {
-                alert("동일한 이름이 있으면 안됩니다")
-            }
-            else if(checkoffice>=1){
-                alert("동일한 연구실이 있으면 안됩니다")
-            }
-            else{
-                console.log("checkoffice"+checkoffice);
-                if(!confirm("정말 수정하시겠습니까?")){
+            else if (check<=1){
+                if (checkoffice<=1){
+                    //console.log("동일한게 있음");
+                    if(!confirm("정말 수정하시겠습니까?")){
                         alert("수정 취소");
                     }else {
                         alert("수정 되었습니다");
@@ -380,8 +367,13 @@
                             alert(err);
                         })
                     }
+                }else{
+                    alert("동일한 연구실이 있으면 안됩니다")
+                }
+                
+            }else{
+                alert("다시입력해주세요")
             }
-
         }, {
             onlyOnce: true
         });
