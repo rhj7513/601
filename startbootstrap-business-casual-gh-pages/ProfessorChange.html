@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Business Casual - Start Bootstrap Theme</title>
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+       
+    </head>
+    <body>
+        
+        <header>
+            <h1 class="site-heading text-center text-faded d-none d-lg-block">
+                <span class="site-heading-upper text-primary mb-3">Welcome to the site</span>
+                <span class="site-heading-lower">Call Reservation</span> <br>
+                <span class="site-heading-lower">Find an empty room!</span>
+            </h1>
+        </header>
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand text-uppercase fw-bold d-lg-none" href="ProfessorPage.html">Start Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ProfessorPage.html">Home</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ProfessorPage.html">My Schedule</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ConsultModify.html">Change time</a></li>
+                        <li class="nav-item px-lg-4"><a class="nav-link text-uppercase" href="ProfessorChange.html">CHANGE INfO</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
+            
+        </nav>
+        <section class="page-section">
+            <div class="position-absolute top-0 end-0" style="position: absolute; z-index: 2; right: 50px; padding-right:80px;">
+                <!-- 로그아웃 버튼 -->
+                <input type="submit" id='logOut' name="logOut" value="logOut" />
+            </div>
+            
+            <div class="container">
+                <div class="product-item">
+                    <div class="product-item-title d-flex">
+                        <div class="bg-faded p-5 d-flex me-auto rounded">
+                            <h2 class="section-heading mb-0">
+                                <span class="section-heading-upper">Professor Page</span>
+                                <span class="section-heading-lower">Enter the contents to be modified</span>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <br><br><br>
+                
+                <div class="bg-faded p-5 rounded">
+                    현재 저장된 데이터
+                    <br><br>
+                    <table class="table table-striped" id='dataTbl'>
+                        <tbody>
+                            <tr>
+                                <td>번호</td>
+                                <td>교수명</td>
+                                <td>과목</td>
+                                <td>시간</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+                <div id="admin-box" class="intro-text left-0 text-center bg-faded p-5 rounded">
+                    <input type="text" id="professorname" name="profassorname" placeholder="profassor name" />
+                    <br><br>
+                    <input type="text" id="subject" name="Subject" placeholder="Subject" />
+                    <br><br>
+                    <input type="text" id="time" name="time" placeholder="time" />
+                    <br><br>
+                    <!-- save Data 누르면 admin (key값)에 입력한 데이터 저장된다. -->
+                    <input class="btn btn-primary btn-x" type="submit" id='saveData' name="newData" value="save Data" />
+                    <input class="btn btn-primary btn-x" type="submit" id="delData" name="delData" value="del Data" />
+                    <br><br>
+                    <div style="padding-left:20px">
+                        <input class="btn btn-primary btn-x" type="submit"  id="checkkkk" name="chekkkk" value="확인하러가기"  onClick="location.href='EmptyLecture.html'"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+       
+
+        <footer class="footer text-faded text-center py-5">
+            <div class="container"><p class="m-0 small">Team 601 did a great job on the project!</p></div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+    </body>
+</html>
+
+<script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-app.js";
+    import { getDatabase, set, ref, update, remove, onValue, get, child} from "https://www.gstatic.com/firebasejs/9.9.2/firebase-database.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.9.2/firebase-auth.js"
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
+      authDomain: "team-a5651.firebaseapp.com",
+      databaseURL: "https://team-a5651-default-rtdb.firebaseio.com",
+      projectId: "team-a5651",
+      storageBucket: "team-a5651.appspot.com",
+      messagingSenderId: "804446190852",
+      appId: "1:804446190852:web:0c224d3c24ade8b792e451"
+    };
+  
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const auth = getAuth();
+
+    //공지 추가
+    saveData.addEventListener('click',(e) => {
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+        
+        const deRef = ref(database, "admin/");
+        var check=0;
+        var totalchild=0;
+        var dataname=professorname+subject+time
+        onValue(deRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+                
+                if(professorname==childData.professername){
+                    if (subject==childData.subject){
+                        check+=1;
+                    }
+                    
+                } 
+            })
+            if (check>=1){ 
+                if(!confirm("같은수업, 교수님 입니다 시간이 다른가요?")){
+                    alert("다시 입력하세요");
+                }else {
+                    set(ref(database, 'admin/' + dataname),{
+                        professername: professorname,
+                        subject: subject,
+                        time: time
+                    });
+                    alert('저장되었습니다')
+                }
+            }else{
+                set(ref(database, 'admin/' + dataname),{
+                        professername: professorname,
+                        subject: subject,
+                        time: time
+                    });
+                alert('저장되었습니다')
+            }
+
+
+        }, {
+            onlyOnce: true
+    });
+    })
+
+
+    // 공지 삭제
+    delData.addEventListener('click',(e)=>{
+        var professorname = document.getElementById('professorname').value;
+        var subject = document.getElementById('subject').value;
+        var time = document.getElementById('time').value;
+
+        //remove(ref(database, 'admin/' + professorname));
+        const deRef = ref(database, "admin/");
+        var check=0;
+        var totalchild=0;
+
+        var dataname=professorname+subject+time;
+
+        onValue(deRef, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                const childKey = childSnapshot.key;
+                const childData = childSnapshot.val();
+                
+                if(professorname==childData.professername && subject==childData.subject){
+                    check+=1;
+                }
+            })
+            if (check>=1){
+                if(!confirm("정말 삭제하시겠습니까?")){
+                    alert("삭제 취소");
+                }else {
+                    remove(ref(database, 'admin/' + dataname));
+                    alert('삭제되었습니다')
+                }
+            }
+
+
+            }, {
+                onlyOnce: true
+        });
+    });
+
+    
+    var rowNum = 0; 
+    const dbRef = ref(database, 'admin/');
+    onValue(dbRef, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            // ...
+           
+            rowNum += 1; 
+            var row = "<tr><td>" + rowNum + "</td><td>" + childData.professername + "</td><td>" + childData.subject + "</td><td>" + childData.time+"</td>" 
+            $(row).appendTo('#dataTbl');
+            
+        })
+        }, {
+            onlyOnce: true
+    });
+
+    //테이블에서 교수 선택하면 해당 이름으로 search
+    $("#dataTbl").on("click","tr",function(){
+        var str = ""
+        var tdArr = new Array();   // 배열 선언
+
+        //현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+        
+        var professorname =td.eq(1).text();
+        var subject = td.eq(2).text();
+        var time = td.eq(3).text();
+
+        $('#professorname').val(professorname);
+        $('#subject').val(subject);
+        $('#time').val(time);
+        
+    });
+
+   
+    const dbRefPro = ref(database, 'prouser/');
+    var rowNum2 = 0;
+    onValue(dbRefPro, (snapshot) => {
+        snapshot.forEach((childSnapshot) => {
+            const childKey = childSnapshot.key;
+            const childData = childSnapshot.val();
+            // ...
+           
+            if (childData.username!="admin"){
+                rowNum2 += 1; 
+                var row = "<tr><td>" + rowNum2 + "</td><td>" + childData.username + "</td><td>" + "컴퓨터공학부" + "</td><td>" + childData.user_pOffice + "</td><td>" + childData.email + "</td><td>" + childData.user_conTime + "</td></tr>"
+                $(row).appendTo('#dataTbl2');
+            }
+            
+        })
+        }, {
+            onlyOnce: true
+    });
+
+    //테이블에서 교수 선택하면 해당 이름으로 search
+    $("#dataTbl2").on("click","tr",function(){
+        var str = ""
+        var tdArr = new Array();   // 배열 선언
+
+        //현재 클릭된 Row(<tr>)
+        var tr = $(this);
+        var td = tr.children();
+        
+        var modifyName =td.eq(1).text();
+        var modifymail = td.eq(4).text();
+        var modifyconT = td.eq(5).text();
+        var modifyoff = td.eq(3).text();
+        $('#proname').val(modifyName);
+        $('#email').val(modifymail);
+        $('#consultTime').val(modifyconT);
+        $('#proOffice').val(modifyoff);
+        
+    });
+
+
+    logOut.addEventListener('click',(e)=>{
+        signOut(auth).then(() => {
+        // Sign-out successful.
+        alert('user loged out');
+        sessionStorage.clear();
+        location.href='index.html'
+        }).catch((error) => {
+            // An error happened.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            
+            
+            alert(errorMessage);
+        });
+
+    });
+
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+
+</html>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
