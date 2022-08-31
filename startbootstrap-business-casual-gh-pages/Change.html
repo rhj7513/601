@@ -107,8 +107,11 @@
                                     <div class="container">
                                         
                                         <div id="admin-box" class="intro-text left-0 text-center bg-faded p-5 rounded">
+                                            <input type="text" id="stuname" name="stuname" placeholder="name" />
+                                            <br><br>
                                             <input type="text" id="Phonenumber" name="Phonenumber" placeholder="Phone number" />
                                             <br><br>
+                                            
                                             <!-- save Data 누르면 admin (key값)에 입력한 데이터 저장된다. -->
                                             <input class="btn btn-primary btn-x" type="submit" id='UPData' name="UPData" value="save Data" />
                                         </div>
@@ -183,6 +186,7 @@
         UPData.addEventListener('click',(e)=>{
             console.log("check");
             var stunum=document.getElementById("Phonenumber").value;
+            var stuname=document.getElementById("stuname").value;
 
             const deRef = ref(database, "students/");
 
@@ -200,6 +204,7 @@
                         console.log("check2")
                         update  (ref(database,"students/" + childData.username),{
                             PhonNum:stunum,
+                            username:stuname
                         }). then(()=>{
                             alert("updated");
                         })
