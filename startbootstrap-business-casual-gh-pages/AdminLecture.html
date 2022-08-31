@@ -26,6 +26,7 @@
                     height: 25px;
                     font-size: 5px;
                 }
+                
         
             </style>
             <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -131,120 +132,131 @@
                             <!-- 그림 부분 -->
                             <div style="position:relative; z-index: 1;">
                                 <div style="padding:30px 0px 0px 0px">
-                                    <table class="table table--min" cellspacing="0" cellpadding="0">
-
-
-
-
+                                    <table class="table table--min" cellspacing="0" cellpadding="0" id="dataTbl">
                                     
                                     <img src="floor plan.png" alt="My Image" />
                                     <!-- <img src="floor plan.png" alt="My Image">   -->
-                                    <div class="row align-items-center">
-                                        <div class="col" style="left:112px; width:30px; bottom:347px; position:absolute;">
-                                            <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
-                                            <button id="434" value="434" class="c"  ></button>
+                                        <div class="row align-items-center">
+                                            <div class="col" style="left:112px; width:30px; bottom:347px; position:absolute;">
+                                                <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
+                                                <button id="434" value="434" class="c"  onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:112px; width:30px; bottom:303px; position:absolute;">
+                                                <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
+                                                <button id="433" value="433" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:168px; width:30px; bottom: 235px; position:absolute;">
+                                                <!-- <canvas id="410" value="410" class="b" width="25" height="25"></canvas> -->
+                                                <button id="423" value="423" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left: 220px; width:30px;  bottom:235px; position:absolute;">
+                                                <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
+                                                <button id="422" value="422" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left: 273px; width:30px;  bottom:235px; position:absolute;">
+                                                <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
+                                                <button id="421" value="421" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left: 325px; width:30px;  bottom:235px; position:absolute;">
+                                                <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
+                                                <button id="420" value="420" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left: 377px; width:30px;  bottom:235px; position:absolute;">
+                                                <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
+                                                <button id="419" value="419" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
                                         </div>
-                                        <div class="col" style="left:112px; width:30px; bottom:303px; position:absolute;">
-                                            <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
-                                            <button id="433" value="433" class="c" ></button>
+                                        <div class="row align-items-center">
+                                            <div class="col" style="left:15px; width:30px; bottom:160px; position:absolute;">
+                                                <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
+                                                <button id="436" value="436" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:100px; width:30px; bottom:155px; position:absolute;">
+                                                <button id="437" class="" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:190px; width:30px; bottom:155px; position:absolute;">
+                                                <button id="438" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:270px; width:30px; bottom:155px; position:absolute;">
+                                                <button id="439" value="439" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:328px; width:30px; bottom:155px; position:absolute;">
+                                                <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
+                                                <button id="440" value="440" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:653px; width:30px;  bottom:152px; position:absolute;">
+                                                <!-- <canvas id="410" value="410" class="b" width="25" height="25"></canvas> -->
+                                                <button id="410" value="410" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left: 705px; width:30px;  bottom:152px; position:absolute;">
+                                                <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
+                                                <button id="409" value="409" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
                                         </div>
-                                        <div class="col" style="left:168px; width:30px; bottom: 235px; position:absolute;">
-                                            <!-- <canvas id="410" value="410" class="b" width="25" height="25"></canvas> -->
-                                            <button id="423" value="423" class="c" ></button>
+                                        <div class="row align-items-center">
+                                            <div class="col" style="left:367px; width:30px;  bottom:88px; position:absolute;">
+                                                <!-- <canvas id="404" value="404" class="b"width="25" height="25"></canvas> -->
+                                                <button id="417" value="417" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:425px; width:30px;  bottom:88px; position:absolute;">
+                                                <!-- <canvas id="405"  value="405" class="b" width="25" height="25"></canvas> -->
+                                                <button id="416" value="416" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:487px;  width:30px; bottom:88px; position:absolute;">
+                                                <!-- <canvas id="406" value="406" class="b"width="25" height="25"></canvas> -->
+                                                <button id="415" value="415" class="c"  onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:545px; width:30px;  bottom:88px; position:absolute;">
+                                                <!-- <canvas id="407" value="407" class="b"width="25" height="25"></canvas> -->
+                                                <button id="414" value="414" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
                                         </div>
-                                        <div class="col" style="left: 220px; width:30px;  bottom:235px; position:absolute;">
-                                            <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
-                                            <button id="422" value="422" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left: 273px; width:30px;  bottom:235px; position:absolute;">
-                                            <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
-                                            <button id="421" value="421" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left: 325px; width:30px;  bottom:235px; position:absolute;">
-                                            <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
-                                            <button id="420" value="420" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left: 377px; width:30px;  bottom:235px; position:absolute;">
-                                            <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
-                                            <button id="419" value="419" class="c" ></button>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col" style="left:15px; width:30px; bottom:160px; position:absolute;">
-                                            <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
-                                            <canvas id="436" value="436" class="b" ></canvas>
-                                        </div>
-                                        <div class="col" style="left:100px; width:30px; bottom:155px; position:absolute;">
-                                            <button id="437" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:190px; width:30px; bottom:155px; position:absolute;">
-                                            <button id="438" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:270px; width:30px; bottom:155px; position:absolute;">
-                                            <button id="439" value="439" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:328px; width:30px; bottom:155px; position:absolute;">
-                                            <!-- <canvas id="436" value="436" class="b"  width="25" height="25"></canvas> -->
-                                            <button id="440" value="440" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:653px; width:30px;  bottom:152px; position:absolute;">
-                                            <!-- <canvas id="410" value="410" class="b" width="25" height="25"></canvas> -->
-                                            <canvas id="410" value="410" class="b" ></canvas>
-                                        </div>
-                                        <div class="col" style="left: 705px; width:30px;  bottom:152px; position:absolute;">
-                                            <!-- <canvas id="409" value="409" class="b" width="25" height="25"></canvas> -->
-                                            <canvas id="409" value="409" class="b" ></canvas>
-                                        </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col" style="left:367px; width:30px;  bottom:88px; position:absolute;">
-                                            <!-- <canvas id="404" value="404" class="b"width="25" height="25"></canvas> -->
-                                            <button id="417" value="417" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:425px; width:30px;  bottom:88px; position:absolute;">
-                                            <!-- <canvas id="405"  value="405" class="b" width="25" height="25"></canvas> -->
-                                            <button id="416" value="416" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:487px;  width:30px; bottom:88px; position:absolute;">
-                                            <!-- <canvas id="406" value="406" class="b"width="25" height="25"></canvas> -->
-                                            <button id="415" value="415" class="c"  ></button>
-                                        </div>
-                                        <div class="col" style="left:545px; width:30px;  bottom:88px; position:absolute;">
+                                        <div class="row align-items-center">
+                                            <div class="col" style="left:310px; width:30px; bottom:8px; position:absolute;">
+                                                <!-- <canvas id="402" value="402" class="b"width="25" height="25"></canvas> -->
+                                                <button id="402" value="402" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:380px; width:30px;  bottom:8px; position:absolute;">
+                                                <!-- <canvas id="402" value="402" class="b"width="25" height="25"></canvas> -->
+                                                <button id="403" value="403" class="c" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:480px; width:30px;  bottom:8px; position:absolute;">
+                                                <!-- <canvas id="404" value="404" class="b"width="25" height="25"></canvas> -->
+                                                <button id="404" value="404" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:550px; width:30px;  bottom:8px; position:absolute;">
+                                                <!-- <canvas id="405"  value="405" class="b" width="25" height="25"></canvas> -->
+                                                <button id="405"  value="405" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:630px;  width:30px; bottom:8px; position:absolute;">
+                                                <!-- <canvas id="406" value="406" class="b"width="25" height="25"></canvas> -->
+                                                <button id="406" value="406" class="b"  onclick="reply_click(this.id)"></button>
+                                            </div>
+                                            <div class="col" style="left:700px; width:30px;  bottom:8px; position:absolute;">
+                                                <button  id="407" value="407" class="b" onclick="reply_click(this.id)"></button>
+                                            </div>
                                             <!-- <canvas id="407" value="407" class="b"width="25" height="25"></canvas> -->
-                                            <button id="414" value="414" class="c" ></button>
+                                            
+                                            
                                         </div>
-                                    </div>
-                                    <div class="row align-items-center">
-                                        <div class="col" style="left:310px; width:30px; bottom:8px; position:absolute;">
-                                            <!-- <canvas id="402" value="402" class="b"width="25" height="25"></canvas> -->
-                                            <canvas id="402" value="402" class="b" ></canvas>
-                                        </div>
-                                        <div class="col" style="left:380px; width:30px;  bottom:8px; position:absolute;">
-                                            <!-- <canvas id="402" value="402" class="b"width="25" height="25"></canvas> -->
-                                            <button id="403" value="403" class="c" ></button>
-                                        </div>
-                                        <div class="col" style="left:480px; width:30px;  bottom:8px; position:absolute;">
-                                            <!-- <canvas id="404" value="404" class="b"width="25" height="25"></canvas> -->
-                                            <canvas id="404" value="404" class="b" ></canvas>
-                                        </div>
-                                        <div class="col" style="left:550px; width:30px;  bottom:8px; position:absolute;">
-                                            <!-- <canvas id="405"  value="405" class="b" width="25" height="25"></canvas> -->
-                                            <canvas id="405"  value="405" class="b" ></canvas>
-                                        </div>
-                                        <div class="col" style="left:630px;  width:30px; bottom:8px; position:absolute;">
-                                            <!-- <canvas id="406" value="406" class="b"width="25" height="25"></canvas> -->
-                                            <canvas id="406" value="406" class="b"  ></canvas>
-                                        </div>
-                                        <div class="col" style="left:700px; width:30px;  bottom:8px; position:absolute;">
-                                            <canvas  id="407" value="407" class="b"></canvas>
-                                        </div>
-                                        <!-- <canvas id="407" value="407" class="b"width="25" height="25"></canvas> -->
-                                        
-                                        
-                                    </div>
                                     </table>
                                 </div>
                             </div>
+                            <div class="text" id="search"></div>
+                            <div class='text' id='pre'></div>
+                            <div style=" float: left; width: 33%;">
+                                <div class="text" id="lecture"></div>
+                            </div>
+                            <div style=" float: left; width: 33%;">
+                                <div class="text" id="prolab"></div>
+                            </div>
+                            <div style=" float: left; width: 33%;">
+                                <div class="text" id="etc"></div>
+                            </div>
+                            <br><br>
+                            <div class='text' id='etctext'></div>
+                            <br><br>
+                            <div class='text' id='bt'></div>
                         </div>
 
                     </div>
@@ -259,6 +271,21 @@
         <div class="container"><p class="m-0 small">Team 601 did a great job on the project!</p></div>
     </footer>
     
+    <script type="text/javascript">
+        function reply_click(clicked_id){
+            document.getElementById("search").innerHTML="<div style='text-align: center;' class='searchLecture' id='search'> <h4>"+
+                clicked_id+"</h4>";
+            document.getElementById("pre").innerHTML = "<h6> 검정 버튼을 클릭하세요 </h6> <div style='padding:10px 0px 10px 0px'> "; 
+            document.getElementById("lecture").innerHTML = "<input class='circle' type='button' id='lecture' value='lecture' onclick='lecture()'/> 강의실 추가/삭제&nbsp;&nbsp;";
+            document.getElementById("prolab").innerHTML = "<input class='circle' type='button' id='pro' value='pro' onclick='prolab()' /> 교수님 연구실&nbsp;&nbsp;";
+            document.getElementById("etc").innerHTML = "<input class='circle' type='button' id='etc' value='etc' onclick='etc()' /> 기타 </div>";
+        }
+        
+        
+        
+
+    </script>
+
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script type="module">
@@ -269,7 +296,7 @@
         // TODO: Add SDKs for Firebase products that you want to use
         // https://firebase.google.com/docs/web/setup#available-libraries
 
-      
+        
         // Your web app's Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAVjfBhilux_3BIyx486cRR2dsybsseKA8",
@@ -285,8 +312,9 @@
         const app = initializeApp(firebaseConfig);
         const database = getDatabase(app);
         const auth = getAuth(); 
-
-
+    
+    
+        
         //제일 처음에 데이터 베이스에 있는 값 읽어서 교수님 연구실 읽어와서 넣어두기
         var arrOffice=new Array();
         var arrPro = new Array();
@@ -400,10 +428,235 @@
                 onlyOnce: true
             });
         }
+
+
+        
         getProData();
         getLectureState();
 
+        //강의실 추가
+        lecture.addEventListener('click',(e)=>{
+            const deRef = ref(database, "lecture/");
+            const db = ref(database, "prouser/");
+            var lec = document.getElementById("search").innerText;
 
+            var arrpro = new Array();
+            var i=0;
+            onValue(db, (snapshot) => { //교수님 연구실인지 아닌지 확인
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    
+                    var po =childData.user_pOffice+"";
+                    var proo =po.split(" ")[1]+"";
+                    var office = proo.replace("호","");
+                    
+                    if(office!="undefined"){
+                        arrpro[i]=office;
+                        i+=1;
+                    }
+                })
+                
+                if(confirm("정말 "+lec+"호에 강의실을 추가하거나 삭제하실 건가요?")==true){
+                    var del =0;
+                    var check=0;
+
+                    const deRef = ref(database, "lecture/");
+                    onValue(deRef, (snapshot) => {
+                        var bo = 0;
+                        var ins=0;
+                        //bo가 1이면 교수님 연구실
+                        for(var j=0; j<arrpro.length; j++){
+                            if(lec==arrpro[j]){
+                                bo=1;
+                            }
+                        }
+
+                        snapshot.forEach((childSnapshot) => {
+                            const childKey = childSnapshot.key;
+                            const childData = childSnapshot.val();
+                            
+                            if(lec == childKey && childData.classlec=="b"){
+                                del+=1;
+                            }else if(lec==childKey && childData.classlec=="c"){
+                                ins=1;
+                            }else if(bo==1){
+                                check=1;
+                            }
+                        })
+                        if(del==1){
+                            set(ref(database,'lecture/'+lec),{
+                                lecture:lec,
+                                classlec:"c"
+                            })
+                            alert("삭제되었습니다");
+                        }
+                        if(check==1){
+                            
+                            alert("교수님 연구실입니다 수정할 수 없습니다.")
+                        }
+                        else if(ins==1){
+                            document.getElementById(lec).className="b";
+                            set(ref(database,'lecture/'+lec),{
+                                lecture:lec,
+                                classlec:"b"
+                            })
+                            alert("추가되었습니다.")
+
+                        }
+                    }, {
+                        onlyOnce: true
+                    });   
+                }else{
+                    return;
+                }
+
+                
+            }, {
+                onlyOnce: true
+            });   
+        })
+        
+
+        //새 교수님 추가
+        
+
+
+        //기타 추가
+        etc.addEventListener('click',(e)=>{
+            document.getElementById("etctext").innerHTML = "<form><select id='star_value'><option value='none'>=== 선택 ===</option>"+
+                "<option value='event'>행사</option><option value='storage'>창고</option><option value='depOffice'>학과사무실</option>"+
+                "</select></form>"+
+                "<input class='form-control' type='text' id='validity' placeholder='[행사 선택 시 작성사항]사용할 날짜의 다음 날을 입력하세요 ex)2022/8/30' value=''/></div>";
+            document.getElementById("bt").innerHTML = "<input class='button' type='button' id='bt' value='change'/></div>";
+        })
+
+        bt.addEventListener('click',(e)=>{
+            var lec = document.getElementById("search").innerText;
+            const deRef = ref(database, "lecture/");
+            const db = ref(database, "prouser/");
+            var lec = document.getElementById("search").innerText;
+
+            var arrpro = new Array();
+            var i=0;
+            onValue(db, (snapshot) => { //교수님 연구실인지 아닌지 확인 arrpro
+                snapshot.forEach((childSnapshot) => {
+                    const childKey = childSnapshot.key;
+                    const childData = childSnapshot.val();
+                    
+                    var po =childData.user_pOffice+"";
+                    var proo =po.split(" ")[1]+"";
+                    var office = proo.replace("호","");
+                    
+                    if(office!="undefined"){
+                        arrpro[i]=office;
+                        i+=1;
+                    }
+                })
+                
+                var s = document.getElementById("star_value");
+                var drop = s.options[s.selectedIndex].value;
+                
+                if(drop=="none"){ //아무것도 선택하지 않았을 때
+                    alert("드롭다운을 눌러 선택해주세요")
+                }
+                else if (drop=="event" && document.getElementById("validity").value==""){
+                    alert("행사를 선택했으면 날짜를 입력하셔야합니다")
+                }
+                else{
+                    if(confirm("정말 "+lec+"호를 수정하실 건가요?")==true){
+                        var del =0; //삭제
+                        var check=0; 
+                        var ins=0;
+
+                        const deRef = ref(database, "lecture/");
+                        onValue(deRef, (snapshot) => {
+                            var bo = 0;
+                            //bo가 1이면 교수님 연구실
+                            for(var j=0; j<arrpro.length; j++){
+                                if(lec==arrpro[j]){
+                                    bo=1;
+                                }
+                            }
+
+                            snapshot.forEach((childSnapshot) => {
+                                const childKey = childSnapshot.key;
+                                const childData = childSnapshot.val();
+                                
+                                if(lec == childKey && childData.classlec=="c" && childData.purpose!=null){
+                                    del=1;
+                                }else if (lec ==childKey && childData.classlec=="c" && childData.purpose==null){// null값이라면 추가
+                                    ins==1;
+                                }else if(bo==1){//교수님 연구실이면
+                                    check=1;
+                                }else if(bo==0){
+                                    ins=1;
+                                }
+                            })
+                            if(del==1){
+                                set(ref(database,'lecture/'+lec),{
+                                    lecture:lec,
+                                    classlec:"c"
+                                })
+                                alert("삭제되었습니다");
+                            }
+                            if(check==1){
+                                console.log()
+                                alert("교수님 연구실입니다 수정할 수 없습니다.")
+                            }
+                            if(ins==1){
+                                document.getElementById(lec).className="c";
+                                var div = document.getElementById(lec).innerHTML;
+                                set(ref(database, "lecture/"+lec),{
+                                    lecture : lec,
+                                    classlec : "c",
+                                    purpose:$("#star_value").val(),
+                                    date:document.getElementById("validity").value
+                                })
+                                alert("추가되었습니다.")
+                            }
+                            
+                        }, {
+                            onlyOnce: true
+                        });   
+                    }else{
+                        return;
+                    }
+                }
+            }, {
+                onlyOnce: true
+            });   
+            
+
+
+        })
+
+       
+        function date(){
+            //오늘날짜 구해줌
+            let today = new Date();   
+
+            let year = today.getFullYear(); // 년도
+            let month = today.getMonth() + 1;  // 월
+            let date = today.getDate();  // 날짜
+            
+            let eventDate=year+"/"+month+"/"+date;
+            console.log(eventDate);
+
+            const dbRefD = ref(database, 'lecture/');
+            onValue(dbRefD, (snapshot) => {
+                snapshot.forEach((childSnapshot) => {
+                    const childData = childSnapshot.val();
+                    const today2 = new Date(childData.date);
+                    if( today > today2){ //오늘 날짜를 지났을 경우
+                        remove(ref(database, 'lecture/' + childData.lecture)); //해당 정보 삭제
+                    }
+                })
+            }, {
+                onlyOnce: true
+            });
+        }
+        date();
 
         $(function () {
             function send() {
@@ -536,78 +789,6 @@
             });    
             
         });
-
-        // $(function () {
-        //     function send() {
-        //         var httpMethod = $('#method_status').attr('data-method');
-        //     }
-
-        //     $('#dropdown-menu li > a').on('click', function () {
-        //         //모든 강의실 빨간색으로 바꾸기
-        //         document.getElementById("402").className="b";
-        //         document.getElementById("404").className="b";
-        //         document.getElementById("405").className="b";
-        //         document.getElementById("406").className="b";
-        //         document.getElementById("407").className="b";
-        //         document.getElementById("409").className="b";
-        //         document.getElementById("410").className="b";
-        //         document.getElementById("436").className="b";
-
-        //         $('#method_status').text($(this).text());
-        //         var httpMethod = $(this).attr('value');
-        //         console.log('선택된 메소드: ' + httpMethod);
-                
-        //         $('#method_status').attr('data-method', httpMethod);
-
-        //         var Myelement =document.getElementById("method_status");
-        //         Myelement.value=httpMethod;
-        //         //console.log(httpMethod);//교시
-        //         //console.log(Myelement);
-        //         //console.log(document.getElementById("method_status").value);
-
-        //         onValue(dbRef,(snapshot)=>{
-        //             snapshot.forEach((childSnapshot)=>{
-        //                 const childKey = childSnapshot.key;
-        //                 const childData = childSnapshot.val();
-
-        //                 var cremove =childData.period.replaceAll(",","");//,를 먼저 없앰
-        //                 var check = new Array(cremove.split(" ")); //띄어쓰기로 나눔
-                        
-        //                 // var classcheck = new Array(childData.split(",")); //강의실
-        //                 // console.log(classcheck);
-
-        //                 for (var i =0; i<check[0].length; i++){
-        //                     if (check[0][i].charAt(0)==now){
-        //                         for(var j=1; j<check[0][i].length; j++){
-        //                             if (check[0][i].charAt(j)==httpMethod){//교시가 있으면
-        //                                 //console.log("!!!find!!!")
-        //                                 //console.log('강의실 : ' + childData.classroom+'시간표 : '+check[0])
-        //                                 if(childData.classroom.indexOf(',')!=-1)//,가 있으면 
-        //                                 {
-        //                                     var ec = childData.classroom.split(',')[i];//,가 있으면 뒤에값을 가져옴
-        //                                     var ecr = ec.split(" ")[1];
-        //                                     var evr = document.getElementById(eval('"'+ecr+'"'));
-        //                                     evr.className="a";
-        //                                 }
-        //                                 else{
-        //                                     //강의실 색 변환!
-        //                                     var cr = childData.classroom.split(" ")[1];
-        //                                     //console.log(document.getElementById("404"));
-        //                                     var vc = document.getElementById(eval('"'+cr+'"'));
-        //                                     vc.className="a";
-
-        //                                 }
-                                        
-        //                             }
-        //                         }
-        //                     }
-        //                 }
-        //             });
-        //         },)
-
-        //     });    
-            
-        // });
         
         
         function getTodayLabel(){
@@ -636,8 +817,10 @@
 
         });
 
+
+
        
-        // $("#bt").append("<p class='bt1'><button id='bt' type='button' =\"location.href=\'possiblePr.html\'\">click</button></p>");
+        // $("#bt").append("<p class='bt1'><button id='bt' type='button' onclick=\"location.href=\'possiblePr.html\'\">click</button></p>");
 
         function getData(){
             const deRef = ref(database, "admin/");
@@ -662,18 +845,7 @@
         }
         getData()
 
-         //테이블에서 교수 선택하면 해당 이름으로 search
-        $("#dataTbl").on("click","tr",function(){
-            var str = ""
-            var tdArr = new Array();   // 배열 선언
-
-            //현재 클릭된 Row(<tr>)
-            var tr = $(this);
-            var td = tr.children();
-            
-            var searchName =td.eq(1).text();
-            $('#formGroupExampleInput').val(searchName);
-        });
+        
 
 
     </script>
